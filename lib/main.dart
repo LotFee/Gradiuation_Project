@@ -11,11 +11,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
-      home: Container(child: Center(child: Text( 'Sakkeny'))),
+      home: Scaffold(
+        body: Container(
+          child: Center(
+              child: Text(
+                'Sakkeny',
+                style: TextStyle(color: Colors.black,fontSize: 50),
+
+              )),
+          color: Colors.lightBlueAccent,
+        ),
+
+      ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
-
