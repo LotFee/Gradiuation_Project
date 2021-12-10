@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'screens/steper1_screen.dart';
+
+// 0xff1f95a1
 
 void main() {
   runApp(MyApp());
@@ -11,20 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        body: Container(
-          child: Center(
-              child: Text(
-                'Sakkeny',
-                style: TextStyle(color: Colors.black,fontSize: 50),
-
-              )),
-          color: Colors.lightBlueAccent,
-        ),
 
       ),
+      routes: {
+        Steper1.stepOneRouteName : (ctx)=> Steper1(),
+      },
+      home: Steper1(),
       debugShowCheckedModeBanner: false,
     );
   }
