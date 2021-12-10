@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/steper1_screen.dart';
+import 'screens/welcome_screen.dart';
 
 // 0xff1f95a1
 
@@ -14,12 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
       ),
+      initialRoute:WelcomeScreen.routName ,
       routes: {
-        Steper1.stepOneRouteName : (ctx)=> Steper1(),
+        WelcomeScreen.routName:(ctx)=>WelcomeScreen(),
+        Steper1.routeName : (ctx)=> Steper1(),
       },
-      home: Steper1(),
       debugShowCheckedModeBanner: false,
     );
   }

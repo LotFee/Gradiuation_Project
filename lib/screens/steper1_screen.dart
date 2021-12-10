@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 class Steper1 extends StatelessWidget {
   const Steper1({Key? key}) : super(key: key);
-  static const stepOneRouteName = "step1";
+  static const String routeName = "step1";
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,8 @@ class Steper1 extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
+        backwardsCompatibility: false,
+        systemOverlayStyle: SystemUiOverlayStyle(statusBarColor:Color(0xff1f95a1) ),
       ),
       //appBar: AppBar(title: Text('ss'),),
       body: Column(
