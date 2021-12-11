@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/services.dart';
-import 'steper1_screen.dart';
+import 'Stepers/steper1_screen.dart';
 
 
 class WelcomeScreen extends StatefulWidget {
