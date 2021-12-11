@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sakkeny/widget/hafl_step.dart';
+import 'package:sakkeny/screens/start_screen.dart';
 
 import 'Steper2_screen.dart';
 
@@ -39,7 +40,7 @@ class Steper3 extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)), // foreground
                   onPressed: () {
-
+                    Navigator.pushNamed(context, StartScreen.routeName);
                   },
                   child: Text("Get Started",style: TextStyle(color: Colors.white,fontSize: 25),),
                   padding: EdgeInsets.only(top: 15,bottom: 15 , left: 45,right: 45),

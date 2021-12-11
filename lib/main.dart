@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sakkeny/screens/start_screen.dart';
 import 'screens/Stepers/steper1_screen.dart';
 import 'screens/welcome_screen.dart';
-import 'screens/Stepers/Steper2_screen.dart';
-import 'screens/Stepers/steper3_screen.dart';
 
 // 0xff1f95a1
 
@@ -21,9 +20,8 @@ class MyApp extends StatelessWidget {
       initialRoute:WelcomeScreen.routName ,
       routes: {
         WelcomeScreen.routName:(ctx)=>WelcomeScreen(),
-        Steper1.routeName : (ctx)=> Steper1(),
-        Steper2.routeName : (ctx) => Steper2(),
-        Steper3.routeName : (ctx) => Steper3(),
+        Steper1.routeName: (ctx)=> Steper1(),
+        StartScreen.routeName:(ctx)=>StartScreen(),
       },
       debugShowCheckedModeBanner: false,
     );
