@@ -20,7 +20,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 3),
       vsync: this,
       upperBound: 70,
     );
@@ -58,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 Hero(
                   tag: 'logo',
                   child: Container(
-                    child: Image.asset('images/logo.PNG'),
+                    child: Image.asset('images/logoo.png',width: 150 , height: 150,),
                   ),
                 ),
                 SizedBox(height:20,),

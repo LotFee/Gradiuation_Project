@@ -22,7 +22,7 @@ class Steper2 extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          HalfStep( "images/steper_3.png" ,2),
+          HalfStep( "images/stepper2.png" ,2),
 
           Padding(
             padding: const EdgeInsets.all(28.0),

@@ -19,15 +19,20 @@ class Steper3 extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
         backwardsCompatibility: false,
-        automaticallyImplyLeading: false,
-        systemOverlayStyle: SystemUiOverlayStyle(statusBarColor:Color(0xff1f95a1) ),
+       // automaticallyImplyLeading: false,
+        leading: IconButton(icon: Icon(Icons.arrow_back_sharp,size: 25,) , onPressed: (){
+          Navigator.pushReplacement(context,PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) => Steper2(),
+            transitionDuration: Duration.zero,
+          ),);
+        }, color:Color(0xff1f95a1) , ),
+       systemOverlayStyle: SystemUiOverlayStyle(statusBarColor:Color(0xff1f95a1) ),
       ),
       //appBar: AppBar(title: Text('ss'),),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          HalfStep( "images/steper_2.png" ,3),
-
+          HalfStep( "images/stepper3.png" ,3),
           Padding(
             padding: const EdgeInsets.all(70.0),
             child: Row(
