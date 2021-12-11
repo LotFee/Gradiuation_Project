@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sakkeny/register/signup1.dart';
+import 'package:sakkeny/screens/register/signup1.dart';
+import 'package:sakkeny/screens/login_screen.dart';
 
 class StartScreen extends StatelessWidget {
   static const String routeName = 'start_screen';
@@ -36,6 +37,7 @@ class StartScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
+                  Navigator.pushNamed(context, LoginScreen.routeName);
                 },
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sakkeny/register/signup1.dart';
+import 'package:sakkeny/screens/register/signup1.dart';
+import 'package:sakkeny/screens/login_screen.dart';
 import 'package:sakkeny/screens/start_screen.dart';
 import 'screens/Stepers/steper1_screen.dart';
 import 'screens/welcome_screen.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
         WelcomeScreen.routName:(ctx)=>WelcomeScreen(),
         Steper1.routeName: (ctx)=> Steper1(),
         StartScreen.routeName:(ctx)=>StartScreen(),
-        SignUp1.routeName : (ctx) => SignUp1(),
+        SignUp1.routeName:(ctx)=>SignUp1(),
+        LoginScreen.routeName:(ctx)=>LoginScreen(),
       },
       debugShowCheckedModeBanner: false,
     );
