@@ -253,7 +253,7 @@ class _SignUp3State extends State<SignUp3> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.visiblePassword,
                               obscureText: notvisible2,
                               decoration: InputDecoration(
                                 suffixIcon: IconButton(onPressed: (){

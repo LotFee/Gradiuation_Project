@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sakkeny/screens/register/signUp3.dart';
 
@@ -165,16 +166,75 @@ class SignUp4 extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20),
               child: RaisedButton(
                 color: Color(0xff1f95a1), // background
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)), // foreground
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation1, animation2) => Home(),
-                      transitionDuration: Duration.zero,
-                    ),
-                  );
+                  showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (context) => Dialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            elevation: 16,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5),
+                              child: Container(
+                                width: 600,
+                                height: 400,
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 40.0, right: 40 ,bottom: 20,top: 20),
+                                      child: Image.asset(
+                                        "images/changepass.png",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Your password",
+                                      style: TextStyle(
+                                        fontSize: 19,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 15.0),
+                                      child: Text(
+                                        "has been successfully changed",
+                                        style: TextStyle(
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15.0),
+                                      child: RaisedButton(
+                                        color: Color(0xff1f95a1), // background
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                10)), // foreground
+                                        onPressed: () {},
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Text(
+                                            "Login",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 25),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ));
+
+                  // Navigator.pushReplacement(
+                  //   context,
+                  //   PageRouteBuilder(
+                  //     pageBuilder: (context, animation1, animation2) => Home(),
+                  //     transitionDuration: Duration.zero,
+                  //   ),
+                  // );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
