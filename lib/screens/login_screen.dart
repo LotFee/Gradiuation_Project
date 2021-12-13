@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sakkeny/screens/forget_password/forget1.dart';
+import 'package:sakkeny/screens/register/signup1.dart';
+import 'package:sakkeny/screens/forget_password/forget1.dart';
+import 'package:sakkeny/screens/Home.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
+
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -10,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool checkBoxValue = false;
+  bool notvisible = true;
+  bool notvisible2 = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,95 +123,104 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Form(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "E-mail address",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              letterSpacing: 2),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 20.0,
-                                offset: Offset(0.0, 7),
-                                //  spreadRadius: 50.0,
-                              )
-                            ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "E-mail address",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                letterSpacing: 2),
                           ),
-                          child: Container(
-                            color: Colors.white,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                enabledBorder: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.email,
-                                  color: Color(0xff1f95a1),
+                          Container(
+                            decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 20.0,
+                                  offset: Offset(0.0, 7),
+                                  //  spreadRadius: 50.0,
+                                )
+                              ],
+                            ),
+                            child: Container(
+                              color: Colors.white,
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  enabledBorder: InputBorder.none,
+                                  prefixIcon: Icon(
+                                    Icons.email,
+                                    color: Color(0xff1f95a1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  hintText: "Enter your Email",
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                                hintText: "Enter your Email",
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'password',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              letterSpacing: 2),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 20.0,
-                                offset: Offset(0.0, 7),
-                                //  spreadRadius: 50.0,
-                              )
-                            ],
-                          ),
-                          child: Container(
-                            color: Colors.white,
-                            child: TextFormField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                enabledBorder: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  color: Color(0xff1f95a1),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,letterSpacing: 2),),
+                          Container(
+                            decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 20.0,
+                                  offset: Offset(0.0, 7),
+                                  //  spreadRadius: 50.0,
+                                )
+                              ],
+                            ),
+
+                            child: Container(
+                              color: Colors.white,
+                              child: TextFormField(
+                                obscureText: notvisible ,
+                                keyboardType: TextInputType.visiblePassword,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(onPressed: (){
+                                    setState(() {
+                                      notvisible = !notvisible;
+                                    });
+                                  },icon:  notvisible ? Icon(Icons.visibility,color: Color(0xff1f95a1),) : Icon(Icons.visibility_off,color: Color(0xff1f95a1),),
+
+                                  ),
+                                  enabledBorder: InputBorder.none,
+                                  prefixIcon: Icon( Icons.lock,color: Color(0xff1f95a1),),
+                                  //  labelText: "Enter Your  First Name",
+                                  labelStyle: TextStyle(color: Color(0xff1f95a1)),
+                                  focusedBorder: OutlineInputBorder(
+
+                                    // borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(color: Colors.white ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(color: Colors.grey  ),
+                                  ),
+                                  hintText: "Enter Your Password",
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                                hintText: "Enter your password",
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -227,7 +243,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ForgetOne.routeName);
+                },
                 child: Text(
                   'Forget your password?',
                   style: TextStyle(
@@ -250,7 +268,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontSize: 20,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, Home.routeNme);
+                    },
                   ),
                 ),
               ),
@@ -260,7 +280,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text("Don't have an account?"),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, SignUp1.routeName);
+                      },
                       child: Text(
                         'SignUP.',
                         style: TextStyle(

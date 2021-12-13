@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sakkeny/screens/register/singnUp2.dart';
+import 'package:sakkeny/screens/register/signUp2.dart';
 
 
 

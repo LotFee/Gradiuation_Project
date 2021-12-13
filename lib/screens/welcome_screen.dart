@@ -5,7 +5,7 @@ import 'Stepers/steper1_screen.dart';
 
 
 class WelcomeScreen extends StatefulWidget {
-  static const String routName= 'welcome_screen';
+  static const String routeName= 'welcome_screen';
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();

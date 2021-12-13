@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sakkeny/screens/register/signUp4.dart';
-import 'package:sakkeny/screens/register/singnUp2.dart';
+import 'package:sakkeny/screens/register/signUp2.dart';
 
 
 class SignUp3 extends StatefulWidget {
