@@ -17,6 +17,14 @@ class _LoginScreenState extends State<LoginScreen> {
   bool checkBoxValue = false;
   bool notvisible = true;
   bool notvisible2 = true;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool validate(){
+    if(formKey.currentState!.validate()){
+      return true;
+    }else{
+      return false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,6 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Form(
+                  key: formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -150,7 +159,25 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Container(
                               color: Colors.white,
                               child: TextFormField(
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.emailAddress,
+
+                                validator: (val){
+
+                                  if (val!.length == 0)
+                                    return "Please enter email";
+                                  else if (!val.contains("@"))
+                                    return "Please enter valid email";
+                                  else
+                                    return null;
+                                },
                                 decoration: InputDecoration(
+                                  errorBorder: new OutlineInputBorder(
+                                    borderSide: new BorderSide(color: Colors.white, width: 0.0),
+                                  ),
+                                  focusedErrorBorder: new OutlineInputBorder(
+                                    borderSide: new BorderSide(color: Colors.white, width: 0.0),
+                                  ),
                                   enabledBorder: InputBorder.none,
                                   prefixIcon: Icon(
                                     Icons.email,
@@ -191,6 +218,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 obscureText: notvisible ,
                                 keyboardType: TextInputType.visiblePassword,
                                 decoration: InputDecoration(
+                                  errorBorder: new OutlineInputBorder(
+                                    borderSide: new BorderSide(color: Colors.white, width: 0.0),
+                                  ),
+                                  focusedErrorBorder: new OutlineInputBorder(
+                                    borderSide: new BorderSide(color: Colors.white, width: 0.0),
+                                  ),
                                   suffixIcon: IconButton(onPressed: (){
                                     setState(() {
                                       notvisible = !notvisible;
@@ -213,6 +246,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   hintText: "Enter Your Password",
                                 ),
+                                validator: (val){
+                                  if (val!.length == 0)
+                                    return "Please enter password";
+                                  else
+                                    return null;
+                                },
                               ),
                             ),
                           ),
@@ -269,7 +308,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, Home.routeNme);
+
+                     if( validate())
+                       Navigator.pushNamed(context, Home.routeNme);
                     },
                   ),
                 ),

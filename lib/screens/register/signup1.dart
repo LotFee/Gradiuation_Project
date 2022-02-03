@@ -211,7 +211,7 @@ class SignUp1 extends StatelessWidget {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
-
+                              textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 enabledBorder: InputBorder.none,

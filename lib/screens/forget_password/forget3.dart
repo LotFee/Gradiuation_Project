@@ -82,6 +82,7 @@ class _ForgetThreeState extends State<ForgetThree> {
                         child: Container(
                           color: Colors.white,
                           child: TextFormField(
+                            textInputAction: TextInputAction.next,
                             obscureText: notvisible ,
                             keyboardType: TextInputType.visiblePassword,
                             decoration: InputDecoration(
@@ -185,7 +186,7 @@ class _ForgetThreeState extends State<ForgetThree> {
                     onPressed: () {
                       showDialog(
                           context: context,
-                          barrierDismissible: true,
+                          barrierDismissible: false,
                           builder: (context) => Dialog(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
