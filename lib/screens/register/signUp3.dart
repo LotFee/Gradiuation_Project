@@ -13,6 +13,16 @@ class SignUp3 extends StatefulWidget {
 class _SignUp3State extends State<SignUp3> {
   bool notvisible = true;
   bool notvisible2 = true;
+  String? pass1;
+  String? pass2;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool validate() {
+    if (formKey.currentState!.validate()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +148,9 @@ class _SignUp3State extends State<SignUp3> {
 
               Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: Form(child: Column(
+                child: Form(
+                    key: formKey,
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
@@ -164,6 +176,14 @@ class _SignUp3State extends State<SignUp3> {
                               textInputAction: TextInputAction.next,
 
                               decoration: InputDecoration(
+                                errorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
+                                focusedErrorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
                                 enabledBorder: InputBorder.none,
                                 prefixIcon: Icon( Icons.email,color: Color(0xff1f95a1),),
                                 labelStyle: TextStyle(color: Color(0xff1f95a1)),
@@ -177,6 +197,14 @@ class _SignUp3State extends State<SignUp3> {
                                 hintText: "Enter Your Email",
 
                               ),
+                              validator: (val) {
+                                if (val!.length == 0)
+                                  return "Please enter email";
+                                else if (!val.contains("@"))
+                                  return "Please enter valid email";
+                                else
+                                  return null;
+                              },
                             ),
                           ),
                         ),
@@ -208,7 +236,14 @@ class _SignUp3State extends State<SignUp3> {
                               keyboardType: TextInputType.visiblePassword,
 
                               decoration: InputDecoration(
-
+                                errorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
+                                focusedErrorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
                                 suffixIcon: IconButton(onPressed: (){
                                   setState(() {
                                     notvisible = !notvisible;
@@ -232,6 +267,15 @@ class _SignUp3State extends State<SignUp3> {
                                 hintText: "Enter Your Password",
 
                               ),
+                              validator: (val) {
+                                pass1=val;
+                                if (val!.length == 0)
+                                  return "Please enter password";
+                                else if (val.length <5 )
+                                  return "password must be at least 6 ";
+                                else
+                                  return null;
+                              },
                             ),
                           ),
                         ),
@@ -260,6 +304,14 @@ class _SignUp3State extends State<SignUp3> {
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: notvisible2,
                               decoration: InputDecoration(
+                                errorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
+                                focusedErrorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
                                 suffixIcon: IconButton(onPressed: (){
                                   setState(() {
                                     notvisible2 = !notvisible2;
@@ -283,6 +335,15 @@ class _SignUp3State extends State<SignUp3> {
                                 hintText: "Confirm Your Password",
 
                               ),
+                              validator: (val) {
+                                pass2=val;
+                                if (val!.length == 0)
+                                  return "Please confirm your password";
+                                else if(pass1 != pass2)
+                                  return "password not the same";
+                                else
+                                  return null;
+                              },
                             ),
                           ),
                         ),
@@ -304,7 +365,7 @@ class _SignUp3State extends State<SignUp3> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)), // foreground
                       onPressed: () {
-                        Navigator.pushReplacement(context,PageRouteBuilder(
+                        Navigator.pop(context,PageRouteBuilder(
                           pageBuilder: (context, animation1, animation2) => SignUp2(),
                           transitionDuration: Duration.zero,
                         ),);
@@ -318,10 +379,14 @@ class _SignUp3State extends State<SignUp3> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)), // foreground
                       onPressed: () {
-                        Navigator.pushReplacement(context,PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) => SignUp4(),
-                          transitionDuration: Duration.zero,
-                        ),);
+                        if(validate())
+                          {
+                            Navigator.push(context,PageRouteBuilder(
+                              pageBuilder: (context, animation1, animation2) => SignUp4(),
+                              transitionDuration: Duration.zero,
+                            ),);
+                          }
+
                       },
                       child: Text("Next",style: TextStyle(color: Colors.white ,fontSize: 25),),
                       padding: EdgeInsets.only(top: 8,bottom: 8),

@@ -8,8 +8,11 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
-          child: Text("Coming soon" ,style: TextStyle(color:Color(0xff1f95a1) ,fontSize: 30,fontWeight: FontWeight.bold ),),
+        child: WillPopScope(
+          onWillPop: () async => false,
+          child: Container(
+            child: Text("Coming soon" ,style: TextStyle(color:Color(0xff1f95a1) ,fontSize: 30,fontWeight: FontWeight.bold ),),
+          ),
         ),
       ),
     );

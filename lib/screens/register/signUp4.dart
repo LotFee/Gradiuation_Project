@@ -167,7 +167,7 @@ class SignUp4 extends StatelessWidget {
               child: RaisedButton(
                 color: Color(0xff1f95a1), // background
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation1, animation2) => Home(),

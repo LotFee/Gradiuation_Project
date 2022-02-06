@@ -4,6 +4,15 @@ import 'package:sakkeny/screens/forget_password/forget2.dart';
 
 class ForgetOne extends StatelessWidget {
   static const String routeName = 'forger_one';
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool validate() {
+    if (formKey.currentState!.validate()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +32,9 @@ class ForgetOne extends StatelessWidget {
         systemOverlayStyle:
             SystemUiOverlayStyle(statusBarColor: Color(0xff1f95a1)),
       ),
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.only(top: 50.0),
+          padding: EdgeInsets.only(top: 50.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,7 +49,9 @@ class ForgetOne extends StatelessWidget {
                       color: Color(0xff1f95a1),
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Text(
                     'Enter your E-mail address',
                     style: TextStyle(
@@ -49,7 +60,9 @@ class ForgetOne extends StatelessWidget {
                       color: Color(0xff1f95a1),
                     ),
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(
+                    height: 50,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: Center(
@@ -65,10 +78,13 @@ class ForgetOne extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               Padding(
                 padding: EdgeInsets.all(30.0),
                 child: Form(
+                  key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -93,7 +109,16 @@ class ForgetOne extends StatelessWidget {
                         child: Container(
                           color: Colors.white,
                           child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
+                              errorBorder: new OutlineInputBorder(
+                                borderSide: new BorderSide(
+                                    color: Colors.white, width: 0.0),
+                              ),
+                              focusedErrorBorder: new OutlineInputBorder(
+                                borderSide: new BorderSide(
+                                    color: Colors.white, width: 0.0),
+                              ),
                               enabledBorder: InputBorder.none,
                               prefixIcon: Icon(
                                 Icons.email,
@@ -104,6 +129,14 @@ class ForgetOne extends StatelessWidget {
                               ),
                               hintText: "Enter your Email",
                             ),
+                            validator: (val) {
+                              if (val!.length == 0)
+                                return "Please enter email";
+                              else if (!val.contains("@"))
+                                return "Please enter valid email";
+                              else
+                                return null;
+                            },
                           ),
                         ),
                       ),
@@ -111,7 +144,9 @@ class ForgetOne extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 40),
                 child: Material(
@@ -127,7 +162,9 @@ class ForgetOne extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, ForgetTwo.routeName);
+                      if (validate()) {
+                        Navigator.pushNamed(context, ForgetTwo.routeName);
+                      }
                     },
                   ),
                 ),

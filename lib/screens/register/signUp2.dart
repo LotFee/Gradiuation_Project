@@ -12,7 +12,15 @@ class SignUp2 extends StatefulWidget {
 }
 
 class _SignUp2State extends State<SignUp2> {
-  String gender ="None";
+  String gender ="Male";
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool validate() {
+    if (formKey.currentState!.validate()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +146,9 @@ class _SignUp2State extends State<SignUp2> {
 
               Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: Form(child: Column(
+                child: Form(
+                    key: formKey,
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
@@ -222,6 +232,14 @@ class _SignUp2State extends State<SignUp2> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
+                                errorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
+                                focusedErrorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
                                 enabledBorder: InputBorder.none,
                                 prefixIcon: Icon( Icons.animation,color: Color(0xff1f95a1),),
                                 //  labelText: "Enter Your  First Name",
@@ -238,6 +256,12 @@ class _SignUp2State extends State<SignUp2> {
                                 hintText: "Enter Your Age",
 
                               ),
+                              validator: (val) {
+                                if (val!.length == 0)
+                                  return "Please enter your age";
+                                else
+                                  return null;
+                              },
                             ),
                           ),
                         ),
@@ -259,7 +283,7 @@ class _SignUp2State extends State<SignUp2> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)), // foreground
                       onPressed: () {
-                        Navigator.pushReplacement(context,PageRouteBuilder(
+                        Navigator.pop(context,PageRouteBuilder(
                           pageBuilder: (context, animation1, animation2) => SignUp1(),
                           transitionDuration: Duration.zero,
                         ),);
@@ -273,10 +297,13 @@ class _SignUp2State extends State<SignUp2> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)), // foreground
                       onPressed: () {
-                        Navigator.pushReplacement(context,PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) => SignUp3(),
-                          transitionDuration: Duration.zero,
-                        ),);
+                        if(validate()){
+                          Navigator.push(context,PageRouteBuilder(
+                            pageBuilder: (context, animation1, animation2) => SignUp3(),
+                            transitionDuration: Duration.zero,
+                          ),);
+                        }
+
                       },
                       child: Text("Next",style: TextStyle(color: Colors.white ,fontSize: 25),),
                       padding: EdgeInsets.only(top: 8,bottom: 8),

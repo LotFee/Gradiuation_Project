@@ -8,7 +8,6 @@ import 'package:sakkeny/screens/Home.dart';
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
 
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -18,13 +17,14 @@ class _LoginScreenState extends State<LoginScreen> {
   bool notvisible = true;
   bool notvisible2 = true;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool validate(){
-    if(formKey.currentState!.validate()){
+  bool validate() {
+    if (formKey.currentState!.validate()) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,9 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextFormField(
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.emailAddress,
-
-                                validator: (val){
-
+                                validator: (val) {
                                   if (val!.length == 0)
                                     return "Please enter email";
                                   else if (!val.contains("@"))
@@ -173,10 +171,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 decoration: InputDecoration(
                                   errorBorder: new OutlineInputBorder(
-                                    borderSide: new BorderSide(color: Colors.white, width: 0.0),
+                                    borderSide: new BorderSide(
+                                        color: Colors.white, width: 0.0),
                                   ),
                                   focusedErrorBorder: new OutlineInputBorder(
-                                    borderSide: new BorderSide(color: Colors.white, width: 0.0),
+                                    borderSide: new BorderSide(
+                                        color: Colors.white, width: 0.0),
                                   ),
                                   enabledBorder: InputBorder.none,
                                   prefixIcon: Icon(
@@ -199,7 +199,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,letterSpacing: 2),),
+                          Text(
+                            "Password",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                letterSpacing: 2),
+                          ),
                           Container(
                             decoration: BoxDecoration(
                               boxShadow: <BoxShadow>[
@@ -211,42 +217,55 @@ class _LoginScreenState extends State<LoginScreen> {
                                 )
                               ],
                             ),
-
                             child: Container(
                               color: Colors.white,
                               child: TextFormField(
-                                obscureText: notvisible ,
+                                obscureText: notvisible,
                                 keyboardType: TextInputType.visiblePassword,
                                 decoration: InputDecoration(
                                   errorBorder: new OutlineInputBorder(
-                                    borderSide: new BorderSide(color: Colors.white, width: 0.0),
+                                    borderSide: new BorderSide(
+                                        color: Colors.white, width: 0.0),
                                   ),
                                   focusedErrorBorder: new OutlineInputBorder(
-                                    borderSide: new BorderSide(color: Colors.white, width: 0.0),
+                                    borderSide: new BorderSide(
+                                        color: Colors.white, width: 0.0),
                                   ),
-                                  suffixIcon: IconButton(onPressed: (){
-                                    setState(() {
-                                      notvisible = !notvisible;
-                                    });
-                                  },icon:  notvisible ? Icon(Icons.visibility,color: Color(0xff1f95a1),) : Icon(Icons.visibility_off,color: Color(0xff1f95a1),),
-
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        notvisible = !notvisible;
+                                      });
+                                    },
+                                    icon: notvisible
+                                        ? Icon(
+                                            Icons.visibility,
+                                            color: Color(0xff1f95a1),
+                                          )
+                                        : Icon(
+                                            Icons.visibility_off,
+                                            color: Color(0xff1f95a1),
+                                          ),
                                   ),
                                   enabledBorder: InputBorder.none,
-                                  prefixIcon: Icon( Icons.lock,color: Color(0xff1f95a1),),
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    color: Color(0xff1f95a1),
+                                  ),
                                   //  labelText: "Enter Your  First Name",
-                                  labelStyle: TextStyle(color: Color(0xff1f95a1)),
+                                  labelStyle:
+                                      TextStyle(color: Color(0xff1f95a1)),
                                   focusedBorder: OutlineInputBorder(
-
                                     // borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(color: Colors.white ),
+                                    borderSide: BorderSide(color: Colors.white),
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(color: Colors.grey  ),
+                                    borderSide: BorderSide(color: Colors.grey),
                                   ),
                                   hintText: "Enter Your Password",
                                 ),
-                                validator: (val){
+                                validator: (val) {
                                   if (val!.length == 0)
                                     return "Please enter password";
                                   else
@@ -308,9 +327,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
-
-                     if( validate())
-                       Navigator.pushNamed(context, Home.routeNme);
+                      if (validate())
+                        Navigator.pushNamed(context, Home.routeNme);
                     },
                   ),
                 ),

@@ -6,10 +6,17 @@ import 'package:sakkeny/screens/register/signUp2.dart';
 
 
 class SignUp1 extends StatelessWidget {
-  const SignUp1({Key? key}) : super(key: key);
+
 
   static const String routeName= "sign-up1";
-
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool validate() {
+    if (formKey.currentState!.validate()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,7 +196,9 @@ class SignUp1 extends StatelessWidget {
 
               Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: Form(child: Column(
+                child: Form(
+                    key: formKey,
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
@@ -214,6 +223,14 @@ class SignUp1 extends StatelessWidget {
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
+                                errorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
+                                focusedErrorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
                                 enabledBorder: InputBorder.none,
                                 prefixIcon: Icon( Icons.person,color: Color(0xff1f95a1),),
                                 //  labelText: "Enter Your  First Name",
@@ -230,6 +247,14 @@ class SignUp1 extends StatelessWidget {
                                 hintText: "First Name",
 
                               ),
+                              validator: (val) {
+                                if (val!.length == 0)
+                                  return "Please enter first name";
+                                else if (val.contains(RegExp(r'[0-9]')))
+                                  return "name only character";
+                                else
+                                  return null;
+                              },
                             ),
                           ),
                         ),
@@ -257,6 +282,14 @@ class SignUp1 extends StatelessWidget {
                             child: TextFormField(
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
+                                errorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
+                                focusedErrorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Colors.white, width: 0.0),
+                                ),
                                 enabledBorder: InputBorder.none,
                                 prefixIcon: Icon( Icons.person,color: Color(0xff1f95a1),),
                                 //  labelText: "Enter Your  First Name",
@@ -273,6 +306,14 @@ class SignUp1 extends StatelessWidget {
                                 hintText: "Last Name",
 
                               ),
+                              validator: (val) {
+                                if (val!.length == 0)
+                                  return "Please enter last name";
+                                else if (val.contains(RegExp(r'[0-9]')))
+                                  return "name only character";
+                                else
+                                  return null;
+                              },
                             ),
                           ),
                         ),
@@ -293,7 +334,8 @@ class SignUp1 extends StatelessWidget {
                      shape: RoundedRectangleBorder(
                          borderRadius: BorderRadius.circular(10)), // foreground
                      onPressed: () {
-                       Navigator.pushReplacement(context,PageRouteBuilder(
+                       if(validate())
+                       Navigator.push(context,PageRouteBuilder(
                          pageBuilder: (context, animation1, animation2) => SignUp2(),
                          transitionDuration: Duration.zero,
                        ),);
