@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:sakkeny/screens/forget_password/forget1.dart';
 import 'package:sakkeny/screens/register/signup1.dart';
 import 'package:sakkeny/screens/forget_password/forget1.dart';
-import 'package:sakkeny/screens/Home.dart';
+import 'package:sakkeny/homeScreens/Home.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';

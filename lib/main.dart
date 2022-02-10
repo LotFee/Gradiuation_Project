@@ -7,7 +7,7 @@ import 'screens/welcome_screen.dart';
 import 'screens/forget_password/forget1.dart';
 import 'screens/forget_password/forget2.dart';
 import 'screens/forget_password/forget3.dart';
-import 'package:sakkeny/screens/Home.dart';
+import 'package:sakkeny/homeScreens/Home.dart';
 
 // 0xff1f95a1
 

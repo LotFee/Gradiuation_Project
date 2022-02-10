@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sakkeny/screens/register/signUp3.dart';
 
-import '../Home.dart';
+import '../../homeScreens/Home.dart';
 
 class SignUp4 extends StatelessWidget {
   const SignUp4({Key? key}) : super(key: key);
