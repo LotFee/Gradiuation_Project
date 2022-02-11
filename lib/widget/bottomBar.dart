@@ -56,7 +56,7 @@ class myBottomBar extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: Icon(Icons.notifications,
+              icon: Icon(Icons.person,
                   color: index == 3 ? Color(0xff1f95a1) : Colors.grey,
                   size: 30),
               onPressed: () {

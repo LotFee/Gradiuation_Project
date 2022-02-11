@@ -328,7 +328,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     onPressed: () {
                       if (validate())
-                        Navigator.pushNamed(context, Home.routeNme);
+                        Navigator.pushNamed(context, Home.routeName);
                     },
                   ),
                 ),

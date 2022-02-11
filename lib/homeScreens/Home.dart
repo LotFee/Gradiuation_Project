@@ -6,14 +6,13 @@ import 'package:sakkeny/widget/drawer.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
-  static const String routeNme='home';
+  static const String routeName = 'home';
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-
         appBar: AppBar(
           foregroundColor: Color(0xff1f95a1),
           backgroundColor: Colors.white,
@@ -33,29 +32,30 @@ class Home extends StatelessWidget {
               );
             },
           ),
-          title: Center(child: Text("Home", style: TextStyle(color:Color(0xff1f95a1),fontWeight: FontWeight.bold ),)),
+          title: Center(
+              child: Text(
+            "Home",
+            style: TextStyle(
+                color: Color(0xff1f95a1), fontWeight: FontWeight.bold),
+          )),
           actions: [
-            GestureDetector(onTap: (){},child: Icon(Icons.search,color: Color(0xff1f95a1),size: 35)),
+            GestureDetector(
+              onTap: () {},
+              child: Icon(Icons.search, color: Color(0xff1f95a1), size: 35),
+            ),
           ],
         ),
         drawer: myDrawer(),
-        floatingActionButton:FloatingActionButton(
-          onPressed: (){
-
-          },
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
           backgroundColor: Color(0xff1f95a1),
           child: Icon(Icons.add), //icon inside button
         ),
-
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-
-        bottomNavigationBar: myBottomBar(index: 0,),
-
+        bottomNavigationBar: myBottomBar(
+          index: 0,
+        ),
       ),
     );
   }
 }
-
-
-

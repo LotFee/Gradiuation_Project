@@ -8,6 +8,7 @@ import 'screens/forget_password/forget1.dart';
 import 'screens/forget_password/forget2.dart';
 import 'screens/forget_password/forget3.dart';
 import 'package:sakkeny/homeScreens/Home.dart';
+import 'package:sakkeny/homeScreens/editprof.dart';
 
 // 0xff1f95a1
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
       ),
-      initialRoute:WelcomeScreen.routeName ,
+      initialRoute:Home.routeName ,
       routes: {
         WelcomeScreen.routeName:(ctx)=>WelcomeScreen(),
         Steper1.routeName: (ctx)=> Steper1(),
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
         ForgetOne.routeName:(ctx)=>ForgetOne(),
         ForgetTwo.routeName:(ctx)=>ForgetTwo(),
         ForgetThree.routeName:(ctx)=>ForgetThree(),
-        Home.routeNme:(ctx)=>Home(),
+        Home.routeName:(ctx)=>Home(),
+        EditProf.routeName:(ctx)=>EditProf(),
       },
       debugShowCheckedModeBanner: false,
     );
