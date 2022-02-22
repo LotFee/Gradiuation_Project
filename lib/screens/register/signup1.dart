@@ -1,15 +1,26 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sakkeny/screens/register/signUp2.dart';
+import 'package:sakkeny/widget/pickImage.dart';
 
 
 
-class SignUp1 extends StatelessWidget {
+class SignUp1 extends StatefulWidget {
 
 
   static const String routeName= "sign-up1";
+
+  @override
+  _SignUp1State createState() => _SignUp1State();
+}
+
+class _SignUp1State extends State<SignUp1> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   bool validate() {
     if (formKey.currentState!.validate()) {
       return true;
@@ -17,6 +28,18 @@ class SignUp1 extends StatelessWidget {
       return false;
     }
   }
+
+  File ?   file;
+
+  Future pickerCamera(int index)async {
+    final myfile = await ImagePicker().pickImage(source: index==0  ? ImageSource.camera : ImageSource.gallery);
+    setState(() {
+      file =File(myfile!.path);
+
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,10 +175,13 @@ class SignUp1 extends StatelessWidget {
               Stack(
                  children: [
                    CircleAvatar(
-                     backgroundColor: Colors.black,
+                     backgroundColor: Colors.white,
                         radius: 70,
+                     child: ClipRRect(
+                       child: file==null ? Image.asset('images/logo_login.png') : Image.file(file!,fit: BoxFit.fill,),
+                       borderRadius: BorderRadius.circular(60.0),
 
-                   ),
+                   ),),
                    Positioned(
                        top: 90,
                        left: 95,
@@ -181,7 +207,53 @@ class SignUp1 extends StatelessWidget {
                                  shape: BoxShape.circle,
                                  color: Colors.white
                              ),
-                             child: IconButton(icon: Icon(Icons.add_a_photo), color: Color(0xff1f95a1), onPressed: (){},) ,
+                             child: IconButton(icon: Icon(Icons.add_a_photo), color: Color(0xff1f95a1), onPressed: (){
+
+                               if(true){
+                                 showDialog(
+                                     context: context,
+                                     barrierDismissible: true,
+                                     builder: (context) => Container(
+                                       child:Dialog(
+                                         shape: RoundedRectangleBorder(
+                                             borderRadius: BorderRadius.circular(15)),
+                                         elevation: 16,
+                                         child: ClipRRect(
+                                           borderRadius: BorderRadius.circular(5),
+                                           child: Container(
+                                             width: 100,
+                                             height: 150,
+                                             child: Row(
+                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                               children: [
+                                                 Column(
+                                                   mainAxisAlignment: MainAxisAlignment.center,
+                                                   children: [
+                                                     IconButton(onPressed: ( ){
+
+                                                       pickerCamera(0);}, icon: Icon(Icons.camera),iconSize: 50,color: Color(
+                                                         0xff1f95a1),),
+                                                     Text("Camera",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20 ),)
+                                                   ],
+                                                 ),
+                                                 Column(
+                                                   mainAxisAlignment: MainAxisAlignment.center,
+                                                   children: [
+                                                     IconButton(onPressed: ( ){pickerCamera(1);}, icon: Icon(Icons.photo),iconSize: 50,color: Color(0xff1f95a1),),
+                                                     Text("Gallery",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20 ),)
+                                                   ],
+                                                 ),
+
+
+                                               ],
+                                             ),
+                                           ),
+                                         ),
+                                       ) ,
+                                     ));
+                               }
+
+                             },) ,
 
                            ),
                          ),

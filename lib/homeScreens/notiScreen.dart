@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/widget/drawer.dart';
 
@@ -38,7 +39,10 @@ class NotiScreen extends StatelessWidget {
         drawer: myDrawer(),
         floatingActionButton:FloatingActionButton(
           onPressed: (){
-
+            Navigator.pushReplacement(context,PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) => AddOne(),
+              transitionDuration: Duration.zero,
+            ),);
           },
           backgroundColor: Color(0xff1f95a1),
           child: Icon(Icons.add), //icon inside button

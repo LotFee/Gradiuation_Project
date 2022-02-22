@@ -1,6 +1,8 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/widget/drawer.dart';
 
@@ -17,6 +19,7 @@ class Home extends StatelessWidget {
           foregroundColor: Color(0xff1f95a1),
           backgroundColor: Colors.white,
           backwardsCompatibility: false,
+          systemOverlayStyle: SystemUiOverlayStyle(statusBarColor:Color(0xff1f95a1) ),
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
@@ -47,7 +50,12 @@ class Home extends StatelessWidget {
         ),
         drawer: myDrawer(),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacement(context,PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) => AddOne(),
+              transitionDuration: Duration.zero,
+            ),);
+          },
           backgroundColor: Color(0xff1f95a1),
           child: Icon(Icons.add), //icon inside button
         ),

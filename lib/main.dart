@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/screens/register/signup1.dart';
 import 'package:sakkeny/screens/login_screen.dart';
 import 'package:sakkeny/screens/start_screen.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
       ),
-      initialRoute:Home.routeName ,
+      initialRoute:WelcomeScreen.routeName ,
       routes: {
         WelcomeScreen.routeName:(ctx)=>WelcomeScreen(),
         Steper1.routeName: (ctx)=> Steper1(),
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         ForgetThree.routeName:(ctx)=>ForgetThree(),
         Home.routeName:(ctx)=>Home(),
         EditProf.routeName:(ctx)=>EditProf(),
+        AddOne.routeName:(ctx)=>AddOne(),
       },
       debugShowCheckedModeBanner: false,
     );
