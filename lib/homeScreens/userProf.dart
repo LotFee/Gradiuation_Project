@@ -12,7 +12,7 @@ class UserProf extends StatelessWidget {
           toolbarHeight: 200,
           foregroundColor: Color(0xff1f95a1),
           backgroundColor: Colors.white,
-          backwardsCompatibility: false,
+          automaticallyImplyLeading: false,
           title: Column(
             children: [
               Row(
