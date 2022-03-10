@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sakkeny/screens/start_screen.dart';
 
 class myDrawer extends StatelessWidget {
   const myDrawer({
@@ -120,7 +121,7 @@ class myDrawer extends StatelessWidget {
                   tileColor: Color(0xfff1f1f1),
                   leading: Icon(Icons.login_outlined,color:Color(0xff1f95a1) ,),
                   onTap: (){
-
+                      Navigator.pushReplacementNamed(context, StartScreen.routeName );
                   },
                   title: Text(
                     'Log Out',

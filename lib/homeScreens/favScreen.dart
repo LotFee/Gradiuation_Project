@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/widget/drawer.dart';
+import 'package:sakkeny/widget/flats_grid.dart';
 
 class FavScreen extends StatelessWidget {
 
@@ -37,6 +38,7 @@ class FavScreen extends StatelessWidget {
           ],
         ),
         drawer: myDrawer(),
+        body: FlatsGrid(index: 1,),
         floatingActionButton:FloatingActionButton(
           onPressed: (){
             Navigator.pushReplacement(context,PageRouteBuilder(
