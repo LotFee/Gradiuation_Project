@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sakkeny/screens/register/signUp2.dart';
 import 'package:sakkeny/widget/pickImage.dart';
-
+git
 
 
 class SignUp1 extends StatefulWidget {
@@ -20,7 +20,8 @@ class SignUp1 extends StatefulWidget {
 
 class _SignUp1State extends State<SignUp1> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  //final TextEditingController _fNameController=new TextEditingController();
+  // final TextEditingController _lNameController=new TextEditingController();
   bool validate() {
     if (formKey.currentState!.validate()) {
       return true;
@@ -292,6 +293,7 @@ class _SignUp1State extends State<SignUp1> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
+                              // controller: _fNameController,
 
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.text,
@@ -353,6 +355,7 @@ class _SignUp1State extends State<SignUp1> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
+                              // controller: _lNameController,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 errorBorder: new OutlineInputBorder(
@@ -409,7 +412,8 @@ class _SignUp1State extends State<SignUp1> {
                      onPressed: () {
                        if(validate())
                        Navigator.push(context,PageRouteBuilder(
-                         pageBuilder: (context, animation1, animation2) => SignUp2(),
+
+                         pageBuilder: (context, animation1, animation2) => SignUp2(),//fNameController: _fNameController , lNameController: _lNameController,),
                          transitionDuration: Duration.zero,
                        ),);
                      },

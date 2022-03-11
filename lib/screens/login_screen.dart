@@ -384,6 +384,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       var _data = jsonDecode(response.body);
      // Map<String,dynamic>user=_data['user'];
+       print(_data);
 
       if (response.statusCode == 200 && validate()) {
         print('Sign in success');

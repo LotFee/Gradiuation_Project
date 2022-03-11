@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sakkeny/screens/drawer/about us.dart';
+import 'package:sakkeny/screens/drawer/booking.dart';
 import 'package:sakkeny/screens/drawer/complaints.dart';
 import 'package:sakkeny/screens/drawer/terms and conditions.dart';
 class myDrawer extends StatelessWidget {
@@ -62,7 +63,7 @@ class myDrawer extends StatelessWidget {
                   tileColor: Color(0xfff1f1f1),
                   leading: Icon(Icons.bookmark,color:Color(0xff1f95a1) ,),
                   onTap: (){
-
+                    Navigator.pushNamed(context, Booking.routeName);
                   },
                   title: Text(
                     'Booking',

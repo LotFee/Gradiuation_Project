@@ -4,7 +4,12 @@ import 'package:sakkeny/screens/register/signUp2.dart';
 
 
 class SignUp3 extends StatefulWidget {
-  const SignUp3({Key? key}) : super(key: key);
+
+  // SignUp3({required  this.fNameController,required this.lNameController,required this.genderController,required this.ageController});
+  // final TextEditingController fNameController;
+  // final TextEditingController lNameController;
+  // final TextEditingController genderController;
+  // final TextEditingController ageController;
 
   @override
   _SignUp3State createState() => _SignUp3State();
@@ -359,20 +364,20 @@ class _SignUp3State extends State<SignUp3> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    RaisedButton(
-
-                      color: Color(0xff1f95a1), // background
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)), // foreground
-                      onPressed: () {
-                        Navigator.pop(context,PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) => SignUp2(),
-                          transitionDuration: Duration.zero,
-                        ),);
-                      },
-                      child: Text("Back",style: TextStyle(color: Colors.white ,fontSize: 25),),
-                      padding: EdgeInsets.only(top: 8,bottom: 8),
-                    ),
+                    // RaisedButton(
+                    //
+                    //   color: Color(0xff1f95a1), // background
+                    //   shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(10)), // foreground
+                    //   onPressed: () {
+                    //     Navigator.pop(context,PageRouteBuilder(
+                    //       pageBuilder: (context, animation1, animation2) => SignUp2(),
+                    //       transitionDuration: Duration.zero,
+                    //     ),);
+                    //   },
+                    //   child: Text("Back",style: TextStyle(color: Colors.white ,fontSize: 25),),
+                    //   padding: EdgeInsets.only(top: 8,bottom: 8),
+                    // ),
                     RaisedButton(
 
                       color: Color(0xff1f95a1), // background

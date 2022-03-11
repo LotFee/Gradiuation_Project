@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 
 class ProfCard with ChangeNotifier{
-  String fName='hamed';
-  String lName='ahmed';
-  String gender='0';
-  int age=0;
-  String email='@gmail';
-  String password='***';
-  String id ='1';
+  final String fName;
+  final String lName;
+  final String gender;
+  final int age;
+  final String email;
+  final String password;
+  final String id ;
 
 
   ProfCard({

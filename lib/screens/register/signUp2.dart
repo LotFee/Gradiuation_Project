@@ -5,7 +5,10 @@ import 'package:sakkeny/screens/register/signup1.dart';
 
 
 class SignUp2 extends StatefulWidget {
-  const SignUp2({Key? key}) : super(key: key);
+  // SignUp2({required  this.fNameController,required this.lNameController});
+  // final TextEditingController fNameController;
+  // final TextEditingController lNameController;
+
 
   @override
   _SignUp2State createState() => _SignUp2State();
@@ -13,6 +16,10 @@ class SignUp2 extends StatefulWidget {
 
 class _SignUp2State extends State<SignUp2> {
   String gender ="Male";
+
+  final TextEditingController _genderController=new TextEditingController();
+  final TextEditingController _ageController=new TextEditingController();
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool validate() {
     if (formKey.currentState!.validate()) {
@@ -170,6 +177,7 @@ class _SignUp2State extends State<SignUp2> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
+                              controller: _genderController,
 
                               readOnly: true,
                               decoration: InputDecoration(
@@ -230,6 +238,7 @@ class _SignUp2State extends State<SignUp2> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
+                              controller: _ageController,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 errorBorder: new OutlineInputBorder(
