@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:sakkeny/provider/user.dart';
+import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/screens/register/signUp3.dart';
 import 'package:sakkeny/screens/register/signup1.dart';
 
 
 class SignUp2 extends StatefulWidget {
-  // SignUp2({required  this.fNameController,required this.lNameController});
-  // final TextEditingController fNameController;
-  // final TextEditingController lNameController;
+  const SignUp2({Key? key,}) : super(key: key);
 
 
   @override
@@ -15,11 +16,8 @@ class SignUp2 extends StatefulWidget {
 }
 
 class _SignUp2State extends State<SignUp2> {
+
   String gender ="Male";
-
-  final TextEditingController _genderController=new TextEditingController();
-  final TextEditingController _ageController=new TextEditingController();
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool validate() {
     if (formKey.currentState!.validate()) {
@@ -28,8 +26,11 @@ class _SignUp2State extends State<SignUp2> {
       return false;
     }
   }
+
+  TextEditingController age = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final adduser = Provider.of<Users>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -177,7 +178,6 @@ class _SignUp2State extends State<SignUp2> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
-                              controller: _genderController,
 
                               readOnly: true,
                               decoration: InputDecoration(
@@ -238,7 +238,7 @@ class _SignUp2State extends State<SignUp2> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
-                              controller: _ageController,
+                              controller: age,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 errorBorder: new OutlineInputBorder(
@@ -292,6 +292,7 @@ class _SignUp2State extends State<SignUp2> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)), // foreground
                       onPressed: () {
+
                         Navigator.pop(context,PageRouteBuilder(
                           pageBuilder: (context, animation1, animation2) => SignUp1(),
                           transitionDuration: Duration.zero,
@@ -307,6 +308,7 @@ class _SignUp2State extends State<SignUp2> {
                           borderRadius: BorderRadius.circular(10)), // foreground
                       onPressed: () {
                         if(validate()){
+                          adduser.updateUser2(gender, age.text);
                           Navigator.push(context,PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) => SignUp3(),
                             transitionDuration: Duration.zero,

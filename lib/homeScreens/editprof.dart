@@ -5,8 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/homeScreens/userProf.dart';
 import 'package:provider/provider.dart';
-import 'package:sakkeny/provider/profCard.dart';
-import 'package:sakkeny/provider/profcards.dart';
+import 'package:sakkeny/provider/user.dart';
+import 'package:sakkeny/provider/users.dart';
 
 class EditProf extends StatefulWidget {
   static const String routeName = 'editProf';

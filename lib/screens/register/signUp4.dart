@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/screens/register/signUp3.dart';
 
 import '../../homeScreens/Home.dart';
@@ -9,6 +11,7 @@ class SignUp4 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final adduser = Provider.of<Users>(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 100, bottom: 20),
@@ -136,6 +139,12 @@ class SignUp4 extends StatelessWidget {
             ),
             Column(
               children: [
+                // Text(adduser.users[0].fName),
+                // Text(adduser.users[0].lName),
+                // Text(adduser.users[0].gender),
+                // Text(adduser.users[0].age),
+                // Text(adduser.users[0].email),
+                // Text(adduser.users[0].password),
                 Text(
                   "Congratulations, ",
                   style: TextStyle(
