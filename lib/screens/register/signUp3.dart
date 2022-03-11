@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/screens/register/signUp4.dart';
 import 'package:sakkeny/screens/register/signUp2.dart';
+import 'package:http/http.dart'as http;
+import 'dart:convert';
+import 'package:http/http.dart';
 
 
 class SignUp3 extends StatefulWidget {
@@ -23,8 +28,15 @@ class _SignUp3State extends State<SignUp3> {
       return false;
     }
   }
+  String fname= "";
+  String lname= "";
+  String age= "";
+  String gender= "";
+  TextEditingController email = new TextEditingController();
+  TextEditingController password = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final adduser = Provider.of<Users>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -172,6 +184,7 @@ class _SignUp3State extends State<SignUp3> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
+                              controller: email,
                               keyboardType: TextInputType.emailAddress,
                               textInputAction: TextInputAction.next,
 
@@ -230,6 +243,7 @@ class _SignUp3State extends State<SignUp3> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
+                              controller: password,
 
                               textInputAction: TextInputAction.next,
                               obscureText: notvisible ,
@@ -381,10 +395,17 @@ class _SignUp3State extends State<SignUp3> {
                       onPressed: () {
                         if(validate())
                           {
-                            Navigator.push(context,PageRouteBuilder(
-                              pageBuilder: (context, animation1, animation2) => SignUp4(),
-                              transitionDuration: Duration.zero,
-                            ),);
+
+                            adduser.updateUser3(email.text, password.text);
+                            setState(() {
+                                fname = adduser.users[0].fName;
+                                lname = adduser.users[0].lName;
+                                gender = adduser.users[0].gender;
+                                age = adduser.users[0].age;
+
+                            });
+                            signup(fname, lname, email.text, password.text, gender, age, password.text);
+
                           }
 
                       },
@@ -399,5 +420,48 @@ class _SignUp3State extends State<SignUp3> {
         ),
       ),
     );
+
   }
+  Future <void> signup(String fname,String lname,String email,String password,String gender, String age,String cpassword) async
+  {
+    Map data = {
+      'FName': fname,
+      'LName': lname,
+      'Gmail' : email,
+      'Gender' : gender,
+      'Age' : age,
+      'Password': password,
+      'CPassword':cpassword,
+    };
+    print(data.toString());
+
+
+      Response response = await http.post(
+        Uri.parse('https://graduation-api.herokuapp.com/admin/adduser'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(data),
+      );
+      var _data = jsonDecode(response.body.toString());
+      if (response.statusCode == 200) {
+        print('Sign UP success');
+        print(_data);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Account Created SuccessFully')),
+        );
+        Navigator.push(context,PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => SignUp4(),
+          transitionDuration: Duration.zero,
+        ),);
+      }
+      else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Invalid Data"),
+        ));
+        print(_data);
+      }
+
+  }
+
 }

@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sakkeny/provider/user.dart';
+import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/screens/register/signUp2.dart';
 import 'package:sakkeny/widget/pickImage.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -38,10 +41,15 @@ class _SignUp1State extends State<SignUp1> {
 
     });
   }
+  
+  TextEditingController firstName = new TextEditingController();
+  TextEditingController lastName = new TextEditingController();
+  
 
 
   @override
   Widget build(BuildContext context) {
+    final adduser = Provider.of<Users>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -292,6 +300,7 @@ class _SignUp1State extends State<SignUp1> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
+                              controller: firstName,
 
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.text,
@@ -353,6 +362,7 @@ class _SignUp1State extends State<SignUp1> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
+                              controller: lastName,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 errorBorder: new OutlineInputBorder(
@@ -407,11 +417,15 @@ class _SignUp1State extends State<SignUp1> {
                      shape: RoundedRectangleBorder(
                          borderRadius: BorderRadius.circular(10)), // foreground
                      onPressed: () {
-                       if(validate())
-                       Navigator.push(context,PageRouteBuilder(
-                         pageBuilder: (context, animation1, animation2) => SignUp2(),
-                         transitionDuration: Duration.zero,
-                       ),);
+                       if(validate()){
+                          adduser.updateUser1(firstName.text, lastName.text);
+                         Navigator.push(context,PageRouteBuilder(
+                           pageBuilder: (context, animation1, animation2) => SignUp2(),
+                           transitionDuration: Duration.zero,
+                         ),);
+                       }
+
+
                      },
                      child: Text("Next",style: TextStyle(color: Colors.white ,fontSize: 25),),
                      padding: EdgeInsets.only(top: 8,bottom: 8),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/screens/data_about_student.dart';
@@ -30,13 +31,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=>Flats() )
+        ChangeNotifierProvider(create: (_)=>Flats() ),
+        ChangeNotifierProvider(create: (_)=>Users() ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
         ),
-        initialRoute:Home.routeName ,
+        initialRoute:LoginScreen.routeName ,
         routes: {
           WelcomeScreen.routeName:(ctx)=>WelcomeScreen(),
           Steper1.routeName: (ctx)=> Steper1(),

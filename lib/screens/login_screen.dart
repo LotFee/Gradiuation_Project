@@ -371,8 +371,6 @@ class _LoginScreenState extends State<LoginScreen> {
       'password': password,
     };
     print(data.toString());
-
-
     if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
       Response response = await http.post(
         Uri.parse('https://graduation-api.herokuapp.com/admin/login'),
@@ -383,11 +381,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
       );
       var _data = jsonDecode(response.body);
-     // Map<String,dynamic>user=_data['user'];
 
+      Map<String,dynamic>user=_data['user'];
+      print(user['gmail']);
       if (response.statusCode == 200 && validate()) {
         print('Sign in success');
-
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Your Token: ${_data['token']}")));
         // saveLoginPref(token: _data['token'],email: user['email'],fullname: user['fullname']);
@@ -398,7 +396,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Wrong Email or Password"),
         ));
-        print(_data);
+
       }
     }
   }
