@@ -292,6 +292,7 @@ class _SignUp1State extends State<SignUp1> {
                           child: Container(
                             color: Colors.white,
                             child: TextFormField(
+
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(

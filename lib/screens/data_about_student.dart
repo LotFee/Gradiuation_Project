@@ -386,7 +386,7 @@ class _DataAboutYouState extends State<DataAboutYou> {
                                   borderRadius: BorderRadius.circular(5),
                                   child: Container(
                                     width: 600,
-                                    height: 350,
+                                    height: 400,
                                     child: Column(
                                       children: [
                                         Padding(

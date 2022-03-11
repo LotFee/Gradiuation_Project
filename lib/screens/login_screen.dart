@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:sakkeny/screens/forget_password/forget1.dart';
 import 'package:sakkeny/screens/register/signup1.dart';
 import 'package:sakkeny/screens/forget_password/forget1.dart';
 import 'package:sakkeny/homeScreens/Home.dart';
+import 'package:http/http.dart'as http;
+import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
@@ -16,6 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool checkBoxValue = false;
   bool notvisible = true;
   bool notvisible2 = true;
+  final TextEditingController _emailController=new TextEditingController();
+  final TextEditingController _passwordController=new TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool validate() {
     if (formKey.currentState!.validate()) {
@@ -160,6 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.white,
                               child: TextFormField(
                                 textInputAction: TextInputAction.next,
+                                controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (val) {
                                   if (val!.length == 0)
@@ -220,6 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Container(
                               color: Colors.white,
                               child: TextFormField(
+                                controller: _passwordController,
                                 obscureText: notvisible,
                                 keyboardType: TextInputType.visiblePassword,
                                 decoration: InputDecoration(
@@ -327,8 +334,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
-                      if (validate())
-                        Navigator.pushNamed(context, Home.routeName);
+                      login(_emailController.text,_passwordController.text);
                     },
                   ),
                 ),
@@ -358,5 +364,42 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+  Future<void> login(email, password) async {
+    Map data = {
+      'Gmail': email,
+      'password': password,
+    };
+    print(data.toString());
+
+
+    if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+      Response response = await http.post(
+        Uri.parse('https://graduation-api.herokuapp.com/admin/login'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(data),
+
+      );
+      var _data = jsonDecode(response.body);
+     // Map<String,dynamic>user=_data['user'];
+
+      if (response.statusCode == 200 && validate()) {
+        print('Sign in success');
+
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Your Token: ${_data['token']}")));
+        // saveLoginPref(token: _data['token'],email: user['email'],fullname: user['fullname']);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Home()),(route)=>false);
+      //  print(user['fullname']);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Wrong Email or Password"),
+        ));
+        print(_data);
+      }
+    }
   }
 }

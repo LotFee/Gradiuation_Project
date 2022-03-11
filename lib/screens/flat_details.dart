@@ -451,7 +451,7 @@ class _FlatDetailsState extends State<FlatDetails> {
                               borderRadius: BorderRadius.circular(5),
                               child: Container(
                                 width: 600,
-                                height: 400,
+                                height: 450,
                                 child: Column(
                                   children: [
 

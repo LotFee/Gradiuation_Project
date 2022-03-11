@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/widget/drawer.dart';
+import 'package:sakkeny/screens/search/search and filter.dart';
 
 class NotiScreen extends StatelessWidget {
 
@@ -33,7 +34,12 @@ class NotiScreen extends StatelessWidget {
           ),
           title: Center(child: Text("Notifications", style: TextStyle(color:Color(0xff1f95a1),fontWeight: FontWeight.bold ),)),
           actions: [
-            GestureDetector(onTap: (){},child: Icon(Icons.search,color: Color(0xff1f95a1),size: 35)),
+            GestureDetector(onTap: (){
+              Navigator.push(context,PageRouteBuilder(
+                pageBuilder: (context, animation1, animation2) => SearchFilter(),
+                transitionDuration: Duration.zero,
+              ),);
+            },child: Icon(Icons.search,color: Color(0xff1f95a1),size: 35)),
           ],
         ),
         drawer: myDrawer(),

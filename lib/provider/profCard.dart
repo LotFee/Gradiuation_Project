@@ -8,9 +8,11 @@ class ProfCard with ChangeNotifier{
   int age=0;
   String email='@gmail';
   String password='***';
+  String id ='1';
 
 
   ProfCard({
+    required this.id,
     required this.fName,
     required this.lName,
     required this.gender,

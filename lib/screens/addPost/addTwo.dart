@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sakkeny/homeScreens/Home.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/widget/drawer.dart';
+import 'package:sakkeny/screens/search/search and filter.dart';
 
 class AddTwo extends StatefulWidget {
   const AddTwo({Key? key}) : super(key: key);
@@ -63,7 +64,12 @@ class _AddTwoState extends State<AddTwo> {
         )),
         actions: [
           GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) => SearchFilter(),
+                  transitionDuration: Duration.zero,
+                ),);
+              },
               child: Icon(Icons.search, color: Color(0xff1f95a1), size: 35)),
         ],
       ),

@@ -32,9 +32,10 @@ dependencies:
   curved_nav_bar: ^0.0.2
   image_picker: ^0.8.4+1
   multi_image_picker2: ^5.0.02
+  font_awesome: ^5.10.1
   provider: ^6.0.2
+  font_awesome_flutter: ^9.2.0
   carousel_slider: ^4.0.0
-
 
 dev_dependencies:
   flutter_test:
@@ -62,13 +63,6 @@ flutter:
      - images/register.png
      - images/changepass.png
      - images/post.png
-     - images/f1.jpg
-     - images/f2.jpg
-     - images/f3.jpg
-     - images/f4.jpg
-     - images/bookOrNot.png
-     - images/wait.png
-
 
 
 

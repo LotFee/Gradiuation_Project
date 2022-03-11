@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/homeScreens/editprof.dart';
 
+
 class UserProf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,9 +31,7 @@ class UserProf extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.edit, color: Color(0xff1f95a1)),
                     onPressed: () {
-                      Navigator.pushReplacement(context,PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) => EditProf(),
-                      transitionDuration: Duration.zero,));
+                      Navigator.of(context).pushNamed(EditProf.routeName);
                     },
                   ),
                 ],

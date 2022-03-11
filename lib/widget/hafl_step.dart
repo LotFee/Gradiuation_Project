@@ -24,7 +24,7 @@ class HalfStep extends StatelessWidget {
             children: [
               Center(
                   child: Text(
-                    "Sakkeny",
+                    "Sakenny",
                     style: TextStyle(
                         color: Color(0xff1f95a1),
                         fontSize: 40,
@@ -40,9 +40,12 @@ class HalfStep extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Text(
-                'Sakkeny Application  will help you to find your flat ',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                child: Text(
+                  index==1 ? "Sakenny Application Help Students to find Suitable House. " : index==2?  "Sakenny Application Help Students To find the nearest house from his university." : "Sakenny Application Will Help  You to find Your Flat." ,
+                  style: TextStyle(fontSize: 17,wordSpacing: 1.5,  fontWeight: FontWeight.bold),
+                ),
               ),
               SizedBox(
                 height: 20,

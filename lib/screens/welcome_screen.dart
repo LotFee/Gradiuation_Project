@@ -30,7 +30,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
       setState(() {});
     });
     new Future.delayed(
-        const Duration(seconds: 3),
+        const Duration(seconds: 4),
             () => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Steper1()),
@@ -64,7 +64,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 SizedBox(height:20,),
                 TyperAnimatedTextKit(
                   speed: Duration(milliseconds: 200),
-                  text: ['SAKKENY'],
+                  text: ['SAKENNY'],
                   textStyle: TextStyle(
                     color: Color(0xFF1F95A1),
                     fontSize: 45.0,

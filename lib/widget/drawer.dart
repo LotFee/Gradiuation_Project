@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sakkeny/screens/start_screen.dart';
-
+import 'package:sakkeny/screens/drawer/about us.dart';
+import 'package:sakkeny/screens/drawer/complaints.dart';
+import 'package:sakkeny/screens/drawer/terms and conditions.dart';
 class myDrawer extends StatelessWidget {
   const myDrawer({
     Key? key,
@@ -73,7 +74,7 @@ class myDrawer extends StatelessWidget {
                   tileColor: Color(0xfff1f1f1),
                   leading: Icon(Icons.people_rounded,color:Color(0xff1f95a1) ,),
                   onTap: (){
-
+                    Navigator.pushNamed(context, AboutUs.routeName);
                   },
                   title: Text(
                     'About Us',
@@ -85,7 +86,7 @@ class myDrawer extends StatelessWidget {
                   tileColor: Color(0xfff1f1f1),
                   leading: Icon(Icons.archive,color:Color(0xff1f95a1) ,),
                   onTap: (){
-
+                    Navigator.pushNamed(context, Complaint.routeName);
                   },
                   title: Text(
                     'Complaints',
@@ -97,7 +98,7 @@ class myDrawer extends StatelessWidget {
                   tileColor: Color(0xfff1f1f1),
                   leading: Icon(Icons.security,color:Color(0xff1f95a1) ,),
                   onTap: (){
-
+                    Navigator.pushNamed(context, Terms.routeName);
                   },
                   title: Text(
                     'Terms and Conditions',
@@ -121,7 +122,7 @@ class myDrawer extends StatelessWidget {
                   tileColor: Color(0xfff1f1f1),
                   leading: Icon(Icons.login_outlined,color:Color(0xff1f95a1) ,),
                   onTap: (){
-                      Navigator.pushReplacementNamed(context, StartScreen.routeName );
+
                   },
                   title: Text(
                     'Log Out',
