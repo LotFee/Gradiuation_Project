@@ -378,20 +378,20 @@ class _SignUp3State extends State<SignUp3> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // RaisedButton(
-                    //
-                    //   color: Color(0xff1f95a1), // background
-                    //   shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(10)), // foreground
-                    //   onPressed: () {
-                    //     Navigator.pop(context,PageRouteBuilder(
-                    //       pageBuilder: (context, animation1, animation2) => SignUp2(),
-                    //       transitionDuration: Duration.zero,
-                    //     ),);
-                    //   },
-                    //   child: Text("Back",style: TextStyle(color: Colors.white ,fontSize: 25),),
-                    //   padding: EdgeInsets.only(top: 8,bottom: 8),
-                    // ),
+                    RaisedButton(
+
+                      color: Color(0xff1f95a1), // background
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)), // foreground
+                      onPressed: () {
+                        Navigator.pop(context,PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) => SignUp2(),
+                          transitionDuration: Duration.zero,
+                        ),);
+                      },
+                      child: Text("Back",style: TextStyle(color: Colors.white ,fontSize: 25),),
+                      padding: EdgeInsets.only(top: 8,bottom: 8),
+                    ),
                     RaisedButton(
 
                       color: Color(0xff1f95a1), // background
