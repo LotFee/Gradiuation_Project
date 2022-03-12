@@ -5,6 +5,7 @@ import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/screens/data_about_student.dart';
 import 'package:sakkeny/screens/drawer/about%20us.dart';
+import 'package:sakkeny/screens/drawer/booking.dart';
 import 'package:sakkeny/screens/drawer/complaints.dart';
 import 'package:sakkeny/screens/drawer/terms%20and%20conditions.dart';
 import 'package:sakkeny/screens/flat_details.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
           AboutUs.routeName:(ctx)=>AboutUs(),
           Complaint.routeName:(ctx)=>Complaint(),
           Terms.routeName:(ctx)=>Terms(),
+          Booking.routeName:(ctx)=>Booking(),
           FlatDetails.routeName:(ctx)=>FlatDetails(),
           DataAboutYou.routeName: (ctx)=> DataAboutYou(),
 

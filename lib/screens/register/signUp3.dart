@@ -10,7 +10,12 @@ import 'package:http/http.dart';
 
 
 class SignUp3 extends StatefulWidget {
-  const SignUp3({Key? key}) : super(key: key);
+
+  // SignUp3({required  this.fNameController,required this.lNameController,required this.genderController,required this.ageController});
+  // final TextEditingController fNameController;
+  // final TextEditingController lNameController;
+  // final TextEditingController genderController;
+  // final TextEditingController ageController;
 
   @override
   _SignUp3State createState() => _SignUp3State();
