@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
@@ -18,6 +19,7 @@ import 'screens/forget_password/forget3.dart';
 import 'package:sakkeny/homeScreens/Home.dart';
 import 'package:sakkeny/homeScreens/editprof.dart';
 import 'package:provider/provider.dart';
+import 'provider/current_user.dart';
 
 // 0xff1f95a1
 
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_)=>Flats() ),
         ChangeNotifierProvider(create: (_)=>Users() ),
+
+        ChangeNotifierProvider(create: (_)=>CurrentUserData() ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

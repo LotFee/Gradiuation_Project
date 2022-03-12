@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
+import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/screens/forget_password/forget1.dart';
 import 'package:sakkeny/screens/register/signup1.dart';
 import 'package:sakkeny/screens/forget_password/forget1.dart';
 import 'package:sakkeny/homeScreens/Home.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
@@ -19,8 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool checkBoxValue = false;
   bool notvisible = true;
   bool notvisible2 = true;
-  final TextEditingController _emailController=new TextEditingController();
-  final TextEditingController _passwordController=new TextEditingController();
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool validate() {
     if (formKey.currentState!.validate()) {
@@ -30,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -334,7 +338,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
-                      login(_emailController.text,_passwordController.text);
+                      if (validate()) {
+                        setState(() {
+                          isLoading = true;
+                        });
+
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) => SpinKitHourGlass(
+                                  color: Color(0xFF1F95A1),
+                                ));
+
+                        login(_emailController.text, _passwordController.text);
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
                     },
                   ),
                 ),
@@ -365,38 +385,48 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
   Future<void> login(email, password) async {
+    final currentuser = Provider.of<CurrentUserData>(context,listen: false);
     Map data = {
       'Gmail': email,
       'password': password,
     };
     print(data.toString());
-    if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
       Response response = await http.post(
         Uri.parse('https://graduation-api.herokuapp.com/admin/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(data),
-
       );
       var _data = jsonDecode(response.body);
 
-      Map<String,dynamic>user=_data['user'];
+      Map<String, dynamic> user = _data['user'];
+      currentuser.currentuserdata(CurrentUser(
+          fName: user['Fname'],
+          lName: user['Lname'],
+          gender: user['gender'],
+          age: user['age'],
+          email: user['gmail'],
+          password: user['password'],
+          id: user['_id']));
       print(user['gmail']);
-      if (response.statusCode == 200 && validate()) {
+      print(_data);
+      if (response.statusCode == 200) {
         print('Sign in success');
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Your Token: ${_data['token']}")));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Sign in success")));
         // saveLoginPref(token: _data['token'],email: user['email'],fullname: user['fullname']);
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Home()),(route)=>false);
-      //  print(user['fullname']);
+            MaterialPageRoute(builder: (context) => Home()), (route) => false);
+        //  print(user['fullname']);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Wrong Email or Password"),
         ));
-
       }
     }
   }

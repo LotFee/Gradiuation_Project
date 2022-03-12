@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/homeScreens/editprof.dart';
 
@@ -6,6 +8,7 @@ import 'package:sakkeny/homeScreens/editprof.dart';
 class UserProf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final currentUser = Provider.of<CurrentUserData>(context,listen: false);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -74,7 +77,7 @@ class UserProf extends StatelessWidget {
                             color: Color(0xff1f95a1),
                           ),
                           title: Text(
-                            'hamed',
+                            currentUser.currentUserDate.fName,
                             style: TextStyle(
                               color: Color(0xff1f95a1),
                               fontSize: 15.0,
@@ -105,7 +108,7 @@ class UserProf extends StatelessWidget {
                             color: Color(0xff1f95a1),
                           ),
                           title: Text(
-                            'ahmed',
+                            currentUser.currentUserDate.lName,
                             style: TextStyle(
                               color: Color(0xff1f95a1),
                               fontSize: 15.0,
@@ -136,7 +139,7 @@ class UserProf extends StatelessWidget {
                             color: Color(0xff1f95a1),
                           ),
                           title: Text(
-                            'male',
+                            currentUser.currentUserDate.gender,
                             style: TextStyle(
                               color: Color(0xff1f95a1),
                               fontSize: 15.0,
@@ -167,7 +170,7 @@ class UserProf extends StatelessWidget {
                             color: Color(0xff1f95a1),
                           ),
                           title: Text(
-                            '22',
+                            currentUser.currentUserDate.age,
                             style: TextStyle(
                               color: Color(0xff1f95a1),
                               fontSize: 15.0,
@@ -198,7 +201,7 @@ class UserProf extends StatelessWidget {
                             color: Color(0xff1f95a1),
                           ),
                           title: Text(
-                            'hamed@gmail.com',
+                            currentUser.currentUserDate.email,
                             style: TextStyle(
                               color: Color(0xff1f95a1),
                               fontSize: 15.0,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/screens/register/signUp4.dart';
 import 'package:sakkeny/screens/register/signUp2.dart';
@@ -37,6 +38,7 @@ class _SignUp3State extends State<SignUp3> {
   @override
   Widget build(BuildContext context) {
     final adduser = Provider.of<Users>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -406,6 +408,7 @@ class _SignUp3State extends State<SignUp3> {
                             });
                             signup(fname, lname, email.text, password.text, gender, age, password.text);
 
+
                           }
 
                       },
@@ -445,8 +448,18 @@ class _SignUp3State extends State<SignUp3> {
       );
       var _data = jsonDecode(response.body.toString());
       if (response.statusCode == 200) {
+        final currentUser = Provider.of<CurrentUserData>(context,listen: false);
         print('Sign UP success');
+        Map<String, dynamic> user = _data['user'];
         print(_data);
+        currentUser.currentuserdata(CurrentUser(
+            fName: user['FName'],
+            lName: user['LName'],
+            gender: user['Gender'],
+            age: user['Age'],
+            email: user['Gmail'],
+            password: user['Password'],
+            id: user['_id']));
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Account Created SuccessFully')),
         );

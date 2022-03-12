@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/screens/drawer/about us.dart';
 import 'package:sakkeny/screens/drawer/complaints.dart';
 import 'package:sakkeny/screens/drawer/terms and conditions.dart';
@@ -9,6 +11,7 @@ class myDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentuser = Provider.of<CurrentUserData>(context,listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(80), bottomRight: Radius.circular(35)),
@@ -27,8 +30,8 @@ class myDrawer extends StatelessWidget {
                         backgroundColor: Colors.white,
                         child: Image.asset('images/logo_login.png'),
                       ),
-                      Text("Lotfee",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:Color(0xff1f95a1) ),),
-                      Text("sakkeny@gmail.com",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold  ),)
+                      Text(currentuser.currentUserDate.fName +" "+ currentuser.currentUserDate.lName,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:Color(0xff1f95a1) ),),
+                      Text(currentuser.currentUserDate.email,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold  ),)
                     ],
                   )),
             ),
