@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
         ),
-        initialRoute:LoginScreen.routeName ,
+        initialRoute:WelcomeScreen.routeName ,
         routes: {
           WelcomeScreen.routeName:(ctx)=>WelcomeScreen(),
           Steper1.routeName: (ctx)=> Steper1(),
@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
           SignUp1.routeName:(ctx)=>SignUp1(),
           LoginScreen.routeName:(ctx)=>LoginScreen(),
           ForgetOne.routeName:(ctx)=>ForgetOne(),
-          ForgetTwo.routeName:(ctx)=>ForgetTwo(),
-          ForgetThree.routeName:(ctx)=>ForgetThree(),
+          // ForgetTwo.routeName:(ctx)=>ForgetTwo(),
+         // ForgetThree.routeName:(ctx)=>ForgetThree(),
           Home.routeName:(ctx)=>Home(),
           EditProf.routeName:(ctx)=>EditProf(),
           AddOne.routeName:(ctx)=>AddOne(),

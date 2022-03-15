@@ -451,33 +451,35 @@ class _SignUp3State extends State<SignUp3> {
         },
         body: jsonEncode(data),
       );
-      var _data = jsonDecode(response.body.toString());
+      var _data = jsonDecode(response.body);
+    final currentUser = Provider.of<CurrentUserData>(context,listen: false);
       if (response.statusCode == 200) {
-        final currentUser = Provider.of<CurrentUserData>(context,listen: false);
         print('Sign UP success');
         Map<String, dynamic> user = _data['user'];
-        print(_data);
         currentUser.currentuserdata(CurrentUser(
-            fName: user['FName'],
-            lName: user['LName'],
-            gender: user['Gender'],
-            age: user['Age'],
-            email: user['Gmail'],
-            password: user['Password'],
+            fName: user['Fname'],
+            lName: user['Lname'],
+            gender: user['gender'],
+            age: user['age'],
+            email: user['gmail'],
+            password: user['password'],
             id: user['_id']));
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Account Created SuccessFully')),
         );
-        Navigator.push(context,PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) => SignUp4(),
-          transitionDuration: Duration.zero,
-        ),);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => SignUp4()), (route) => false);
+
+
+
+
       }
       else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Invalid Data"),
+          content: Text(_data['message']),
         ));
-        print(_data);
+
       }
 
   }

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sakkeny/screens/login_screen.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ForgetThree extends StatefulWidget {
   static const String routeName = 'forget_three';
+  final String code;
+
+  const ForgetThree({Key? key,required this.code}) : super(key: key);
 
   @override
   State<ForgetThree> createState() => _ForgetThreeState();
@@ -22,6 +28,8 @@ class _ForgetThreeState extends State<ForgetThree> {
       return false;
     }
   }
+  TextEditingController passwordController = new TextEditingController();
+  TextEditingController cPasswordController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +113,7 @@ class _ForgetThreeState extends State<ForgetThree> {
                             child: Container(
                               color: Colors.white,
                               child: TextFormField(
+                                controller: passwordController,
                                 textInputAction: TextInputAction.next,
                                 obscureText: notvisible,
                                 keyboardType: TextInputType.visiblePassword,
@@ -191,6 +200,7 @@ class _ForgetThreeState extends State<ForgetThree> {
                             child: Container(
                               color: Colors.white,
                               child: TextFormField(
+                                controller:cPasswordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscureText: notvisible2,
                                 decoration: InputDecoration(
@@ -273,78 +283,8 @@ class _ForgetThreeState extends State<ForgetThree> {
                     onPressed: () {
                       if(validate())
                         {
-                          showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (context) => Dialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                elevation: 16,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: Container(
-                                    width: 600,
-                                    height: 450,
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 40.0,
-                                              right: 40,
-                                              bottom: 20,
-                                              top: 20),
-                                          child: Image.asset(
-                                            "images/changepass.png",
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Your password",
-                                          style: TextStyle(
-                                              fontSize: 19,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 15.0),
-                                          child: Text(
-                                            "has been successfully changed",
-                                            style: TextStyle(
-                                                fontSize: 19,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                          const EdgeInsets.only(top: 15.0),
-                                          child: RaisedButton(
-                                            color:
-                                            Color(0xff1f95a1), // background
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    10)), // foreground
-                                            onPressed: () {
-                                              Navigator.pushNamed(context,
-                                                  LoginScreen.routeName);
-                                            },
-                                            child: Padding(
-                                              padding:
-                                              const EdgeInsets.all(10.0),
-                                              child: Text(
-                                                "Login",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 25),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ));
+                          changePassword(passwordController.text, cPasswordController.text,widget.code);
+
                         }
 
                     },
@@ -356,5 +296,106 @@ class _ForgetThreeState extends State<ForgetThree> {
         ),
       ),
     );
+  }
+  Future<void> changePassword(password,cPassword,code) async {
+    Map data = {
+      "password":password,
+      "cPassword":cPassword,
+    };
+    print(data.toString());
+    Response response = await http.post(
+      Uri.parse('https://graduation-api.herokuapp.com/admin/newPassword/$code'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(data),
+    );
+    var _data = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      print(_data['message']);
+      print('code send to this gmail');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Code send")));
+     if(true){
+       showDialog(
+           context: context,
+           barrierDismissible: false,
+           builder: (context) => Dialog(
+             shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.circular(15)),
+             elevation: 16,
+             child: ClipRRect(
+               borderRadius: BorderRadius.circular(5),
+               child: Container(
+                 width: 600,
+                 height: 450,
+                 child: Column(
+                   children: [
+                     Padding(
+                       padding: const EdgeInsets.only(
+                           left: 40.0,
+                           right: 40,
+                           bottom: 20,
+                           top: 20),
+                       child: Image.asset(
+                         "images/changepass.png",
+                         fit: BoxFit.cover,
+                       ),
+                     ),
+                     Text(
+                       "Your password",
+                       style: TextStyle(
+                           fontSize: 19,
+                           fontWeight: FontWeight.bold),
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.only(
+                           bottom: 15.0),
+                       child: Text(
+                         "has been successfully changed",
+                         style: TextStyle(
+                             fontSize: 19,
+                             fontWeight: FontWeight.bold),
+                       ),
+                     ),
+                     Padding(
+                       padding:
+                       const EdgeInsets.only(top: 15.0),
+                       child: RaisedButton(
+                         color:
+                         Color(0xff1f95a1), // background
+                         shape: RoundedRectangleBorder(
+                             borderRadius:
+                             BorderRadius.circular(
+                                 10)), // foreground
+                         onPressed: () {
+                           Navigator.of(context).pushAndRemoveUntil(
+                               MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
+                         },
+                         child: Padding(
+                           padding:
+                           const EdgeInsets.all(10.0),
+                           child: Text(
+                             "Login",
+                             style: TextStyle(
+                                 color: Colors.white,
+                                 fontSize: 25),
+                           ),
+                         ),
+                       ),
+                     )
+                   ],
+                 ),
+               ),
+             ),
+           ));
+     }
+    } else {
+      print(_data['message']);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Wrong Email"),
+      ));
+    }
+
   }
 }

@@ -1,17 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:otp_text_field/style.dart';
 import 'package:sakkeny/screens/forget_password/forget3.dart';
 
-class ForgetTwo extends StatelessWidget {
+import 'package:otp_text_field/otp_text_field.dart';
+import 'package:sakkeny/screens/forget_password/timer.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class ForgetTwo extends StatefulWidget {
   static const String routeName = 'forget_two';
+
+  final String lastEmail ;
+
+  const ForgetTwo({Key? key, required this.lastEmail}) : super(key: key);
+
+  @override
+  State<ForgetTwo> createState() => _ForgetTwoState();
+}
+
+class _ForgetTwoState extends State<ForgetTwo> {
+  String x='';
+  final OtpFieldController _codeController=new OtpFieldController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   bool validate() {
     if (formKey.currentState!.validate()) {
       return true;
     } else {
       return false;
     }
+
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +65,7 @@ class ForgetTwo extends StatelessWidget {
                 children: [
                   Text(
                     'Forget Password',
+                    //'Forget Password',
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -82,372 +106,395 @@ class ForgetTwo extends StatelessWidget {
                 padding: EdgeInsets.all(30.0),
                 child: Form(
                   key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 20.0,
-                                    offset: Offset(0.0, 7),
-                                    //  spreadRadius: 50.0,
-                                  )
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Container(
-                                  color: Colors.white,
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.next,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                    ],
-                                    showCursor: false,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      errorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      focusedErrorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
-                                      hintText: "X",
-                                      hintStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    validator: (val){
-                                      if (val!.length == 0)
-                                        return "n";
-                                      else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
-                                        return "n";
-                                      else
-                                        return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Flexible(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 20.0,
-                                    offset: Offset(0.0, 7),
-                                    //  spreadRadius: 50.0,
-                                  )
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Container(
-                                  color: Colors.white,
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.next,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                    ],
-                                    showCursor: false,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      errorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      focusedErrorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
-                                      hintText: "X",
-                                      hintStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    validator: (val){
-                                      if (val!.length == 0)
-                                        return "n";
-                                      else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
-                                        return "n";
-                                      else
-                                        return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Flexible(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 20.0,
-                                    offset: Offset(0.0, 7),
-                                    //  spreadRadius: 50.0,
-                                  )
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Container(
-                                  color: Colors.white,
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.next,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                    ],
-                                    showCursor: false,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      errorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      focusedErrorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
-                                      hintText: "X",
-                                      hintStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    validator: (val){
-                                      if (val!.length == 0)
-                                        return "n";
-                                      else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
-                                        return "n";
-                                      else
-                                        return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Flexible(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 20.0,
-                                    offset: Offset(0.0, 7),
-                                    //  spreadRadius: 50.0,
-                                  )
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Container(
-                                  color: Colors.white,
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.next,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                    ],
-                                    showCursor: false,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      errorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      focusedErrorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
-                                      hintText: "X",
-                                      hintStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    validator: (val){
-                                      if (val!.length == 0)
-                                        return "n";
-                                      else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
-                                        return "n";
-                                      else
-                                        return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Flexible(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 20.0,
-                                    offset: Offset(0.0, 7),
-                                    //  spreadRadius: 50.0,
-                                  )
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Container(
-                                  color: Colors.white,
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.next,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                    ],
-                                    showCursor: false,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      errorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      focusedErrorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
-                                      hintText: "X",
-                                      hintStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    validator: (val){
-                                      if (val!.length == 0)
-                                        return "n";
-                                      else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
-                                        return "n";
-                                      else
-                                        return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Flexible(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 20.0,
-                                    offset: Offset(0.0, 7),
-                                    //  spreadRadius: 50.0,
-                                  )
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Container(
-                                  color: Colors.white,
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.next,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                    ],
-                                    showCursor: false,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      errorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      focusedErrorBorder: new OutlineInputBorder(
-                                        borderSide: new BorderSide(
-                                            color: Colors.white, width: 0.0),
-                                      ),
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
-                                      hintText: "X",
-                                      hintStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    validator: (val){
-                                      if (val!.length == 0)
-                                        return "n";
-                                      else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
-                                        return "n";
-                                      else
-                                        return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  child:OTPTextField(
+                    controller: _codeController,
+                      length: 6,
+                      width: 270,
+                      fieldWidth:45 ,
+                      style: TextStyle(fontSize: 17),
+                      textFieldAlignment: MainAxisAlignment.spaceAround,
+                      fieldStyle: FieldStyle.box,
+                      otpFieldStyle: OtpFieldStyle(
+                      borderColor: Color(0xff1f95a1),
+                      enabledBorderColor: Color(0xff1f95a1),
+                      focusBorderColor: Color(0xff1f95a1),
+                        errorBorderColor:Colors.red,
+
+                       ),
+
+                      onCompleted: (pin) {
+                        print("Completed: " + pin);
+                         x =pin;
+                      },
+
                   ),
+                  // child:Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       crossAxisAlignment: CrossAxisAlignment.center,
+                  //       children: [
+                  //         Flexible(
+                  //           child: Container(
+                  //             decoration: BoxDecoration(
+                  //               boxShadow: <BoxShadow>[
+                  //                 BoxShadow(
+                  //                   color: Colors.black26,
+                  //                   blurRadius: 20.0,
+                  //                   offset: Offset(0.0, 7),
+                  //                   //  spreadRadius: 50.0,
+                  //                 )
+                  //               ],
+                  //             ),
+                  //             child: ClipRRect(
+                  //               borderRadius: BorderRadius.circular(15.0),
+                  //               child: Container(
+                  //                 color: Colors.white,
+                  //                 child: TextFormField(
+                  //                   keyboardType: TextInputType.number,
+                  //                   textInputAction: TextInputAction.next,
+                  //                   inputFormatters: [
+                  //                     LengthLimitingTextInputFormatter(1),
+                  //                   ],
+                  //                   showCursor: false,
+                  //                   textAlign: TextAlign.center,
+                  //                   decoration: InputDecoration(
+                  //                     errorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     focusedErrorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     enabledBorder: InputBorder.none,
+                  //                     focusedBorder: OutlineInputBorder(
+                  //                       borderSide:
+                  //                           BorderSide(color: Colors.white),
+                  //                     ),
+                  //                     hintText: "X",
+                  //                     hintStyle: TextStyle(
+                  //                       fontWeight: FontWeight.bold,
+                  //                     ),
+                  //                   ),
+                  //                   validator: (val){
+                  //                     if (val!.length == 0)
+                  //                       return "n";
+                  //                     else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
+                  //                       return "n";
+                  //                     else
+                  //                       return null;
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 5,
+                  //         ),
+                  //         Flexible(
+                  //           child: Container(
+                  //             decoration: BoxDecoration(
+                  //               boxShadow: <BoxShadow>[
+                  //                 BoxShadow(
+                  //                   color: Colors.black26,
+                  //                   blurRadius: 20.0,
+                  //                   offset: Offset(0.0, 7),
+                  //                   //  spreadRadius: 50.0,
+                  //                 )
+                  //               ],
+                  //             ),
+                  //             child: ClipRRect(
+                  //               borderRadius: BorderRadius.circular(15.0),
+                  //               child: Container(
+                  //                 color: Colors.white,
+                  //                 child: TextFormField(
+                  //                   keyboardType: TextInputType.number,
+                  //                   textInputAction: TextInputAction.next,
+                  //                   inputFormatters: [
+                  //                     LengthLimitingTextInputFormatter(1),
+                  //                   ],
+                  //                   showCursor: false,
+                  //                   textAlign: TextAlign.center,
+                  //                   decoration: InputDecoration(
+                  //                     errorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     focusedErrorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     enabledBorder: InputBorder.none,
+                  //                     focusedBorder: OutlineInputBorder(
+                  //                       borderSide:
+                  //                           BorderSide(color: Colors.white),
+                  //                     ),
+                  //                     hintText: "X",
+                  //                     hintStyle: TextStyle(
+                  //                       fontWeight: FontWeight.bold,
+                  //                     ),
+                  //                   ),
+                  //                   validator: (val){
+                  //                     if (val!.length == 0)
+                  //                       return "n";
+                  //                     else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
+                  //                       return "n";
+                  //                     else
+                  //                       return null;
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 5,
+                  //         ),
+                  //         Flexible(
+                  //           child: Container(
+                  //             decoration: BoxDecoration(
+                  //               boxShadow: <BoxShadow>[
+                  //                 BoxShadow(
+                  //                   color: Colors.black26,
+                  //                   blurRadius: 20.0,
+                  //                   offset: Offset(0.0, 7),
+                  //                   //  spreadRadius: 50.0,
+                  //                 )
+                  //               ],
+                  //             ),
+                  //             child: ClipRRect(
+                  //               borderRadius: BorderRadius.circular(15.0),
+                  //               child: Container(
+                  //                 color: Colors.white,
+                  //                 child: TextFormField(
+                  //                   keyboardType: TextInputType.number,
+                  //                   textInputAction: TextInputAction.next,
+                  //                   inputFormatters: [
+                  //                     LengthLimitingTextInputFormatter(1),
+                  //                   ],
+                  //                   showCursor: false,
+                  //                   textAlign: TextAlign.center,
+                  //                   decoration: InputDecoration(
+                  //                     errorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     focusedErrorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     enabledBorder: InputBorder.none,
+                  //                     focusedBorder: OutlineInputBorder(
+                  //                       borderSide:
+                  //                           BorderSide(color: Colors.white),
+                  //                     ),
+                  //                     hintText: "X",
+                  //                     hintStyle: TextStyle(
+                  //                       fontWeight: FontWeight.bold,
+                  //                     ),
+                  //                   ),
+                  //                   validator: (val){
+                  //                     if (val!.length == 0)
+                  //                       return "n";
+                  //                     else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
+                  //                       return "n";
+                  //                     else
+                  //                       return null;
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 5,
+                  //         ),
+                  //         Flexible(
+                  //           child: Container(
+                  //             decoration: BoxDecoration(
+                  //               boxShadow: <BoxShadow>[
+                  //                 BoxShadow(
+                  //                   color: Colors.black26,
+                  //                   blurRadius: 20.0,
+                  //                   offset: Offset(0.0, 7),
+                  //                   //  spreadRadius: 50.0,
+                  //                 )
+                  //               ],
+                  //             ),
+                  //             child: ClipRRect(
+                  //               borderRadius: BorderRadius.circular(15.0),
+                  //               child: Container(
+                  //                 color: Colors.white,
+                  //                 child: TextFormField(
+                  //                   keyboardType: TextInputType.number,
+                  //                   textInputAction: TextInputAction.next,
+                  //                   inputFormatters: [
+                  //                     LengthLimitingTextInputFormatter(1),
+                  //                   ],
+                  //                   showCursor: false,
+                  //                   textAlign: TextAlign.center,
+                  //                   decoration: InputDecoration(
+                  //                     errorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     focusedErrorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     enabledBorder: InputBorder.none,
+                  //                     focusedBorder: OutlineInputBorder(
+                  //                       borderSide:
+                  //                           BorderSide(color: Colors.white),
+                  //                     ),
+                  //                     hintText: "X",
+                  //                     hintStyle: TextStyle(
+                  //                       fontWeight: FontWeight.bold,
+                  //                     ),
+                  //                   ),
+                  //                   validator: (val){
+                  //                     if (val!.length == 0)
+                  //                       return "n";
+                  //                     else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
+                  //                       return "n";
+                  //                     else
+                  //                       return null;
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 5,
+                  //         ),
+                  //         Flexible(
+                  //           child: Container(
+                  //             decoration: BoxDecoration(
+                  //               boxShadow: <BoxShadow>[
+                  //                 BoxShadow(
+                  //                   color: Colors.black26,
+                  //                   blurRadius: 20.0,
+                  //                   offset: Offset(0.0, 7),
+                  //                   //  spreadRadius: 50.0,
+                  //                 )
+                  //               ],
+                  //             ),
+                  //             child: ClipRRect(
+                  //               borderRadius: BorderRadius.circular(15.0),
+                  //               child: Container(
+                  //                 color: Colors.white,
+                  //                 child: TextFormField(
+                  //                   keyboardType: TextInputType.number,
+                  //                   textInputAction: TextInputAction.next,
+                  //                   inputFormatters: [
+                  //                     LengthLimitingTextInputFormatter(1),
+                  //                   ],
+                  //                   showCursor: false,
+                  //                   textAlign: TextAlign.center,
+                  //                   decoration: InputDecoration(
+                  //                     errorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     focusedErrorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     enabledBorder: InputBorder.none,
+                  //                     focusedBorder: OutlineInputBorder(
+                  //                       borderSide:
+                  //                           BorderSide(color: Colors.white),
+                  //                     ),
+                  //                     hintText: "X",
+                  //                     hintStyle: TextStyle(
+                  //                       fontWeight: FontWeight.bold,
+                  //                     ),
+                  //                   ),
+                  //                   validator: (val){
+                  //                     if (val!.length == 0)
+                  //                       return "n";
+                  //                     else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
+                  //                       return "n";
+                  //                     else
+                  //                       return null;
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 5,
+                  //         ),
+                  //         Flexible(
+                  //           child: Container(
+                  //             decoration: BoxDecoration(
+                  //               boxShadow: <BoxShadow>[
+                  //                 BoxShadow(
+                  //                   color: Colors.black26,
+                  //                   blurRadius: 20.0,
+                  //                   offset: Offset(0.0, 7),
+                  //                   //  spreadRadius: 50.0,
+                  //                 )
+                  //               ],
+                  //             ),
+                  //             child: ClipRRect(
+                  //               borderRadius: BorderRadius.circular(15.0),
+                  //               child: Container(
+                  //                 color: Colors.white,
+                  //                 child: TextFormField(
+                  //                   keyboardType: TextInputType.number,
+                  //                   textInputAction: TextInputAction.next,
+                  //                   inputFormatters: [
+                  //                     LengthLimitingTextInputFormatter(1),
+                  //                   ],
+                  //                   showCursor: false,
+                  //                   textAlign: TextAlign.center,
+                  //                   decoration: InputDecoration(
+                  //                     errorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     focusedErrorBorder: new OutlineInputBorder(
+                  //                       borderSide: new BorderSide(
+                  //                           color: Colors.white, width: 0.0),
+                  //                     ),
+                  //                     enabledBorder: InputBorder.none,
+                  //                     focusedBorder: OutlineInputBorder(
+                  //                       borderSide:
+                  //                           BorderSide(color: Colors.white),
+                  //                     ),
+                  //                     hintText: "X",
+                  //                     hintStyle: TextStyle(
+                  //                       fontWeight: FontWeight.bold,
+                  //                     ),
+                  //                   ),
+                  //                   validator: (val){
+                  //                     if (val!.length == 0)
+                  //                       return "n";
+                  //                     else if (!val.contains("0") &&!val.contains("1")&& !val.contains("2") &&!val.contains("3")&&!val.contains("4") &&!val.contains("5")&& !val.contains("6") &&!val.contains("7")&&!val.contains("8") &&!val.contains("9"))
+                  //                       return "n";
+                  //                     else
+                  //                       return null;
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
                 ),
               ),
+              TimerComponent(lastEmail: widget.lastEmail,),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 40),
@@ -464,8 +511,8 @@ class ForgetTwo extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      if(validate()){
-                      Navigator.pushNamed(context, ForgetThree.routeName);}
+                      print(x);
+                        getPassword(x);
                     },
                   ),
                 ),
@@ -475,5 +522,33 @@ class ForgetTwo extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future<void> getPassword(code) async {
+    Map data = {
+      'codeNumber': code,
+    };
+    print(data.toString());
+      Response response = await http.post(
+        Uri.parse('https://graduation-api.herokuapp.com/admin/postReset'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(data),
+      );
+      var _data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print(_data['message']);
+        print('code send to this gmail');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Code send")));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => ForgetThree(code: code,)), (route) => false);
+      } else {
+        print(_data['message']);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Wrong Email"),
+        ));
+      }
+
   }
 }

@@ -2,11 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sakkeny/widget/bottomBar.dart';
-import 'package:sakkeny/homeScreens/userProf.dart';
 import 'package:provider/provider.dart';
 import 'package:sakkeny/provider/user.dart';
 import 'package:sakkeny/provider/users.dart';
+import 'package:sakkeny/homeScreens/userProf.dart';
+import 'package:provider/provider.dart';
+import 'package:sakkeny/provider/current_user.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:sakkeny/screens/forget_password/forget1.dart';
+
 
 class EditProf extends StatefulWidget {
   static const String routeName = 'editProf';
@@ -17,7 +24,7 @@ class EditProf extends StatefulWidget {
 
 class _EditProfState extends State<EditProf> {
 
-  String gender ="Male";
+
   var _isInit=true;
   bool notvisible = true;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -37,59 +44,15 @@ class _EditProfState extends State<EditProf> {
 
     });
   }
-  // var _editProfCard=ProfCard(
-  //   id: '',
-  //   fName:'hamed',
-  //   lName:'ahmed',
-  //   gender:'0',
-  //   age:0,
-  //   email:'@gmail',
-  //   password:'***',
-  // );
-  // var _initvalues={
-  //   'fName':'hamed',
-  //   'lName':'ahmed',
-  //   'gender':'0',
-  //   'age':0,
-  //   'email':'@gmail',
-  //   'password':'***',
-  // };
-  // void _saveForm() {
-  //   final isValid = formKey.currentState!.validate();
-  //   if (!isValid) {
-  //     return;
-  //   }
-  //   formKey.currentState!.save();
-  //   if (_editProfCard.id != null) {
-  //     Provider.of<Profcards>(context, listen: false).updateProduct(
-  //         _editProfCard.id, _editProfCard);
-  //     Navigator.of(context).pop();
-  //   }
-  //   @override
-  //   void didChangeDependencies() {
-  //     if(_isInit){
-  //       final productId= ModalRoute.of(context)!.settings.arguments as String;
-  //       if(productId!=null){
-  //         _editProfCard=Provider.of<Profcards>(context,listen: false).findById(productId);
-  //         _initvalues={
-  //           'fName':_editProfCard.fName,
-  //           'lName':_editProfCard.lName,
-  //           'gender':_editProfCard.gender,
-  //           'age':_editProfCard.age,
-  //           'email':_editProfCard.email,
-  //           'password':_editProfCard.password,
-  //
-  //         };
-  //
-  //       }
-  //
-  //     }
-  //     _isInit=false;
-  //     super.didChangeDependencies();
-  //   }
+
+  TextEditingController fname = new TextEditingController();
+  TextEditingController lname = new TextEditingController();
+  //TextEditingController gender = new TextEditingController();
+  TextEditingController age = new TextEditingController();
 
     @override
     Widget build (BuildContext context) {
+      final currentUser = Provider.of<CurrentUserData>(context,listen: false);
       return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -257,7 +220,9 @@ class _EditProfState extends State<EditProf> {
                                 color: Color(0xff1f95a1),
                               ),
                               title: TextFormField(
+                               // initialValue: currentUser.currentUserDate.fName,
                                 textInputAction: TextInputAction.next,
+                                controller: fname,
                                 decoration: InputDecoration(
                                   errorBorder: new OutlineInputBorder(
                                     borderSide: new BorderSide(
@@ -271,7 +236,7 @@ class _EditProfState extends State<EditProf> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   ),
-                                  hintText: "hamed",
+                                  hintText: "first name",
                                 ),
                                 validator: (val) {
                                   if (val!.length == 0)
@@ -320,6 +285,8 @@ class _EditProfState extends State<EditProf> {
                                 color: Color(0xff1f95a1),
                               ),
                               title: TextFormField(
+                                controller: lname,
+                               // initialValue: currentUser.currentUserDate.lName,
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   errorBorder: new OutlineInputBorder(
@@ -334,7 +301,7 @@ class _EditProfState extends State<EditProf> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   ),
-                                  hintText: "Ahmed",
+                                  hintText: "last name",
                                 ),
                                 validator: (val) {
                                   if (val!.length == 0)
@@ -376,7 +343,8 @@ class _EditProfState extends State<EditProf> {
                                   suffixIcon: PopupMenuButton(
                                     onSelected: (v) {
                                       setState(() {
-                                        gender = v.toString();
+                                        currentUser.currentUserDate.gender = v.toString();
+                                        print(currentUser.currentUserDate.gender);
                                       });
                                     },
                                     itemBuilder: (context) =>
@@ -403,7 +371,7 @@ class _EditProfState extends State<EditProf> {
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(color: Colors.grey),
                                   ),
-                                  hintText: gender,
+                                  hintText: currentUser.currentUserDate.gender,
 
                                 ),
                               ),
@@ -432,6 +400,8 @@ class _EditProfState extends State<EditProf> {
                                 color: Color(0xff1f95a1),
                               ),
                               title: TextFormField(
+                                controller: age,
+                               // initialValue: currentUser.currentUserDate.age,
                                 keyboardType: TextInputType.number,
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
@@ -447,7 +417,7 @@ class _EditProfState extends State<EditProf> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   ),
-                                  hintText: "hamed",
+                                  hintText: "Age",
                                 ),
                                 validator: (val) {
                                   if (val!.length == 0)
@@ -461,57 +431,7 @@ class _EditProfState extends State<EditProf> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 25.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Email Address',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Card(
-                            child: ListTile(
-                              leading: Icon(
-                                Icons.email,
-                                color: Color(0xff1f95a1),
-                              ),
-                              title: TextFormField(
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: InputDecoration(
-                                  errorBorder: new OutlineInputBorder(
-                                    borderSide: new BorderSide(
-                                        color: Colors.white, width: 0.0),
-                                  ),
-                                  focusedErrorBorder: new OutlineInputBorder(
-                                    borderSide: new BorderSide(
-                                        color: Colors.white, width: 0.0),
-                                  ),
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                  ),
-                                  hintText: "hamed",
-                                ),
-                                validator: (val) {
-                                  if (val!.length == 0)
-                                    return "Please enter email";
-                                  else if (!val.contains("@"))
-                                    return "Please enter valid email";
-                                  else
-                                    return null;
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 25.0),
@@ -532,6 +452,8 @@ class _EditProfState extends State<EditProf> {
                                 color: Color(0xff1f95a1),
                               ),
                               title: TextFormField(
+                                initialValue: "******",
+                                readOnly: true,
                                 textInputAction: TextInputAction.done,
                                 obscureText: notvisible,
                                 keyboardType: TextInputType.visiblePassword,
@@ -546,19 +468,10 @@ class _EditProfState extends State<EditProf> {
                                   ),
                                   suffixIcon: IconButton(
                                     onPressed: () {
-                                      setState(() {
-                                        notvisible = !notvisible;
-                                      });
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(builder: (context) => ForgetOne()), (route) => false);
                                     },
-                                    icon: notvisible
-                                        ? Icon(
-                                      Icons.visibility,
-                                      color: Color(0xff1f95a1),
-                                    )
-                                        : Icon(
-                                      Icons.visibility_off,
-                                      color: Color(0xff1f95a1),
-                                    ),
+                                    icon: Icon(Icons.edit,color: Color(0xff1f95a1),)
                                   ),
                                   enabledBorder: InputBorder.none,
                                   //  labelText: "Enter Your  First Name",
@@ -572,14 +485,9 @@ class _EditProfState extends State<EditProf> {
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(color: Colors.grey),
                                   ),
-                                  hintText: "Enter Your Password",
+
                                 ),
-                                validator: (val) {
-                                  if (val!.length == 0)
-                                    return "Please enter password";
-                                  else
-                                    return null;
-                                },
+
                               ),
                             ),
                           ),
@@ -602,8 +510,10 @@ class _EditProfState extends State<EditProf> {
                             ),
                           ),
                           onPressed: () {
-                            validate();
-                            // _saveForm();
+                           if( validate())
+                             {
+                               updateUser(fname.text, lname.text,currentUser.currentUserDate.gender , age.text);
+                             }
                           },
                         ),
                       ),
@@ -616,6 +526,48 @@ class _EditProfState extends State<EditProf> {
         ),
       );
     }
+  Future<void> updateUser(fname, lname,gender,age) async {
+    final currentUser = Provider.of<CurrentUserData>(context,listen: false);
+    Map data = {
+      "FName": fname,
+      "LName" :lname ,
+      "Gmail": currentUser.currentUserDate.email,
+      "Gender": gender,
+      "Age": age,
+      "Password": currentUser.currentUserDate.password,
+    };
+    print(data.toString());
+    Response response = await http.post(
+      Uri.parse('https://graduation-api.herokuapp.com/admin/updateUser/${currentUser.currentUserDate.id}'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(data),
+    );
+    var _data = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      print(_data['message']);
+      Map<String, dynamic> user = _data['user'];
+      currentUser.currentuserdata(CurrentUser(
+          fName: user['Fname'],
+          lName: user['Lname'],
+          gender: user['gender'],
+          age: user['age'],
+          email: user['gmail'],
+          password: user['password'],
+          id: user['_id']));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("User Updated")));
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => UserProf()), (route) => false);
+    } else {
+      print(_data['message']);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Wrong !"),
+      ));
+    }
+
+  }
   }
 //
 //   @override

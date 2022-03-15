@@ -1,10 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:sakkeny/screens/forget_password/forget2.dart';
 
-class ForgetOne extends StatelessWidget {
+class ForgetOne extends StatefulWidget {
   static const String routeName = 'forger_one';
+
+  @override
+  State<ForgetOne> createState() => _ForgetOneState();
+}
+
+class _ForgetOneState extends State<ForgetOne> {
+ final TextEditingController _emailController=new TextEditingController();
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   bool validate() {
     if (formKey.currentState!.validate()) {
       return true;
@@ -15,6 +28,7 @@ class ForgetOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -109,6 +123,7 @@ class ForgetOne extends StatelessWidget {
                         child: Container(
                           color: Colors.white,
                           child: TextFormField(
+                            controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                               errorBorder: new OutlineInputBorder(
@@ -162,9 +177,7 @@ class ForgetOne extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      if (validate()) {
-                        Navigator.pushNamed(context, ForgetTwo.routeName);
-                      }
+                        resetPassword(_emailController.text);
                     },
                   ),
                 ),
@@ -175,4 +188,43 @@ class ForgetOne extends StatelessWidget {
       ),
     );
   }
+  Future<void> resetPassword(email) async {
+    Map data = {
+      'gmail': email,
+    };
+    print(data.toString());
+    if (_emailController.text.isNotEmpty && validate()) {
+      Response response = await http.post(
+        Uri.parse('https://graduation-api.herokuapp.com/admin/resetPassword'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(data),
+      );
+      var _data = jsonDecode(response.body);
+
+      // Map<String, dynamic> user = _data['user'];
+      //
+
+      print(_data['codeNumber']);
+      // print(_data);
+      if (response.statusCode == 200) {
+        print(_data['message']);
+        print('code send to this gmail');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Code send")));
+        // saveLoginPref(token: _data['token'],email: user['email'],fullname: user['fullname']);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => ForgetTwo(lastEmail: _emailController.text,)), (route) => false);
+        //  print(user['fullname']);
+      } else {
+        print(_data['message']);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Wrong Email"),
+        ));
+      }
+    }
+  }
 }
+
+
