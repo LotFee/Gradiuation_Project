@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 class CurrentUser with ChangeNotifier {
@@ -8,6 +10,7 @@ class CurrentUser with ChangeNotifier {
   String email;
   String password;
   String id;
+  String img;
 
   CurrentUser(
       {required this.fName,
@@ -16,6 +19,7 @@ class CurrentUser with ChangeNotifier {
       required this.age,
       required this.email,
       required this.password,
+        required this.img,
       required this.id});
 }
 
@@ -27,6 +31,7 @@ class CurrentUserData with ChangeNotifier {
       age: "",
       email: "",
       password: "",
+   img: "",
       id: "");
 
   CurrentUser get currentUserDate {
@@ -41,6 +46,9 @@ class CurrentUserData with ChangeNotifier {
     _currentUser.age = c.age;
     _currentUser.email = c.email;
     _currentUser.password = c.password;
+    _currentUser.img=c.img;
+
     notifyListeners();
   }
+
 }

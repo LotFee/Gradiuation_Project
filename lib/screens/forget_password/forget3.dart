@@ -35,18 +35,10 @@ class _ForgetThreeState extends State<ForgetThree> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backwardsCompatibility: false,
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_sharp,
-            size: 25,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          color: Color(0xff1f95a1),
-        ),
+
         systemOverlayStyle:
             SystemUiOverlayStyle(statusBarColor: Color(0xff1f95a1)),
       ),

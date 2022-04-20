@@ -172,6 +172,7 @@ class FlatItem extends StatelessWidget {
                                       Icon(
                                         flat.isFav? Icons.favorite :  Icons.favorite_border,
                                         color: Color(0xff1f95a1),
+
                                       ),
                                       SizedBox(
                                         width: 5,

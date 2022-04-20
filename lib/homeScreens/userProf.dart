@@ -42,7 +42,7 @@ class UserProf extends StatelessWidget {
               Stack(
                 children: [
                   CircleAvatar(
-                    backgroundImage: AssetImage('images/startScreen.png'),
+                    backgroundImage:   NetworkImage(currentUser.currentUserDate.img) ,
                     radius: 70,
                   ),
                 ],

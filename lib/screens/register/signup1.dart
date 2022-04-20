@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sakkeny/provider/user.dart';
+import 'package:sakkeny/provider/user_image.dart';
 import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/screens/register/signUp2.dart';
 import 'package:sakkeny/widget/pickImage.dart';
 import 'package:provider/provider.dart';
+
 
 
 
@@ -35,9 +37,12 @@ class _SignUp1State extends State<SignUp1> {
   File ?   file;
 
   Future pickerCamera(int index)async {
+
     final myfile = await ImagePicker().pickImage(source: index==0  ? ImageSource.camera : ImageSource.gallery);
     setState(() {
       file =File(myfile!.path);
+      print(file!.path);
+
 
     });
   }
@@ -50,6 +55,7 @@ class _SignUp1State extends State<SignUp1> {
   @override
   Widget build(BuildContext context) {
     final adduser = Provider.of<Users>(context);
+    final userImage = Provider.of<CurrentUserImage>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -183,13 +189,12 @@ class _SignUp1State extends State<SignUp1> {
               Stack(
                  children: [
                    CircleAvatar(
-                     backgroundColor: Colors.white,
+                    // backgroundColor: Colors.white,
                         radius: 70,
-                     child: ClipRRect(
-                       child: file==null ? Image.asset('images/logo_login.png') : Image.file(file!,fit: BoxFit.fill,),
-                       borderRadius: BorderRadius.circular(60.0),
-
-                   ),),
+                     backgroundImage: AssetImage('images/logo_login.png') ,
+                     foregroundImage: file ==null  ? null :  FileImage(file!),
+                    // child: file==null ? Image.asset('images/logo_login.png') : Image.file(file!,fit: BoxFit.fill,),
+                   ),
                    Positioned(
                        top: 90,
                        left: 95,
@@ -418,6 +423,7 @@ class _SignUp1State extends State<SignUp1> {
                          borderRadius: BorderRadius.circular(10)), // foreground
                      onPressed: () {
                        if(validate()){
+                         userImage.currentUserImage.image=file;
                           adduser.updateUser1(firstName.text, lastName.text);
                          Navigator.push(context,PageRouteBuilder(
                            pageBuilder: (context, animation1, animation2) => SignUp2(),

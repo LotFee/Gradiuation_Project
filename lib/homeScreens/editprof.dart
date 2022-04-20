@@ -552,6 +552,7 @@ class _EditProfState extends State<EditProf> {
           fName: user['Fname'],
           lName: user['Lname'],
           gender: user['gender'],
+          img: user['url'],
           age: user['age'],
           email: user['gmail'],
           password: user['password'],

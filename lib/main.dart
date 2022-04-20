@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sakkeny/provider/current_user.dart';
+import 'package:sakkeny/provider/user_image.dart';
 import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=>Users() ),
 
         ChangeNotifierProvider(create: (_)=>CurrentUserData() ),
+        ChangeNotifierProvider(create: (_)=>CurrentUserImage() ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

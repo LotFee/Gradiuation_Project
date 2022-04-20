@@ -11,6 +11,7 @@ import 'package:sakkeny/homeScreens/Home.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
 
@@ -347,8 +348,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             context: context,
                             barrierDismissible: false,
                             builder: (context) => SpinKitHourGlass(
-                                  color: Color(0xFF1F95A1),
-                                ));
+                              color: Color(0xFF1F95A1),
+                            ));
 
                         login(_emailController.text, _passwordController.text);
                         setState(() {
@@ -387,7 +388,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> login(email, password) async {
-    final currentuser = Provider.of<CurrentUserData>(context,listen: false);
+    final currentuser = Provider.of<CurrentUserData>(context, listen: false);
+
     Map data = {
       'Gmail': email,
       'password': password,
@@ -412,9 +414,11 @@ class _LoginScreenState extends State<LoginScreen> {
           age: user['age'],
           email: user['gmail'],
           password: user['password'],
+          img: user['url'],
           id: user['_id']));
       print(user['gmail']);
       print(_data);
+
       if (response.statusCode == 200) {
         print('Sign in success');
         ScaffoldMessenger.of(context)
@@ -427,6 +431,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Wrong Email or Password"),
         ));
+
       }
     }
   }

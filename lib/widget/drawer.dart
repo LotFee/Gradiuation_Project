@@ -5,6 +5,7 @@ import 'package:sakkeny/screens/drawer/about us.dart';
 import 'package:sakkeny/screens/drawer/booking.dart';
 import 'package:sakkeny/screens/drawer/complaints.dart';
 import 'package:sakkeny/screens/drawer/terms and conditions.dart';
+import 'package:sakkeny/screens/login_screen.dart';
 class myDrawer extends StatelessWidget {
   const myDrawer({
     Key? key,
@@ -126,7 +127,8 @@ class myDrawer extends StatelessWidget {
                   tileColor: Color(0xfff1f1f1),
                   leading: Icon(Icons.login_outlined,color:Color(0xff1f95a1) ,),
                   onTap: (){
-
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
                   },
                   title: Text(
                     'Log Out',

@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sakkeny/provider/current_user.dart';
+import 'package:sakkeny/provider/user_image.dart';
 import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/screens/register/signUp4.dart';
 import 'package:sakkeny/screens/register/signUp2.dart';
 import 'package:http/http.dart'as http;
 import 'dart:convert';
+import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart';
+
+import 'package:async/async.dart';
 
 
 class SignUp3 extends StatefulWidget {
@@ -170,209 +176,209 @@ class _SignUp3State extends State<SignUp3> {
                 child: Form(
                     key: formKey,
                     child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("E-Mail Address",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,letterSpacing: 2),),
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 20.0,
-                                offset: Offset(0.0, 7),
-                                //  spreadRadius: 50.0,
-                              )
-                            ],
-                          ),
-
-                          child: Container(
-                            color: Colors.white,
-                            child: TextFormField(
-                              controller: email,
-                              keyboardType: TextInputType.emailAddress,
-                              textInputAction: TextInputAction.next,
-
-                              decoration: InputDecoration(
-                                errorBorder: new OutlineInputBorder(
-                                  borderSide: new BorderSide(
-                                      color: Colors.white, width: 0.0),
-                                ),
-                                focusedErrorBorder: new OutlineInputBorder(
-                                  borderSide: new BorderSide(
-                                      color: Colors.white, width: 0.0),
-                                ),
-                                enabledBorder: InputBorder.none,
-                                prefixIcon: Icon( Icons.email,color: Color(0xff1f95a1),),
-                                labelStyle: TextStyle(color: Color(0xff1f95a1)),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.grey  ),
-                                ),
-                                hintText: "Enter Your Email",
-
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("E-Mail Address",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,letterSpacing: 2),),
+                            Container(
+                              decoration: BoxDecoration(
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 20.0,
+                                    offset: Offset(0.0, 7),
+                                    //  spreadRadius: 50.0,
+                                  )
+                                ],
                               ),
-                              validator: (val) {
-                                if (val!.length == 0)
-                                  return "Please enter email";
-                                else if (!val.contains("@"))
-                                  return "Please enter valid email";
-                                else
-                                  return null;
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,letterSpacing: 2),),
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 20.0,
-                                offset: Offset(0.0, 7),
-                                //  spreadRadius: 50.0,
-                              )
-                            ],
-                          ),
 
-                          child: Container(
-                            color: Colors.white,
-                            child: TextFormField(
-                              controller: password,
+                              child: Container(
+                                color: Colors.white,
+                                child: TextFormField(
+                                  controller: email,
+                                  keyboardType: TextInputType.emailAddress,
+                                  textInputAction: TextInputAction.next,
 
-                              textInputAction: TextInputAction.next,
-                              obscureText: notvisible ,
-                              keyboardType: TextInputType.visiblePassword,
+                                  decoration: InputDecoration(
+                                    errorBorder: new OutlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color: Colors.white, width: 0.0),
+                                    ),
+                                    focusedErrorBorder: new OutlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color: Colors.white, width: 0.0),
+                                    ),
+                                    enabledBorder: InputBorder.none,
+                                    prefixIcon: Icon( Icons.email,color: Color(0xff1f95a1),),
+                                    labelStyle: TextStyle(color: Color(0xff1f95a1)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(color: Colors.grey  ),
+                                    ),
+                                    hintText: "Enter Your Email",
 
-                              decoration: InputDecoration(
-                                errorBorder: new OutlineInputBorder(
-                                  borderSide: new BorderSide(
-                                      color: Colors.white, width: 0.0),
+                                  ),
+                                  validator: (val) {
+                                    if (val!.length == 0)
+                                      return "Please enter email";
+                                    else if (!val.contains("@"))
+                                      return "Please enter valid email";
+                                    else
+                                      return null;
+                                  },
                                 ),
-                                focusedErrorBorder: new OutlineInputBorder(
-                                  borderSide: new BorderSide(
-                                      color: Colors.white, width: 0.0),
-                                ),
-                                suffixIcon: IconButton(onPressed: (){
-                                  setState(() {
-                                    notvisible = !notvisible;
-                                  });
-                                },icon:  notvisible ? Icon(Icons.visibility,color: Color(0xff1f95a1),) : Icon(Icons.visibility_off,color: Color(0xff1f95a1),),
-
-                                ),
-                                enabledBorder: InputBorder.none,
-                                prefixIcon: Icon( Icons.lock,color: Color(0xff1f95a1),),
-                                //  labelText: "Enter Your  First Name",
-                                labelStyle: TextStyle(color: Color(0xff1f95a1)),
-                                focusedBorder: OutlineInputBorder(
-
-                                  // borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.white ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.grey  ),
-                                ),
-                                hintText: "Enter Your Password",
-
                               ),
-                              validator: (val) {
-                                pass1=val;
-                                if (val!.length == 0)
-                                  return "Please enter password";
-                                else if (val.length <5 )
-                                  return "password must be at least 6 ";
-                                else
-                                  return null;
-                              },
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 30,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Confirm Password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,letterSpacing: 2),),
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 20.0,
-                                offset: Offset(0.0, 7),
-                                //  spreadRadius: 50.0,
-                              )
-                            ],
-                          ),
-
-                          child: Container(
-                            color: Colors.white,
-                            child: TextFormField(
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: notvisible2,
-                              decoration: InputDecoration(
-                                errorBorder: new OutlineInputBorder(
-                                  borderSide: new BorderSide(
-                                      color: Colors.white, width: 0.0),
-                                ),
-                                focusedErrorBorder: new OutlineInputBorder(
-                                  borderSide: new BorderSide(
-                                      color: Colors.white, width: 0.0),
-                                ),
-                                suffixIcon: IconButton(onPressed: (){
-                                  setState(() {
-                                    notvisible2 = !notvisible2;
-                                  });
-                                },icon:  notvisible2 ? Icon(Icons.visibility,color: Color(0xff1f95a1),) : Icon(Icons.visibility_off,color: Color(0xff1f95a1),),
-
-                                ),
-                                enabledBorder: InputBorder.none,
-                                prefixIcon: Icon( Icons.lock,color: Color(0xff1f95a1),),
-                                //  labelText: "Enter Your  First Name",
-                                labelStyle: TextStyle(color: Color(0xff1f95a1)),
-                                focusedBorder: OutlineInputBorder(
-
-                                  // borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.white ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.grey  ),
-                                ),
-                                hintText: "Confirm Your Password",
-
+                        SizedBox(height: 30,),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,letterSpacing: 2),),
+                            Container(
+                              decoration: BoxDecoration(
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 20.0,
+                                    offset: Offset(0.0, 7),
+                                    //  spreadRadius: 50.0,
+                                  )
+                                ],
                               ),
-                              validator: (val) {
-                                pass2=val;
-                                if (val!.length == 0)
-                                  return "Please confirm your password";
-                                else if(pass1 != pass2)
-                                  return "password not the same";
-                                else
-                                  return null;
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
 
-                  ],
-                )),
+                              child: Container(
+                                color: Colors.white,
+                                child: TextFormField(
+                                  controller: password,
+
+                                  textInputAction: TextInputAction.next,
+                                  obscureText: notvisible ,
+                                  keyboardType: TextInputType.visiblePassword,
+
+                                  decoration: InputDecoration(
+                                    errorBorder: new OutlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color: Colors.white, width: 0.0),
+                                    ),
+                                    focusedErrorBorder: new OutlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color: Colors.white, width: 0.0),
+                                    ),
+                                    suffixIcon: IconButton(onPressed: (){
+                                      setState(() {
+                                        notvisible = !notvisible;
+                                      });
+                                    },icon:  notvisible ? Icon(Icons.visibility,color: Color(0xff1f95a1),) : Icon(Icons.visibility_off,color: Color(0xff1f95a1),),
+
+                                    ),
+                                    enabledBorder: InputBorder.none,
+                                    prefixIcon: Icon( Icons.lock,color: Color(0xff1f95a1),),
+                                    //  labelText: "Enter Your  First Name",
+                                    labelStyle: TextStyle(color: Color(0xff1f95a1)),
+                                    focusedBorder: OutlineInputBorder(
+
+                                      // borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(color: Colors.white ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(color: Colors.grey  ),
+                                    ),
+                                    hintText: "Enter Your Password",
+
+                                  ),
+                                  validator: (val) {
+                                    pass1=val;
+                                    if (val!.length == 0)
+                                      return "Please enter password";
+                                    else if (val.length <5 )
+                                      return "password must be at least 6 ";
+                                    else
+                                      return null;
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30,),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Confirm Password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,letterSpacing: 2),),
+                            Container(
+                              decoration: BoxDecoration(
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 20.0,
+                                    offset: Offset(0.0, 7),
+                                    //  spreadRadius: 50.0,
+                                  )
+                                ],
+                              ),
+
+                              child: Container(
+                                color: Colors.white,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.visiblePassword,
+                                  obscureText: notvisible2,
+                                  decoration: InputDecoration(
+                                    errorBorder: new OutlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color: Colors.white, width: 0.0),
+                                    ),
+                                    focusedErrorBorder: new OutlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color: Colors.white, width: 0.0),
+                                    ),
+                                    suffixIcon: IconButton(onPressed: (){
+                                      setState(() {
+                                        notvisible2 = !notvisible2;
+                                      });
+                                    },icon:  notvisible2 ? Icon(Icons.visibility,color: Color(0xff1f95a1),) : Icon(Icons.visibility_off,color: Color(0xff1f95a1),),
+
+                                    ),
+                                    enabledBorder: InputBorder.none,
+                                    prefixIcon: Icon( Icons.lock,color: Color(0xff1f95a1),),
+                                    //  labelText: "Enter Your  First Name",
+                                    labelStyle: TextStyle(color: Color(0xff1f95a1)),
+                                    focusedBorder: OutlineInputBorder(
+
+                                      // borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(color: Colors.white ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(color: Colors.grey  ),
+                                    ),
+                                    hintText: "Confirm Your Password",
+
+                                  ),
+                                  validator: (val) {
+                                    pass2=val;
+                                    if (val!.length == 0)
+                                      return "Please confirm your password";
+                                    else if(pass1 != pass2)
+                                      return "password not the same";
+                                    else
+                                      return null;
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                      ],
+                    )),
               ),
               SizedBox(height: 50,),
               Padding(
@@ -400,21 +406,25 @@ class _SignUp3State extends State<SignUp3> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)), // foreground
                       onPressed: () {
+
                         if(validate())
-                          {
+                        {
 
-                            adduser.updateUser3(email.text, password.text);
-                            setState(() {
-                                fname = adduser.users[0].fName;
-                                lname = adduser.users[0].lName;
-                                gender = adduser.users[0].gender;
-                                age = adduser.users[0].age;
+                          adduser.updateUser3(email.text, password.text);
+                          setState(() {
+                            fname = adduser.users[0].fName;
+                            lname = adduser.users[0].lName;
+                            gender = adduser.users[0].gender;
+                            age = adduser.users[0].age;
 
-                            });
-                            signup(fname, lname, email.text, password.text, gender, age, password.text);
+                          });
+                         // signup(fname, lname, email.text, password.text, gender, age, password.text);
+                          final currentUserImagee = Provider.of<CurrentUserImage>(context,listen: false);
+                          signup4(fname: fname, lname: lname, email: email.text, gender: gender, age: age, password: password.text, cpassword: password.text, userImag: currentUserImagee.currentUserImage.image);
+                        //  signup4(fname, lname, email.text, password.text, gender, age, password.text, currentUserImagee.currentUserImage.image! );
 
 
-                          }
+                        }
 
                       },
                       child: Text("Next",style: TextStyle(color: Colors.white ,fontSize: 25),),
@@ -430,58 +440,224 @@ class _SignUp3State extends State<SignUp3> {
     );
 
   }
-  Future <void> signup(String fname,String lname,String email,String password,String gender, String age,String cpassword) async
-  {
-    Map data = {
-      'FName': fname,
-      'LName': lname,
-      'Gmail' : email,
-      'Gender' : gender,
-      'Age' : age,
-      'Password': password,
-      'CPassword':cpassword,
-    };
-    print(data.toString());
+  Future<void> signup4({
+    required String fname,
+    required String lname,
+    required String email,
+    required String gender,
+    required String age,
+    required String password,
+    required String cpassword,
+    required File? userImag,
+  }) async {
+    try {
+
+      var uri = Uri.parse('https://graduation-api.herokuapp.com/signUp');
+      var extension = userImag?.path.split('.').last;
+      print(extension);
+      var request = http.MultipartRequest('POST', uri)
+        ..fields['FName'] = fname
+        ..fields['LName'] = lname
+        ..fields['Gmail'] = email
+        ..fields['Gender'] = gender
+        ..fields['Age'] = age
+        ..fields['Password'] = password
+        ..fields['CPassword'] = cpassword;
+      if(userImag!= null ){
+        request.files.add(await http.MultipartFile.fromPath('file', userImag.path,
+            contentType: MediaType('image', 'jpg')));
+      }
 
 
-      Response response = await http.post(
-        Uri.parse('https://graduation-api.herokuapp.com/admin/adduser'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(data),
-      );
-      var _data = jsonDecode(response.body);
-    final currentUser = Provider.of<CurrentUserData>(context,listen: false);
+      var response = await request.send();
+      var jsonData = jsonDecode(await response.stream.bytesToString());
       if (response.statusCode == 200) {
-        print('Sign UP success');
-        Map<String, dynamic> user = _data['user'];
-        currentUser.currentuserdata(CurrentUser(
-            fName: user['Fname'],
-            lName: user['Lname'],
-            gender: user['gender'],
-            age: user['age'],
-            email: user['gmail'],
-            password: user['password'],
-            id: user['_id']));
+        print('Uploaded!');
+        print(jsonData);
+        final currentUser = Provider.of<CurrentUserData>(context,listen: false);
+            currentUser.currentuserdata(CurrentUser(
+                fName: jsonData['user']['Fname'],
+                lName: jsonData['user']['Lname'],
+                gender: jsonData['user']['gender'],
+                age: jsonData['user']['age'],
+                email: jsonData['user']['gmail'],
+                password: jsonData['user']['password'],
+                img:jsonData['user']['url'] ,
+                id: jsonData['user']['_id']));
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Account Created SuccessFully')),
-        );
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => SignUp4()), (route) => false);
-
-
-
-
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => SignUp4()), (route) => false);
+        print(json);
+      } else {
+        print("${response.statusCode}");
       }
-      else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(_data['message']),
-        ));
-
-      }
-
+    } catch (e) {
+      print(e.toString());
+    }
   }
+  // Future <void> signup3(String fname,String lname,String email,String password,String gender, String age,String cpassword, File userImg) async
+  // {
+  //
+  //   var uri = Uri.parse("https://graduation-api.herokuapp.com/signUp");
+  //   var request = new http.MultipartRequest("POST", uri);
+  //   print(userImg.path);
+  //  request.files.add(http.MultipartFile.fromBytes(userImg.path.split('/').last, await userImg.readAsBytes(),
+  //  ));
+  //
+  //   request.fields['FName'] = fname;
+  //   request.fields['LName'] = lname;
+  //   request.fields['Gmail'] = email;
+  //   request.fields['Gender'] = gender;
+  //   request.fields['Age'] = age;
+  //   request.fields['Password'] = password;
+  //   request.fields['CPassword'] = password;
+  //   var response = await request.send();
+  //   print(response.statusCode);
+  //   final respStr = await response.stream.bytesToString();
+  //   var jsonData = jsonDecode(respStr);
+  //   print(jsonData['user']);
+  //
+  //
+  //   if(response.statusCode==200){
+  //     final currentUser = Provider.of<CurrentUserData>(context,listen: false);
+  //     currentUser.currentuserdata(CurrentUser(
+  //         fName: jsonData['user']['Fname'],
+  //         lName: jsonData['user']['Lname'],
+  //         gender: jsonData['user']['gender'],
+  //         age: jsonData['user']['age'],
+  //         email: jsonData['user']['gmail'],
+  //         password: jsonData['user']['password'],
+  //         img:jsonData['user']['url'] ,
+  //         id: jsonData['user']['_id']));
+  //
+  //     Navigator.of(context).pushAndRemoveUntil(
+  //         MaterialPageRoute(builder: (context) => SignUp4()), (route) => false);
+  //   }
+  //   else {
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //       content: Text(jsonData['message']),
+  //     ));
+  //
+  //   }
+  //
+  //
+  // }
+  // Future <void> signup2(String fname,String lname,String email,String password,String gender, String age,String cpassword, File userImg) async
+  // {
+  //
+  //
+  //
+  //   var stream =
+  //   new http.ByteStream(DelegatingStream.typed(userImg.openRead()));
+  //   var length = await userImg.length();
+  //   var uri = Uri.parse("https://graduation-api.herokuapp.com/signUp");
+  //   var request = new http.MultipartRequest("POST", uri);
+  //   print(userImg.path);
+  //   var multipartFileSign = new http.MultipartFile('', stream, length,
+  //       filename: '');
+  //   request.files.add(multipartFileSign);
+  //   request.fields['FName'] = fname;
+  //   request.fields['LName'] = lname;
+  //   request.fields['Gmail'] = email;
+  //   request.fields['Gender'] = gender;
+  //   request.fields['Age'] = age;
+  //   request.fields['Password'] = password;
+  //   request.fields['CPassword'] = password;
+  //   var response = await request.send();
+  //   print(response.statusCode);
+  //   final respStr = await response.stream.bytesToString();
+  //   var jsonData = jsonDecode(respStr);
+  //   print(jsonData['user']);
+  //
+  //
+  //   if(response.statusCode==200){
+  //     final currentUser = Provider.of<CurrentUserData>(context,listen: false);
+  //       currentUser.currentuserdata(CurrentUser(
+  //           fName: jsonData['user']['Fname'],
+  //           lName: jsonData['user']['Lname'],
+  //           gender: jsonData['user']['gender'],
+  //           age: jsonData['user']['age'],
+  //           email: jsonData['user']['gmail'],
+  //           password: jsonData['user']['password'],
+  //           img:jsonData['user']['url'] ,
+  //           id: jsonData['user']['_id']));
+  //
+  //     Navigator.of(context).pushAndRemoveUntil(
+  //         MaterialPageRoute(builder: (context) => SignUp4()), (route) => false);
+  //   }
+  //   else {
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //       content: Text(jsonData['message']),
+  //     ));
+  //
+  //   }
+  //
+  //
+  // }
+
+//   Future <void> signup(String fname,String lname,String email,String password,String gender, String age,String cpassword) async
+//   {
+//     Map data = {
+//       'FName': fname,
+//       'LName': lname,
+//       'Gmail' : email,
+//       'Gender' : gender,
+//       'Age' : age,
+//       'Password': password,
+//       'CPassword':cpassword,
+//     };
+//     print(data.toString());
+//
+//
+//     Response response = await http.post(
+//       Uri.parse('https://graduation-api.herokuapp.com/signUp'),
+//       headers: <String, String>{
+//         'Content-Type': 'application/json; charset=UTF-8',
+//       },
+//       body: jsonEncode(data),
+//     );
+//     var _data = jsonDecode(response.body);
+//     print(response.statusCode);
+//
+//     //***************************************************
+//     final currentUserImagee = Provider.of<CurrentUserImage>(context,listen: false);
+//     http.MultipartRequest request = new http.MultipartRequest("POST", Uri.parse('https://graduation-api.herokuapp.com/signUp'));
+//     http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
+//         'file', currentUserImagee.currentUserImage.image!.path);
+//     request.files.add(multipartFile);
+//     http.StreamedResponse responseImage = await request.send();
+//     print(responseImage.statusCode);
+// //**********************************************************************************
+//     final currentUser = Provider.of<CurrentUserData>(context,listen: false);
+//     if (response.statusCode == 200 && responseImage.statusCode==200) {
+//       print('Sign UP success');
+//       Map<String, dynamic> user = _data['user'];
+//       currentUser.currentuserdata(CurrentUser(
+//           fName: user['Fname'],
+//           lName: user['Lname'],
+//           gender: user['gender'],
+//           age: user['age'],
+//           email: user['gmail'],
+//           password: user['password'],
+//           id: user['_id']));
+//
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         const SnackBar(content: Text('Account Created SuccessFully')),
+//       );
+//       Navigator.of(context).pushAndRemoveUntil(
+//           MaterialPageRoute(builder: (context) => SignUp4()), (route) => false);
+//
+//
+//
+//
+//     }
+//     else {
+//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//         content: Text(_data['message']),
+//       ));
+//
+//     }
+//
+//   }
 
 }
