@@ -420,7 +420,7 @@ class _SignUp3State extends State<SignUp3> {
                           });
                          // signup(fname, lname, email.text, password.text, gender, age, password.text);
                           final currentUserImagee = Provider.of<CurrentUserImage>(context,listen: false);
-                          signup4(fname: fname, lname: lname, email: email.text, gender: gender, age: age, password: password.text, cpassword: password.text, userImag: currentUserImagee.currentUserImage.image);
+                          signup(fname: fname, lname: lname, email: email.text, gender: gender, age: age, password: password.text, cpassword: password.text, userImag: currentUserImagee.currentUserImage.image);
                         //  signup4(fname, lname, email.text, password.text, gender, age, password.text, currentUserImagee.currentUserImage.image! );
 
 
@@ -440,7 +440,7 @@ class _SignUp3State extends State<SignUp3> {
     );
 
   }
-  Future<void> signup4({
+  Future<void> signup({
     required String fname,
     required String lname,
     required String email,
@@ -495,169 +495,6 @@ class _SignUp3State extends State<SignUp3> {
       print(e.toString());
     }
   }
-  // Future <void> signup3(String fname,String lname,String email,String password,String gender, String age,String cpassword, File userImg) async
-  // {
-  //
-  //   var uri = Uri.parse("https://graduation-api.herokuapp.com/signUp");
-  //   var request = new http.MultipartRequest("POST", uri);
-  //   print(userImg.path);
-  //  request.files.add(http.MultipartFile.fromBytes(userImg.path.split('/').last, await userImg.readAsBytes(),
-  //  ));
-  //
-  //   request.fields['FName'] = fname;
-  //   request.fields['LName'] = lname;
-  //   request.fields['Gmail'] = email;
-  //   request.fields['Gender'] = gender;
-  //   request.fields['Age'] = age;
-  //   request.fields['Password'] = password;
-  //   request.fields['CPassword'] = password;
-  //   var response = await request.send();
-  //   print(response.statusCode);
-  //   final respStr = await response.stream.bytesToString();
-  //   var jsonData = jsonDecode(respStr);
-  //   print(jsonData['user']);
-  //
-  //
-  //   if(response.statusCode==200){
-  //     final currentUser = Provider.of<CurrentUserData>(context,listen: false);
-  //     currentUser.currentuserdata(CurrentUser(
-  //         fName: jsonData['user']['Fname'],
-  //         lName: jsonData['user']['Lname'],
-  //         gender: jsonData['user']['gender'],
-  //         age: jsonData['user']['age'],
-  //         email: jsonData['user']['gmail'],
-  //         password: jsonData['user']['password'],
-  //         img:jsonData['user']['url'] ,
-  //         id: jsonData['user']['_id']));
-  //
-  //     Navigator.of(context).pushAndRemoveUntil(
-  //         MaterialPageRoute(builder: (context) => SignUp4()), (route) => false);
-  //   }
-  //   else {
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       content: Text(jsonData['message']),
-  //     ));
-  //
-  //   }
-  //
-  //
-  // }
-  // Future <void> signup2(String fname,String lname,String email,String password,String gender, String age,String cpassword, File userImg) async
-  // {
-  //
-  //
-  //
-  //   var stream =
-  //   new http.ByteStream(DelegatingStream.typed(userImg.openRead()));
-  //   var length = await userImg.length();
-  //   var uri = Uri.parse("https://graduation-api.herokuapp.com/signUp");
-  //   var request = new http.MultipartRequest("POST", uri);
-  //   print(userImg.path);
-  //   var multipartFileSign = new http.MultipartFile('', stream, length,
-  //       filename: '');
-  //   request.files.add(multipartFileSign);
-  //   request.fields['FName'] = fname;
-  //   request.fields['LName'] = lname;
-  //   request.fields['Gmail'] = email;
-  //   request.fields['Gender'] = gender;
-  //   request.fields['Age'] = age;
-  //   request.fields['Password'] = password;
-  //   request.fields['CPassword'] = password;
-  //   var response = await request.send();
-  //   print(response.statusCode);
-  //   final respStr = await response.stream.bytesToString();
-  //   var jsonData = jsonDecode(respStr);
-  //   print(jsonData['user']);
-  //
-  //
-  //   if(response.statusCode==200){
-  //     final currentUser = Provider.of<CurrentUserData>(context,listen: false);
-  //       currentUser.currentuserdata(CurrentUser(
-  //           fName: jsonData['user']['Fname'],
-  //           lName: jsonData['user']['Lname'],
-  //           gender: jsonData['user']['gender'],
-  //           age: jsonData['user']['age'],
-  //           email: jsonData['user']['gmail'],
-  //           password: jsonData['user']['password'],
-  //           img:jsonData['user']['url'] ,
-  //           id: jsonData['user']['_id']));
-  //
-  //     Navigator.of(context).pushAndRemoveUntil(
-  //         MaterialPageRoute(builder: (context) => SignUp4()), (route) => false);
-  //   }
-  //   else {
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       content: Text(jsonData['message']),
-  //     ));
-  //
-  //   }
-  //
-  //
-  // }
 
-//   Future <void> signup(String fname,String lname,String email,String password,String gender, String age,String cpassword) async
-//   {
-//     Map data = {
-//       'FName': fname,
-//       'LName': lname,
-//       'Gmail' : email,
-//       'Gender' : gender,
-//       'Age' : age,
-//       'Password': password,
-//       'CPassword':cpassword,
-//     };
-//     print(data.toString());
-//
-//
-//     Response response = await http.post(
-//       Uri.parse('https://graduation-api.herokuapp.com/signUp'),
-//       headers: <String, String>{
-//         'Content-Type': 'application/json; charset=UTF-8',
-//       },
-//       body: jsonEncode(data),
-//     );
-//     var _data = jsonDecode(response.body);
-//     print(response.statusCode);
-//
-//     //***************************************************
-//     final currentUserImagee = Provider.of<CurrentUserImage>(context,listen: false);
-//     http.MultipartRequest request = new http.MultipartRequest("POST", Uri.parse('https://graduation-api.herokuapp.com/signUp'));
-//     http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
-//         'file', currentUserImagee.currentUserImage.image!.path);
-//     request.files.add(multipartFile);
-//     http.StreamedResponse responseImage = await request.send();
-//     print(responseImage.statusCode);
-// //**********************************************************************************
-//     final currentUser = Provider.of<CurrentUserData>(context,listen: false);
-//     if (response.statusCode == 200 && responseImage.statusCode==200) {
-//       print('Sign UP success');
-//       Map<String, dynamic> user = _data['user'];
-//       currentUser.currentuserdata(CurrentUser(
-//           fName: user['Fname'],
-//           lName: user['Lname'],
-//           gender: user['gender'],
-//           age: user['age'],
-//           email: user['gmail'],
-//           password: user['password'],
-//           id: user['_id']));
-//
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(content: Text('Account Created SuccessFully')),
-//       );
-//       Navigator.of(context).pushAndRemoveUntil(
-//           MaterialPageRoute(builder: (context) => SignUp4()), (route) => false);
-//
-//
-//
-//
-//     }
-//     else {
-//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-//         content: Text(_data['message']),
-//       ));
-//
-//     }
-//
-//   }
 
 }
