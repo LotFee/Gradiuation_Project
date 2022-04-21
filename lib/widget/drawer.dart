@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sakkeny/homeScreens/userProf.dart';
 import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/screens/drawer/about us.dart';
 import 'package:sakkeny/screens/drawer/booking.dart';
@@ -23,19 +24,24 @@ class myDrawer extends StatelessWidget {
           children: [
             Container(
               height: 200,
-              child: DrawerHeader(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        radius: 55,
-                        backgroundColor: Colors.white,
-                        child: Image.asset('images/logo_login.png'),
-                      ),
-                      Text(currentuser.currentUserDate.fName +" "+ currentuser.currentUserDate.lName,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:Color(0xff1f95a1) ),),
-                      Text(currentuser.currentUserDate.email,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold  ),)
-                    ],
-                  )),
+              child: GestureDetector(
+                onTap: (){ Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => UserProf()),
+                        (route) => false);},
+                child: DrawerHeader(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          radius: 55,
+
+                           backgroundImage:   NetworkImage(currentuser.currentUserDate.img) ,
+                        ),
+                        Text(currentuser.currentUserDate.fName +" "+ currentuser.currentUserDate.lName,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:Color(0xff1f95a1) ),),
+                        Text(currentuser.currentUserDate.email,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold  ),)
+                      ],
+                    )),
+              ),
             ),
             Column(
               children: [
