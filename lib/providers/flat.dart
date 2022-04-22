@@ -7,7 +7,7 @@ class Flat with ChangeNotifier{
   final String userName;
   final DateTime time;
   final String location;
-  final List<String> images;
+  final List<dynamic> images;
   final double price;
   bool isFav;
   final int bedrooms;

@@ -73,7 +73,7 @@ class FlatItem extends StatelessWidget {
                     ),
                     Image(
                       height: 200,
-                      image: AssetImage(flat.images[0]),
+                      image: NetworkImage(flat.images[0]),
                       fit: BoxFit.cover,
                     ),
                   ],

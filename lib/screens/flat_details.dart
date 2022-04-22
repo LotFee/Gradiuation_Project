@@ -41,7 +41,7 @@ class _FlatDetailsState extends State<FlatDetails> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        child: Image.asset(
+                        child: Image.network(
                           e,
                           fit: BoxFit.fill,
                           width: double.infinity,

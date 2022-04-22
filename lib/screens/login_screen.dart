@@ -421,8 +421,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (response.statusCode == 200) {
         print('Sign in success');
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Sign in success")));
+        // ScaffoldMessenger.of(context)
+        //     .showSnackBar(SnackBar(content: Text("Sign in success")));
         // saveLoginPref(token: _data['token'],email: user['email'],fullname: user['fullname']);
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Home()), (route) => false);

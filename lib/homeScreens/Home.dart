@@ -7,11 +7,43 @@ import 'package:sakkeny/screens/search/search%20and%20filter.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/widget/drawer.dart';
 import 'package:sakkeny/widget/flats_grid.dart';
+import 'package:provider/provider.dart';
+import 'package:sakkeny/providers/Flats.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
   static const String routeName = 'home';
 
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var  _isInit = true;
+  var _isLoading=false;
+  @override
+  void initState() {
+   // Provider.of<Flats>(context).getPosts();
+    super.initState();
+  }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    if(_isInit){
+      setState(() {
+        _isLoading=true;
+      });
+
+      Provider.of<Flats>(context).getPosts().then((_) {
+        setState(() {
+          _isLoading=false;
+        });
+
+      });
+    }
+    _isInit =false;
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -55,7 +87,7 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
-        body: FlatsGrid(index: 0),
+        body: _isLoading ? Center(child: CircularProgressIndicator(color:Color(0xff1f95a1) ,),) :  FlatsGrid(index: 0),
         drawer: myDrawer(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
