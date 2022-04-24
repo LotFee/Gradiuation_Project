@@ -10,18 +10,24 @@ import 'package:sakkeny/screens/forget_password/forget1.dart';
 import 'package:sakkeny/homeScreens/Home.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sakkeny/screens/constant.dart';
 
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
+
+
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool checkBoxValue = false;
+  // bool checkBoxValue = false;
+
   bool notvisible = true;
+  bool keepMeLoggedIn=false;
   bool notvisible2 = true;
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
@@ -298,11 +304,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Checkbox(
                       activeColor: Color(0xFF1F95A1),
-                      value: checkBoxValue,
+                      value: keepMeLoggedIn,
                       onChanged: (bool? value) {
                         setState(
                           () {
-                            checkBoxValue = value!;
+                            keepMeLoggedIn = value!;
                           },
                         );
                       },
@@ -339,6 +345,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
+                      if(keepMeLoggedIn==true)
+                        {
+                          KeepUserLoggedIn();
+                        }
                       if (validate()) {
                         setState(() {
                           isLoading = true;
@@ -434,5 +444,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
       }
     }
+  }
+
+  void KeepUserLoggedIn() async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    preferences.setBool(kkeepMeLoggedIn, keepMeLoggedIn);
   }
 }
