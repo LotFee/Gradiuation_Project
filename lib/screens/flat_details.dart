@@ -144,7 +144,8 @@ class _FlatDetailsState extends State<FlatDetails> {
                               children: [
                                 CircleAvatar(
                                   backgroundColor: Colors.white,
-                                  child: Image.asset('images/logo_login.png'),
+                                  foregroundImage: NetworkImage(flatItem.userImage),
+
                                   radius: 25,
                                 ),
                                 SizedBox(

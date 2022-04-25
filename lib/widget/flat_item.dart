@@ -37,10 +37,13 @@ class FlatItem extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.white,
-                              child: Image.asset('images/logo_login.png'),
-                              radius: 25,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0,left: 8),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                foregroundImage: NetworkImage(flat.userImage,) ,
+                                radius: 25,
+                              ),
                             ),
                             SizedBox(
                               width: 3,

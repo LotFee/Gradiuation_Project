@@ -155,33 +155,39 @@ class Flats with ChangeNotifier{
     try {
       const url = "https://afternoon-ridge-73830.herokuapp.com/posts";
     final response =   await http.get(Uri.parse(url));
-    final extractData = jsonDecode(response.body) ;
+    final extractData = jsonDecode(response.body);
     final List<Flat> loadedFlats=[] ;
-    print(extractData[0]['_id']);
-    extractData.forEach((flat) {
-      loadedFlats.add(Flat(
-        id: flat['_id'],
-        price: flat['price'].toDouble(),
-        userName: flat['ownerName'],
-        description: flat['description'],
-        cond: flat['conditioner'],
-        tv: flat['tv'],
-        wifi: flat['wifi'],
-        bedrooms: flat['numberofbedrooms'],
-        bed: flat['numberofbeds'],
-        bathroom: flat['numberofbeds'],
-        isFav: false,
-        location: flat['location'],
-        images: flat['url'],
-        time: DateTime.now(),
-      ));
-     _posts=loadedFlats;
+    //print(extractData['Dpost'][0][0]['url']);
+      var i = extractData['Dpost'].length;
+      for(var j =0 ; j < i ; j++)
+        {
+          String userName = extractData['Dpost'][j][1];
+          var name = userName.split(" ").first + " " +userName.split(" ").last;
+          loadedFlats.add(Flat(
+            id: extractData['Dpost'][j][0]['_id'],
+            price: extractData['Dpost'][j][0]['price'].toDouble(),
+            userName: name,
+            userImage: extractData['Dpost'][j][2],
+            description: extractData['Dpost'][j][0]['description'],
+            cond: extractData['Dpost'][j][0]['conditioner'],
+            tv: extractData['Dpost'][j][0]['tv'],
+            wifi: extractData['Dpost'][j][0]['wifi'],
+            bedrooms: extractData['Dpost'][j][0]['numberofbedrooms'],
+            bed: extractData['Dpost'][j][0]['numberofbeds'],
+            bathroom: 1,
+            isFav: false,
+            location: extractData['Dpost'][j][0]['location'],
+            images: extractData['Dpost'][j][0]['url'],
+            time: DateTime.now(),
+          ));
+        }
+
+      _posts=loadedFlats;
       print(loadedFlats.length.toString());
       notifyListeners();
-    });
     print(extractData);
     }catch(error){
-      throw(error);
+      throw(error.toString());
     }
   }
 }

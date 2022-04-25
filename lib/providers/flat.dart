@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class Flat with ChangeNotifier{
   final String id;
   final String userName;
+  final String userImage;
   final DateTime time;
   final String location;
   final List<dynamic> images;
@@ -34,6 +35,7 @@ class Flat with ChangeNotifier{
         required this.time,
         required this.tv,
         required this.userName,
+        required this.userImage,
       });
 
   void toggleFavState(){
