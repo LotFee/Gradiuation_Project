@@ -55,7 +55,7 @@ class FlatItem extends StatelessWidget {
                                   flat.userName,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 17),
+                                      fontSize: 15),
                                 ),
                                 Text(
                                   "Owner",

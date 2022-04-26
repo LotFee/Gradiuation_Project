@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class Flat with ChangeNotifier{
   final String id;
+  final String ownerId;
   final String userName;
   final String userImage;
   final DateTime time;
@@ -23,6 +24,7 @@ class Flat with ChangeNotifier{
       {
         required this.price,
        required this.id,
+        required this.ownerId,
         required this.images,
         required this.wifi,
         required this.description,

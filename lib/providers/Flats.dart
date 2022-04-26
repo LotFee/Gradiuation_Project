@@ -143,6 +143,9 @@ class Flats with ChangeNotifier{
   List<Flat> get onlyFavPosts{
     return _posts.where((flatItem) => flatItem.isFav).toList();
   }
+  List<Flat>  userPosts(var id){
+    return _posts.where((flatItem) => flatItem.ownerId==id).toList();
+  }
 
   Flat findById(String id){
     return _posts.firstWhere((element) => element.id==id);
@@ -156,17 +159,20 @@ class Flats with ChangeNotifier{
       const url = "https://afternoon-ridge-73830.herokuapp.com/posts";
     final response =   await http.get(Uri.parse(url));
     final extractData = jsonDecode(response.body);
-    final List<Flat> loadedFlats=[] ;
-    //print(extractData['Dpost'][0][0]['url']);
-      var i = extractData['Dpost'].length;
-      for(var j =0 ; j < i ; j++)
+    if(response.statusCode==200)
+      {
+        final List<Flat> loadedFlats=[] ;
+        //print(extractData['Dpost'][0][0]['url']);
+        var i = extractData['Dpost'].length;
+         print(extractData['Dpost'][0][0]['ownerId']);
+        for(var j =0 ; j < i ; j++)
         {
           String userName = extractData['Dpost'][j][1];
-          var name = userName.split(" ").first + " " +userName.split(" ").last;
           loadedFlats.add(Flat(
             id: extractData['Dpost'][j][0]['_id'],
             price: extractData['Dpost'][j][0]['price'].toDouble(),
-            userName: name,
+            ownerId: extractData['Dpost'][j][0]['ownerId'],
+            userName: userName ,
             userImage: extractData['Dpost'][j][2],
             description: extractData['Dpost'][j][0]['description'],
             cond: extractData['Dpost'][j][0]['conditioner'],
@@ -182,11 +188,14 @@ class Flats with ChangeNotifier{
           ));
         }
 
-      _posts=loadedFlats;
-      print(loadedFlats.length.toString());
-      notifyListeners();
-    print(extractData);
+        _posts=loadedFlats;
+        print(loadedFlats.length.toString());
+        notifyListeners();
+        print(extractData);
+      }
+
     }catch(error){
+
       throw(error.toString());
     }
   }

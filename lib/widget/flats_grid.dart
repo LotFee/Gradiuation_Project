@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:sakkeny/providers/Flats.dart';
+import '../provider/current_user.dart';
 import 'flat_item.dart';
 
 class FlatsGrid extends StatelessWidget {
@@ -12,7 +13,9 @@ class FlatsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final flatsData = Provider.of<Flats>(context);
-    final flats = index==0 ?  flatsData.posts : flatsData.onlyFavPosts;
+    final currentUser = Provider.of<CurrentUserData>(context,listen: false);
+
+    final flats = index==0 ?  flatsData.posts : index==1? flatsData.onlyFavPosts : flatsData.userPosts(currentUser.currentUserDate.id);
     return GridView.builder(
         padding: EdgeInsets.all(10),
         itemCount: flats.length,

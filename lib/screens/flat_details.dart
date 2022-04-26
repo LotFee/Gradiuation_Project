@@ -158,7 +158,7 @@ class _FlatDetailsState extends State<FlatDetails> {
                                       flatItem.userName,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 17),
+                                          fontSize: 13),
                                     ),
                                     Text(
                                       "Owner",
