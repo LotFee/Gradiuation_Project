@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/providers/flat.dart';
 import 'package:sakkeny/screens/flat_details.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/widgets.dart';
 
-
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 class FlatItem extends StatelessWidget {
 
 
@@ -40,7 +42,7 @@ class FlatItem extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0,left: 8),
                               child: CircleAvatar(
-                                backgroundColor: Colors.white,
+                                backgroundColor: Colors.black,
                                 foregroundImage: NetworkImage(flat.userImage,) ,
                                 radius: 25,
                               ),
@@ -74,11 +76,18 @@ class FlatItem extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Image(
-                      height: 200,
-                      image: NetworkImage(flat.images[0]),
-                      fit: BoxFit.cover,
-                    ),
+                      CachedNetworkImage(
+                        placeholder: (context, url) =>
+                        const CircularProgressIndicator(color:Color(0xff1f95a1) ,),
+                        imageUrl: flat.images[0],
+                        fit: BoxFit.cover,
+                      ),
+
+                    // Image(
+                    //   height: 200,
+                    //   image: NetworkImage(flat.images[0]),
+                    //   fit: BoxFit.cover,
+                    // ),
                   ],
                 ),
               ),
@@ -106,7 +115,7 @@ class FlatItem extends StatelessWidget {
                                  color: Color(0xff1f95a1),
                                ),
                                  Text(
-                                   flat.location,
+                                   flat.location.length<20 ? flat.location : flat.location.substring(0,15) +'...' ,
                                    style: TextStyle(fontWeight: FontWeight.bold),
                                  ),
 
