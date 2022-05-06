@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
                 ChangeNotifierProvider(create: (_)=>CurrentUserImage() ),
               ],
               child: MaterialApp(
-                title: 'Flutter Demo',
+                title: 'Sakenny',
                 theme: ThemeData(
                 ),
                 initialRoute:isUserLoggedIn? Home.routeName:WelcomeScreen.routeName ,
@@ -82,7 +82,6 @@ class MyApp extends StatelessWidget {
                   Booking.routeName:(ctx)=>Booking(),
                   FlatDetails.routeName:(ctx)=>FlatDetails(),
                   DataAboutYou.routeName: (ctx)=> DataAboutYou(),
-
                 },
                 debugShowCheckedModeBanner: false,
               ),

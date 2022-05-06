@@ -167,6 +167,7 @@ class Flats with ChangeNotifier{
          print(extractData['Dpost'][0][0]['ownerId']);
         for(var j =0 ; j < i ; j++)
         {
+          print(extractData['Dpost'][j][0]['url']);
           String userName = extractData['Dpost'][j][1];
           loadedFlats.add(Flat(
             id: extractData['Dpost'][j][0]['_id'],

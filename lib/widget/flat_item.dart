@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/providers/flat.dart';
 import 'package:sakkeny/screens/flat_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart'as http;
 
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 class FlatItem extends StatelessWidget {
@@ -14,6 +16,7 @@ class FlatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    final flat= Provider.of<Flat>(context,listen: false);
+   final currentUser = Provider.of<CurrentUserData>(context,listen: false);
     return Padding(
         padding: const EdgeInsets.all(5.0),
         child: GridTile(
@@ -71,6 +74,37 @@ class FlatItem extends StatelessWidget {
                           flat.time.hour.toString() + " Ago",
                           style: TextStyle(color: Colors.grey),
                         ),
+                        currentUser.currentUserDate.id == flat.ownerId ? PopupMenuButton(
+
+                          onSelected: ( v) async{
+                            print(v);
+                             if(v=='Delete')  {
+                               final http.Response response = await http.delete(
+                                 Uri.parse
+                                   ('https://afternoon-ridge-73830.herokuapp.com/posts/${flat.id}/${flat.ownerId}'),
+                                 headers: <String, String>{
+                                   'Content-Type': 'application/json; charset=UTF-8',
+                                 },
+                               );
+                               if(response.statusCode==200){
+                                 print(response.body);
+                               }
+
+                             }
+                          },
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text('Edit'),
+                              value: 'Edit',
+                            ),
+                            PopupMenuItem(
+                              child: Text('Delete'),
+                              value: 'Delete',
+
+                            ),
+                          ],
+                          icon: Icon(Icons.keyboard_arrow_down),
+                        ) : Text('')
                       ],
                     ),
                     SizedBox(
@@ -81,8 +115,9 @@ class FlatItem extends StatelessWidget {
                         const CircularProgressIndicator(color:Color(0xff1f95a1) ,),
                         imageUrl: flat.images[0],
                         fit: BoxFit.cover,
-                      ),
 
+                      ),
+                     // Image.network(flat.images[0],fit: BoxFit.cover,),
                     // Image(
                     //   height: 200,
                     //   image: NetworkImage(flat.images[0]),
