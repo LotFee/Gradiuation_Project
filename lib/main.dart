@@ -3,6 +3,7 @@ import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/provider/user_image.dart';
 import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/providers/Flats.dart';
+import 'package:sakkeny/screens/Update%20Post.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/screens/data_about_student.dart';
 import 'package:sakkeny/screens/drawer/about%20us.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
                   Booking.routeName:(ctx)=>Booking(),
                   FlatDetails.routeName:(ctx)=>FlatDetails(),
                   DataAboutYou.routeName: (ctx)=> DataAboutYou(),
+                  UpdatePost.routeName: (ctx)=> UpdatePost(),
                 },
                 debugShowCheckedModeBanner: false,
               ),

@@ -10,6 +10,8 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart'as http;
 
 import 'package:flutter_blurhash/flutter_blurhash.dart';
+
+import '../screens/Update Post.dart';
 class FlatItem extends StatelessWidget {
 
 
@@ -90,6 +92,9 @@ class FlatItem extends StatelessWidget {
                                  print(response.body);
                                }
 
+                             }
+                             if(v=='Edit'){
+                               Navigator.of(context).pushNamed(UpdatePost.routeName,arguments: flat.id);
                              }
                           },
                           itemBuilder: (context) => [
