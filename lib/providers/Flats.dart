@@ -168,13 +168,13 @@ class Flats with ChangeNotifier{
         for(var j =0 ; j < i ; j++)
         {
           print(extractData['Dpost'][j][0]['url']);
-          String userName = extractData['Dpost'][j][1];
+          String userName = extractData['Dpost'][j][2];
           loadedFlats.add(Flat(
             id: extractData['Dpost'][j][0]['_id'],
             price: extractData['Dpost'][j][0]['price'].toDouble(),
             ownerId: extractData['Dpost'][j][0]['ownerId'],
             userName: userName ,
-            userImage: extractData['Dpost'][j][2],
+            userImage: extractData['Dpost'][j][3],
             description: extractData['Dpost'][j][0]['description'],
             cond: extractData['Dpost'][j][0]['conditioner'],
             tv: extractData['Dpost'][j][0]['tv'],
@@ -186,6 +186,7 @@ class Flats with ChangeNotifier{
             location: extractData['Dpost'][j][0]['location'],
             images: extractData['Dpost'][j][0]['url'],
             time: DateTime.now(),
+            noComments: extractData['Dpost'][j][1]
           ));
         }
 

@@ -15,6 +15,7 @@ class Flat with ChangeNotifier{
   final int bedrooms;
   final int bed;
   final int bathroom;
+  final String noComments;
   final bool wifi;
   final bool tv;
   final bool cond;
@@ -38,6 +39,7 @@ class Flat with ChangeNotifier{
         required this.tv,
         required this.userName,
         required this.userImage,
+        required this.noComments
       });
 
   void toggleFavState(){

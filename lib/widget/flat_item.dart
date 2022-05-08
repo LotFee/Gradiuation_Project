@@ -8,13 +8,20 @@ import 'package:sakkeny/screens/flat_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart'as http;
+import 'dart:math';
 
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 
 import '../screens/Update Post.dart';
-class FlatItem extends StatelessWidget {
+class FlatItem extends StatefulWidget {
 
 
+  @override
+  State<FlatItem> createState() => _FlatItemState();
+}
+
+class _FlatItemState extends State<FlatItem> {
+  var  _expanded=false;
   @override
   Widget build(BuildContext context) {
    final flat= Provider.of<Flat>(context,listen: false);
@@ -115,14 +122,15 @@ class FlatItem extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                      CachedNetworkImage(
-                        placeholder: (context, url) =>
-                        const CircularProgressIndicator(color:Color(0xff1f95a1) ,),
-                        imageUrl: flat.images[0],
-                        fit: BoxFit.cover,
-
-                      ),
-                     // Image.network(flat.images[0],fit: BoxFit.cover,),
+                      // CachedNetworkImage(
+                      //   placeholder: (context, url) =>
+                      //   const CircularProgressIndicator(color:Color(0xff1f95a1) ,),
+                      //   imageUrl: 'http://res.cloudinary.com/egyptegypt/image/upload/v1651232733/krxk6u7qq1iy0ubae14e.jpg',
+                      //   fit: BoxFit.cover,
+                      //   errorWidget: (context, url, error) =>
+                      //       Icon(Icons.error,color: Colors.red,),
+                      // ),
+                      Image.network(flat.images[0],fit: BoxFit.cover,),
                     // Image(
                     //   height: 200,
                     //   image: NetworkImage(flat.images[0]),
@@ -256,25 +264,32 @@ class FlatItem extends StatelessWidget {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 8.0,bottom: 8.0,left: 15,right: 15),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.comment_bank_outlined,
-                                    color: Color(0xff1f95a1),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "Comment",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
+                          child: GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                _expanded=!_expanded;
+                              });
+                            },
+                            child: Container(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0,bottom: 8.0,left: 15,right: 15),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.comment_bank_outlined,
+                                      color: Color(0xff1f95a1),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "${flat.noComments}",
+                                      style:
+                                          TextStyle(fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -282,6 +297,8 @@ class FlatItem extends StatelessWidget {
                       ),
                     ],
                   ),
+
+
                 ],
               ),
             ),
