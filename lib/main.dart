@@ -5,6 +5,7 @@ import 'package:sakkeny/provider/users.dart';
 import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/screens/Update%20Post.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
+import 'package:sakkeny/screens/comments.dart';
 import 'package:sakkeny/screens/data_about_student.dart';
 import 'package:sakkeny/screens/drawer/about%20us.dart';
 import 'package:sakkeny/screens/drawer/booking.dart';
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
                   FlatDetails.routeName:(ctx)=>FlatDetails(),
                   DataAboutYou.routeName: (ctx)=> DataAboutYou(),
                   UpdatePost.routeName: (ctx)=> UpdatePost(),
+                  Comments.routeName: (ctx)=>Comments()
                 },
                 debugShowCheckedModeBanner: false,
               ),

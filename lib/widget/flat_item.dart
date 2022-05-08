@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/providers/flat.dart';
+import 'package:sakkeny/screens/comments.dart';
 import 'package:sakkeny/screens/flat_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
@@ -268,6 +269,7 @@ class _FlatItemState extends State<FlatItem> {
                             onTap: (){
                               setState(() {
                                 _expanded=!_expanded;
+                                Navigator.pushNamed(context, Comments.routeName,arguments: flat.id);
                               });
                             },
                             child: Container(

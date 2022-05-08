@@ -41,6 +41,7 @@ dependencies:
   shared_preferences: ^2.0.13
   path_provider: ^2.0.9
   cached_network_image: ^3.2.0
+  comment_box: ^0.0.17
 
 
 
