@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sakkeny/screens/search/results.dart';
+
+import '../../providers/Flats.dart';
 
 class SearchFilter extends StatefulWidget {
   static const String routeName = 'search';
@@ -8,9 +12,13 @@ class SearchFilter extends StatefulWidget {
 }
 
 class _SearchFilterState extends State<SearchFilter> {
+  bool isLoading = false;
   bool checkBoxValueWifi = false;
   bool checkBoxValueTv = false;
   bool checkBoxValueCond = false;
+  TextEditingController location = TextEditingController();
+  TextEditingController price=TextEditingController();
+  TextEditingController nobed=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +72,6 @@ class _SearchFilterState extends State<SearchFilter> {
 
                         showDialog(
                             context: context,
-                            barrierDismissible: true,
                             builder: (context) => SingleChildScrollView(
                               child: StatefulBuilder(
                                 builder: (context,setState)=> Dialog(
@@ -107,6 +114,7 @@ class _SearchFilterState extends State<SearchFilter> {
                                                 ),
                                                 child:
                                                 TextFormField(
+                                                  controller: location,
                                                   keyboardType: TextInputType.text,
                                                   textInputAction: TextInputAction.done,
                                                   decoration: InputDecoration(
@@ -150,6 +158,7 @@ class _SearchFilterState extends State<SearchFilter> {
                                                 ),
                                                 child:
                                                 TextFormField(
+                                                  controller: price,
                                                   keyboardType: TextInputType.text,
                                                   textInputAction: TextInputAction.done,
                                                   decoration: InputDecoration(
@@ -193,6 +202,7 @@ class _SearchFilterState extends State<SearchFilter> {
                                                 ),
                                                 child:
                                                 TextFormField(
+                                                  controller: nobed,
                                                   keyboardType: TextInputType.text,
                                                   textInputAction: TextInputAction.done,
                                                   decoration: InputDecoration(
@@ -327,15 +337,8 @@ class _SearchFilterState extends State<SearchFilter> {
                                             Padding(
                                               padding:
                                               const EdgeInsets.only(top: 15.0),
-                                              child: RaisedButton(
-                                                color:
-                                                Color(0xff1f95a1), // background
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        10)), // foreground
-                                                onPressed: () {},
-                                                child: Padding(
+                                              child: RaisedButton.icon(
+                                                label: Padding(
                                                   padding:
                                                   const EdgeInsets.all(10.0),
                                                   child: Text(
@@ -345,6 +348,74 @@ class _SearchFilterState extends State<SearchFilter> {
                                                         fontSize: 25),
                                                   ),
                                                 ),
+                                                icon: isLoading? Padding(
+                                                  padding: const EdgeInsets.all(10.0),
+                                                  child: CircularProgressIndicator(color: Colors.white,),
+                                                ) : Icon(Icons.search,color: Colors.white,),
+                                                color: Color(0xff1f95a1), // background
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        10)), // foreground
+                                                onPressed: () {
+                                                  setState((){
+                                                    isLoading=true;
+                                                  });
+                                                  print(location.text);
+                                                  print(price.text);
+                                                  print(nobed.text);
+                                                  print(checkBoxValueWifi);
+                                                  print(checkBoxValueTv);
+                                                  print(checkBoxValueCond);
+                                                  String url= 'https://afternoon-ridge-73830.herokuapp.com/posts/search?';
+                                                  if(location.text.length!=0 )
+                                                    {
+                                                      url='https://afternoon-ridge-73830.herokuapp.com/posts/search?location=${location.text}';
+                                                    }
+                                                  if(price.text.length!=0)
+                                                  {
+                                                    url='https://afternoon-ridge-73830.herokuapp.com/posts/search?price=${price.text}';
+                                                  }
+                                                  if(nobed.text.length!=0)
+                                                  {
+                                                    url='https://afternoon-ridge-73830.herokuapp.com/posts/search?numberofbeds=${nobed.text}';
+                                                  }
+                                                  if(location.text.length!=0 && price.text.length!=0)
+                                                    {
+                                                      url='https://afternoon-ridge-73830.herokuapp.com/posts/search?location=${location.text}&price=${price.text}';
+
+                                                    }
+                                                  if(location.text.length!=0 && nobed.text.length!=0)
+                                                  {
+                                                    url='https://afternoon-ridge-73830.herokuapp.com/posts/search?location=${location.text}&numberofbeds=${nobed.text}';
+
+                                                  }
+                                                  if(price.text.length!=0 && nobed.text.length!=0)
+                                                  {
+                                                    url='https://afternoon-ridge-73830.herokuapp.com/posts/search?price=${price.text}&numberofbeds=${nobed.text}';
+
+                                                  }
+                                                  if(location.text.length!=0 && nobed.text.length!=0 && price.text.length!=0)
+                                                  {
+                                                    url='https://afternoon-ridge-73830.herokuapp.com/posts/search?location=${location.text}&price=${price.text}&numberofbeds=${nobed.text}';
+
+                                                  }
+
+
+                                                //ignore: unrelated_type_equality_checks
+
+                                                 Provider.of<Flats>(context,listen: false).getSearchResult(url);
+                                                  Future.delayed(Duration(seconds: 2), () {
+                                                    setState((){
+                                                      isLoading=false;
+                                                    });
+                                                    Navigator.of(context).pushAndRemoveUntil(
+                                                        MaterialPageRoute(builder: (context) => SearchResult()), (route) => false);
+                                                  });
+
+
+                                                },
+
                                               ),
                                             )
                                           ],

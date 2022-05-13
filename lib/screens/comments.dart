@@ -57,7 +57,7 @@ class _CommentsState extends State<Comments> {
               ),
               // NetworkImage(data[i]['pic'] + "$i")
               title: Text(
-                data[i]['name'],
+                data[i]['name'] ,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               trailing: data[i]['ownerId']== id ? PopupMenuButton(

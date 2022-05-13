@@ -15,7 +15,7 @@ class FlatsGrid extends StatelessWidget {
     final flatsData = Provider.of<Flats>(context);
     final currentUser = Provider.of<CurrentUserData>(context,listen: false);
 
-    final flats = index==0 ?  flatsData.posts : index==1? flatsData.onlyFavPosts : flatsData.userPosts(currentUser.currentUserDate.id);
+    final flats = index==0 ?  flatsData.posts : index==1?  flatsData.onlyFavPosts : index==2? flatsData.searchResult : flatsData.userPosts(currentUser.currentUserDate.id);
     return GridView.builder(
         padding: EdgeInsets.all(10),
         itemCount: flats.length,

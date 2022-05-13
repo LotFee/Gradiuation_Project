@@ -5,7 +5,7 @@ import 'package:sakkeny/widget/drawer.dart';
 import 'package:sakkeny/screens/search/search and filter.dart';
 import 'package:sakkeny/widget/flats_grid.dart';
 
-class UserPosts extends StatelessWidget {
+class SearchResult extends StatelessWidget {
 
 
   @override
@@ -33,7 +33,7 @@ class UserPosts extends StatelessWidget {
               );
             },
           ),
-          title: Center(child: Text("Your Posts", style: TextStyle(color:Color(0xff1f95a1),fontWeight: FontWeight.bold ),)),
+          title: Center(child: Text("Results", style: TextStyle(color:Color(0xff1f95a1),fontWeight: FontWeight.bold ),)),
           actions: [
             GestureDetector(onTap: (){
               Navigator.push(context,PageRouteBuilder(
@@ -42,8 +42,9 @@ class UserPosts extends StatelessWidget {
               ),);
             },child: Icon(Icons.search,color: Color(0xff1f95a1),size: 35)),
           ],
+
         ),
-        body: FlatsGrid(index: 3),
+        body: FlatsGrid(index: 2),
         drawer: myDrawer(),
         floatingActionButton:FloatingActionButton(
           onPressed: (){
