@@ -6,12 +6,11 @@ import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/providers/flat.dart';
 import 'package:sakkeny/screens/comments.dart';
 import 'package:sakkeny/screens/flat_details.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart'as http;
 import 'dart:math';
 
-import 'package:flutter_blurhash/flutter_blurhash.dart';
+
 
 import '../screens/Update Post.dart';
 class FlatItem extends StatefulWidget {

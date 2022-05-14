@@ -11,6 +11,7 @@ import 'package:sakkeny/widget/drawer.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:sakkeny/widget/location_input.dart';
 import 'package:sakkeny/widget/pickImage.dart';
 import 'package:http/http.dart'as http;
 import 'dart:convert';
@@ -288,6 +289,9 @@ class _AddOneState extends State<AddOne> {
                               color: Colors.white, width: 0.0),
                         ),
                         enabledBorder: InputBorder.none,
+                        suffixIcon: IconButton(icon:Icon( Icons.location_on,color: Color(0xff1f95a1),),onPressed: (){
+                          Navigator.pushNamed(context, LocationInput.routeName);
+                        },),
                         prefixIcon: Icon( Icons.location_on,color: Color(0xff1f95a1),),
                         //  labelText: "Enter Your  First Name",
                         labelStyle: TextStyle(color: Color(0xff1f95a1)),

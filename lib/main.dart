@@ -15,6 +15,7 @@ import 'package:sakkeny/screens/flat_details.dart';
 import 'package:sakkeny/screens/register/signup1.dart';
 import 'package:sakkeny/screens/login_screen.dart';
 import 'package:sakkeny/screens/start_screen.dart';
+import 'package:sakkeny/widget/location_input.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/Stepers/steper1_screen.dart';
 import 'screens/welcome_screen.dart';
@@ -85,7 +86,8 @@ class MyApp extends StatelessWidget {
                   FlatDetails.routeName:(ctx)=>FlatDetails(),
                   DataAboutYou.routeName: (ctx)=> DataAboutYou(),
                   UpdatePost.routeName: (ctx)=> UpdatePost(),
-                  Comments.routeName: (ctx)=>Comments()
+                  Comments.routeName: (ctx)=>Comments(),
+                  LocationInput.routeName : (ctx)=> LocationInput()
                 },
                 debugShowCheckedModeBanner: false,
               ),
