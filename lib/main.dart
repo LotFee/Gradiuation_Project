@@ -12,6 +12,7 @@ import 'package:sakkeny/screens/drawer/booking.dart';
 import 'package:sakkeny/screens/drawer/complaints.dart';
 import 'package:sakkeny/screens/drawer/terms%20and%20conditions.dart';
 import 'package:sakkeny/screens/flat_details.dart';
+import 'package:sakkeny/screens/map_screen.dart';
 import 'package:sakkeny/screens/register/signup1.dart';
 import 'package:sakkeny/screens/login_screen.dart';
 import 'package:sakkeny/screens/start_screen.dart';
@@ -87,7 +88,8 @@ class MyApp extends StatelessWidget {
                   DataAboutYou.routeName: (ctx)=> DataAboutYou(),
                   UpdatePost.routeName: (ctx)=> UpdatePost(),
                   Comments.routeName: (ctx)=>Comments(),
-                  LocationInput.routeName : (ctx)=> LocationInput()
+                  LocationInput.routeName : (ctx)=> LocationInput(),
+
                 },
                 debugShowCheckedModeBanner: false,
               ),

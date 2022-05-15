@@ -42,6 +42,7 @@ dependencies:
   path_provider: ^2.0.9
   comment_box: ^0.0.17
   location: ^4.4.0
+  google_maps_flutter: ^2.1.5
 
 
 

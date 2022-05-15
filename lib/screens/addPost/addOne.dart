@@ -99,7 +99,8 @@ class _AddOneState extends State<AddOne> {
     }
   }
 
-
+ String lon = '';
+  String lat ='';
 
 
   @override
@@ -289,8 +290,17 @@ class _AddOneState extends State<AddOne> {
                               color: Colors.white, width: 0.0),
                         ),
                         enabledBorder: InputBorder.none,
-                        suffixIcon: IconButton(icon:Icon( Icons.location_on,color: Color(0xff1f95a1),),onPressed: (){
-                          Navigator.pushNamed(context, LocationInput.routeName);
+                        suffixIcon: IconButton(icon:Icon( Icons.location_on,color: lat!=''&&lon!='' ?   Color(0xff1f95a1) : Colors.red,),onPressed: ()async{
+                          String latlng = await Navigator.push(context, MaterialPageRoute(builder: (context)=> LocationInput()));
+                          print(latlng);
+                          setState(() {
+                            lat = latlng.split(' ').first;
+                            lon=latlng.split(' ').last;
+                            print(lat);
+                            print(lon);
+                          });
+
+                          //Navigator.pushNamed(context, LocationInput.routeName);
                         },),
                         prefixIcon: Icon( Icons.location_on,color: Color(0xff1f95a1),),
                         //  labelText: "Enter Your  First Name",
@@ -310,7 +320,8 @@ class _AddOneState extends State<AddOne> {
                       validator: (val) {
                         if (val!.length == 0)
                           return "Please enter your location";
-                        else
+                        else if(lat==''&&lon=='')
+                          return"Pleace clck on location mark and chooce your locaion";
                           return null;
                       },
                     ),
