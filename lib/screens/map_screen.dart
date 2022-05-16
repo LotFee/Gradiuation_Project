@@ -38,6 +38,12 @@ class _MapScreenState extends State<MapScreen> {
                 );
                 setState(() {
                   marker.remove(markerr);
+                  marker.add(Marker(
+                      markerId: MarkerId('1'),
+                      position: LatLng(double.parse(widget.latitude), double.parse(widget.longitude))));
+                      lat=double.parse(widget.latitude);
+                      long=double.parse(widget.longitude);
+
                 });
               },
               onTap: (LatLng latLng) {
@@ -51,6 +57,14 @@ class _MapScreenState extends State<MapScreen> {
                   print(lat.toString() + '   ' + long.toString());
                   marker.add(Marker(
                       markerId: MarkerId('2'), position: LatLng(lat, long)));
+
+
+                  Marker markerr = marker.firstWhere(
+                        (marker) => marker.markerId.value == "1",
+                  );
+                  marker.remove(markerr);
+
+
                   if (lat != lat2 && long != long2) {
                     marker.add(Marker(
                         markerId: MarkerId('2'), position: LatLng(lat, long)));

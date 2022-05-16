@@ -82,7 +82,7 @@ class _LocationInputState extends State<LocationInput> {
                   myLocationButtonEnabled: false,
                   zoomControlsEnabled: false,
                   initialCameraPosition: CameraPosition(
-                      target: LatLng(double.parse(lat), double.parse(lon)), zoom: 20),
+                      target: LatLng(double.parse(lat), double.parse(lon)), zoom: 11),
                   markers: {
                     Marker(markerId: MarkerId('1'),position: LatLng(double.parse(lat), double.parse(lon)))
                   },
