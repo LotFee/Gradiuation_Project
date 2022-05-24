@@ -1,6 +1,12 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'dart:convert';
+
+import 'package:sakkeny/helper/shared_cache.dart';
+import 'package:sakkeny/screens/constant.dart';
 
 class CurrentUser with ChangeNotifier {
   String fName;
@@ -50,5 +56,31 @@ class CurrentUserData with ChangeNotifier {
 
     notifyListeners();
   }
+   getUserData(context) async{
+    final userId = SharedCache.instance.getData(kUserID) as String;
+    print('-----------------------');
 
+    print(userId);
+    print('-----------------------');
+
+    final url = "https://afternoon-ridge-73830.herokuapp.com/admin/getUser/$userId";
+    final response =   await http.get(Uri.parse(url));
+    final extractData = jsonDecode(response.body)['users'];
+    print(extractData);
+    if(response.statusCode==200){
+      print(extractData);
+      final currentuser = Provider.of<CurrentUserData>(context, listen: false);
+      currentuser.currentuserdata(CurrentUser(
+          fName: extractData['Fname'],
+          lName: extractData['Lname'],
+          gender: extractData['gender'],
+          age: extractData['age'],
+          email: extractData['gmail'],
+          password: extractData['password'],
+          img: extractData['url'],
+          id: extractData['_id']));
+
+    }
+
+  }
 }

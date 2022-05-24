@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sakkeny/helper/shared_cache.dart';
 import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/provider/user_image.dart';
 import 'package:sakkeny/provider/users.dart';
@@ -30,7 +31,11 @@ import 'package:sakkeny/screens/constant.dart';
 
 // 0xff1f95a1
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SharedCache.init();
+
   runApp(MyApp());
 }
 

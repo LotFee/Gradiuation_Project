@@ -34,6 +34,7 @@ class Flats with ChangeNotifier{
     notifyListeners();
   }
   Future<void> getPosts () async{
+
     try {
       const url = "https://afternoon-ridge-73830.herokuapp.com/posts";
     final response =   await http.get(Uri.parse(url));

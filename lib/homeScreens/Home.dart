@@ -2,6 +2,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/screens/search/search%20and%20filter.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
@@ -40,6 +41,9 @@ class _HomeState extends State<Home> {
         });
 
       });
+
+      // get user data
+      Provider.of<CurrentUserData>(context).getUserData(context);
     }
     _isInit =false;
     super.didChangeDependencies();

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:sakkeny/helper/shared_cache.dart';
 import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/screens/forget_password/forget1.dart';
 import 'package:sakkeny/screens/register/signup1.dart';
@@ -43,7 +44,9 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -347,7 +350,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       if(keepMeLoggedIn==true)
                         {
-                          KeepUserLoggedIn();
+                          SharedCache.instance.saveData(kkeepMeLoggedIn, keepMeLoggedIn);
                         }
                       if (validate()) {
                         setState(() {
@@ -431,6 +434,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (response.statusCode == 200) {
         print('Sign in success');
+        // id
+        var confirm = await SharedCache.instance.saveData(kUserID, user['_id']);
+        print(confirm);
         // ScaffoldMessenger.of(context)
         //     .showSnackBar(SnackBar(content: Text("Sign in success")));
         // saveLoginPref(token: _data['token'],email: user['email'],fullname: user['fullname']);
@@ -446,8 +452,5 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void KeepUserLoggedIn() async{
-    SharedPreferences preferences=await SharedPreferences.getInstance();
-    preferences.setBool(kkeepMeLoggedIn, keepMeLoggedIn);
-  }
+
 }
