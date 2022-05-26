@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               home: Scaffold(
                 body: Center(
-                  child: Text('loading.....'),
+                  child: Text('loading.....',style: TextStyle(color: Color(0xff1f95a1)),),
                 ),
               ),
               debugShowCheckedModeBanner: false,

@@ -5,6 +5,7 @@ import 'package:sakkeny/homeScreens/notiScreen.dart';
 import 'package:sakkeny/homeScreens/userProf.dart';
 import 'package:sakkeny/homeScreens/Home.dart';
 
+// ignore: camel_case_types
 class myBottomBar extends StatelessWidget {
   const myBottomBar({Key? key, required this.index}) : super(key: key);
   final int index;

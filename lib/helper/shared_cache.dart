@@ -12,6 +12,9 @@ class SharedCache {
     _preferences = await SharedPreferences.getInstance();
   }
 Future<bool> saveData(key, value) async {
+    print('///////////////////////////////');
+    print(value);
+    print('///////////////////////////////');
   switch (value.runtimeType) {
     case String:
      return  _preferences.setString(key, value);
