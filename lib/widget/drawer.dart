@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sakkeny/helper/shared_cache.dart';
 import 'package:sakkeny/homeScreens/userProf.dart';
 import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/screens/drawer/about us.dart';
@@ -138,8 +139,7 @@ class myDrawer extends StatelessWidget {
                   tileColor: Color(0xfff1f1f1),
                   leading: Icon(Icons.login_outlined,color:Color(0xff1f95a1) ,),
                   onTap: () async{
-                    SharedPreferences pref =await SharedPreferences.getInstance();
-                    pref.clear();
+                    SharedCache.instance.clearData();
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
                   },

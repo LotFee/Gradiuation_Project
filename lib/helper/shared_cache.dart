@@ -29,4 +29,7 @@ Future<bool> saveData(key, value) async {
   Object? getData(String key){
     return _preferences.get(key);
   }
+  void clearData(){
+    _preferences.clear();
+  }
 }
