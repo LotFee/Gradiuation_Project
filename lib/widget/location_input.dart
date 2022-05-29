@@ -9,7 +9,6 @@ import 'dart:math';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../screens/search/search and filter.dart';
-
 class LocationInput extends StatefulWidget {
   const LocationInput({Key? key}) : super(key: key);
   static const String routeName = 'Location';

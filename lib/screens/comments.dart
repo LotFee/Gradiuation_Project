@@ -23,7 +23,8 @@ class _CommentsState extends State<Comments> {
     {
       'name': 'No Commented Yet',
       'pic': 'https://picsum.photos/300/30',
-      'message': 'Add the first Comment'
+      'message': 'Add the first Comment',
+      'timeAgo' : ''
     },
 
   ];
@@ -56,9 +57,18 @@ class _CommentsState extends State<Comments> {
                 ),
               ),
               // NetworkImage(data[i]['pic'] + "$i")
-              title: Text(
-                data[i]['name'] ,
-                style: TextStyle(fontWeight: FontWeight.bold),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    data[i]['name'] ,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    data[i]['timeAgo'] ,
+                    style: TextStyle(color: Colors.grey,fontSize: 12),
+                  )
+                ],
               ),
               trailing: data[i]['ownerId']== id ? PopupMenuButton(
 
@@ -134,6 +144,7 @@ class _CommentsState extends State<Comments> {
                map['message']=extractData['comment'][j][0]['comment'];
                map['id']=extractData['comment'][j][0]['_id'];
                map['ownerId']=extractData['comment'][j][0]['ownerId'];
+               map['timeAgo']=extractData['comment'][j][0]['timeAgo'];
                print(extractData['comment'][j][0]['_id']);
                loadedComments.add(map);
              }
