@@ -66,7 +66,8 @@ class Flats with ChangeNotifier{
             location: extractData['Dpost'][j][0]['location'],
             images: extractData['Dpost'][j][0]['url'],
             time: DateTime.now(),
-            noComments: extractData['Dpost'][j][1]
+            noComments: extractData['Dpost'][j][1],
+              locationOnMap: extractData['Dpost'][j][0]['locationMap']
           ));
         }
 
@@ -112,7 +113,8 @@ class Flats with ChangeNotifier{
               location: extractData['Dpost'][j][0]['location'],
               images: extractData['Dpost'][j][0]['url'],
               time: DateTime.now(),
-              noComments: extractData['Dpost'][j][1]
+              noComments: extractData['Dpost'][j][1],
+            locationOnMap: extractData['Dpost'][j][0]['locationMap']
           ));
         }
 

@@ -12,6 +12,7 @@ import 'package:sakkeny/screens/drawer/about%20us.dart';
 import 'package:sakkeny/screens/drawer/booking.dart';
 import 'package:sakkeny/screens/drawer/complaints.dart';
 import 'package:sakkeny/screens/drawer/terms%20and%20conditions.dart';
+import 'package:sakkeny/screens/flatMap.dart';
 import 'package:sakkeny/screens/flat_details.dart';
 import 'package:sakkeny/screens/map_screen.dart';
 import 'package:sakkeny/screens/register/signup1.dart';

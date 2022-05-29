@@ -635,7 +635,8 @@ class _AddOneState extends State<AddOne> {
                       child: GestureDetector(
                         onTap: (){
                           if(validate()){
-                            addPost(price: price.text, location: location.text, nobeds: noBed.text, nobedrooms: nonoBedroom.text, wifi: wifi, tv: tv, cond: cond, desc: description.text,phonenumber: phone.text, imagesList:imagesFile );
+                            String fullLocation = lat+" "+lon;
+                            addPost(price: price.text, location: location.text, nobeds: noBed.text, nobedrooms: nonoBedroom.text, wifi: wifi, tv: tv, cond: cond, desc: description.text,phonenumber: phone.text, imagesList:imagesFile,fullLOcation: fullLocation );
                           }
                         },
                         child: ListTile(
@@ -677,6 +678,7 @@ class _AddOneState extends State<AddOne> {
     required String desc,
     required String phonenumber,
     required List<File> imagesList,
+    required String fullLOcation,
   }) async {
     try {
       final currentuser = Provider.of<CurrentUserData>(context, listen: false);
@@ -691,7 +693,8 @@ class _AddOneState extends State<AddOne> {
         ..fields['tv'] = tv.toString()
         ..fields['conditioner'] = cond.toString()
         ..fields['description'] = desc
-        ..fields['phoneNumber'] = phonenumber.toString() ;
+        ..fields['phoneNumber'] = phonenumber.toString()
+        ..fields['locationMap'] = fullLOcation ;
       List<http.MultipartFile> newList = [];
 
       for (int i = 0; i < imagesList.length; i++) {

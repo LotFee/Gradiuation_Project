@@ -20,6 +20,7 @@ class Flat with ChangeNotifier{
   final bool tv;
   final bool cond;
   final String description;
+  final String locationOnMap;
 
   Flat(
       {
@@ -39,7 +40,8 @@ class Flat with ChangeNotifier{
         required this.tv,
         required this.userName,
         required this.userImage,
-        required this.noComments
+        required this.noComments,
+        required this.locationOnMap
       });
 
   void toggleFavState(){

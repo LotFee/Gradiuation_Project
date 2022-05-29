@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sakkeny/providers/flat.dart';
 import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/screens/data_about_student.dart';
+import 'package:sakkeny/screens/flatMap.dart';
 
 class FlatDetails extends StatefulWidget {
   const FlatDetails({Key? key}) : super(key: key);
@@ -180,21 +181,29 @@ class _FlatDetailsState extends State<FlatDetails> {
                         ],
                       ),
                       SizedBox(height: 20,),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                          Icon(
-                            Icons.location_on,
-                            color: Color(0xff1f95a1),
-                          ),
-                          Text(
-                            flatItem.location,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                      GestureDetector(
+                        onTap: (){
+                          print(flatItem.locationOnMap);
+                          String lat = flatItem.locationOnMap.split(" ").first;
+                          String lon = flatItem.locationOnMap.split(" ").last;
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>FlatMap(latitude: lat, longitude: lon)));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                            Icon(
+                              Icons.location_on,
+                              color: Color(0xff1f95a1),
+                            ),
+                            Text(
+                              flatItem.location,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
 
-                        ],),
+                          ],),
+                        ),
                       ),
                     ],
                   ) ,
