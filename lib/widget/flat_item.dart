@@ -268,6 +268,10 @@ class _FlatItemState extends State<FlatItem> {
                             onTap: (){
                               setState(() {
                                 _expanded=!_expanded;
+                                // Navigator.push(context, MaterialPageRoute(builder: (context){
+                                //
+                                //   return Comments(postId: flat.id,);
+                                // }) );
                                 Navigator.pushNamed(context, Comments.routeName,arguments: flat.id);
                               });
                             },

@@ -623,7 +623,7 @@ class _AddOneState extends State<AddOne> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       onPressed: (){
-                        if(validate() && images.isNotEmpty)
+                        if(validate() && images.isNotEmpty && lat!='' && lon!='')
                           {
                             Navigator.push(context,PageRouteBuilder(
                               pageBuilder: (context, animation1, animation2) => AddTwo(),

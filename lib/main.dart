@@ -93,9 +93,8 @@ class MyApp extends StatelessWidget {
                   FlatDetails.routeName:(ctx)=>FlatDetails(),
                   DataAboutYou.routeName: (ctx)=> DataAboutYou(),
                   UpdatePost.routeName: (ctx)=> UpdatePost(),
-                  Comments.routeName: (ctx)=>Comments(),
+                  Comments.routeName: (ctx) => Comments(),
                   LocationInput.routeName : (ctx)=> LocationInput(),
-
                 },
                 debugShowCheckedModeBanner: false,
               ),

@@ -24,7 +24,7 @@ class _CommentsState extends State<Comments> {
       'name': 'No Commented Yet',
       'pic': 'https://picsum.photos/300/30',
       'message': 'Add the first Comment',
-      'timeAgo' : ''
+     // 'timeAgo' : ''
     },
 
   ];
@@ -49,7 +49,7 @@ class _CommentsState extends State<Comments> {
                       borderRadius: new BorderRadius.all(Radius.circular(50))),
                   child: CircleAvatar(
                       radius: 50,
-                     // backgroundImage:   NetworkImage(data[i]['pic'] + "$i") ,
+                      // backgroundImage:   NetworkImage(data[i]['pic'] + "$i") ,
                       foregroundImage: NetworkImage(data[i]['pic'],)
 
                   ),
@@ -66,42 +66,41 @@ class _CommentsState extends State<Comments> {
                   ),
                   Text(
                     data[i]['timeAgo'] ,
-                    style: TextStyle(color: Colors.grey,fontSize: 12),
-                  )
+                    style: TextStyle(color: Colors.grey,fontSize: 10),
+                  ),
+                  data[i]['ownerId']== id ? PopupMenuButton(
+
+                    onSelected: ( v) async{
+                      print(v);
+                      if(v=='Delete')  {
+                        final http.Response response = await http.delete(
+                          Uri.parse
+                            ('https://afternoon-ridge-73830.herokuapp.com/posts/deleteComment/${data[i]['id']}/$id'),
+                          headers: <String, String>{
+                            'Content-Type': 'application/json; charset=UTF-8',
+                          },
+                        );
+                        print(response.statusCode);
+                        if(response.statusCode==200){
+                          print(response.body);
+
+                        }
+
+                      }
+
+                    },
+                    itemBuilder: (context) => [
+
+                      PopupMenuItem(
+                        child: Text('Delete'),
+                        value: 'Delete',
+
+                      ),
+                    ],
+                    icon: Icon(Icons.keyboard_arrow_down),
+                  ) : Text(""),
                 ],
               ),
-              trailing: data[i]['ownerId']== id ? PopupMenuButton(
-
-                onSelected: ( v) async{
-                  final flatId = ModalRoute.of(context)!.settings.arguments as String;
-                  print(v);
-                  if(v=='Delete')  {
-                    final http.Response response = await http.delete(
-                      Uri.parse
-                        ('https://afternoon-ridge-73830.herokuapp.com/posts/deleteComment/${data[i]['id']}/$id'),
-                      headers: <String, String>{
-                        'Content-Type': 'application/json; charset=UTF-8',
-                      },
-                    );
-                    print(response.statusCode);
-                    if(response.statusCode==200){
-                      print(response.body);
-
-                    }
-
-                  }
-
-                },
-                itemBuilder: (context) => [
-
-                  PopupMenuItem(
-                    child: Text('Delete'),
-                    value: 'Delete',
-
-                  ),
-                ],
-                icon: Icon(Icons.keyboard_arrow_down),
-              ) : Text(""),
               subtitle: Text(data[i]['message']),
             ),
           )
@@ -122,7 +121,7 @@ class _CommentsState extends State<Comments> {
 
       Future<void> getComments () async{
         try {
-          final flatId = ModalRoute.of(context)!.settings.arguments as String;
+          final flatId = ModalRoute.of(context)?.settings.arguments as String?;
 
 
           String url = "https://afternoon-ridge-73830.herokuapp.com/posts/getComments/$flatId";
@@ -132,24 +131,24 @@ class _CommentsState extends State<Comments> {
           {
 
             print(extractData['comment']);
-             var i = extractData['comment'].length;
+            var i = extractData['comment'].length;
             //  print(extractData['Dpost'][0][0]['ownerId']);
             List loadedComments=[];
-             for(var j =0 ; j < i ; j++)
-             {
-               var map = {};
+            for(var j =0 ; j < i ; j++)
+            {
+              var map = {};
 
-               map['name'] = extractData['comment'][j][1];
-               map['pic']= extractData['comment'][j][2];
-               map['message']=extractData['comment'][j][0]['comment'];
-               map['id']=extractData['comment'][j][0]['_id'];
-               map['ownerId']=extractData['comment'][j][0]['ownerId'];
-               map['timeAgo']=extractData['comment'][j][0]['timeAgo'];
-               print(extractData['comment'][j][0]['_id']);
-               loadedComments.add(map);
-             }
+              map['name'] = extractData['comment'][j][1];
+              map['pic']= extractData['comment'][j][2];
+              map['message']=extractData['comment'][j][0]['comment'];
+              map['id']=extractData['comment'][j][0]['_id'];
+              map['ownerId']=extractData['comment'][j][0]['ownerId'];
+              map['timeAgo']=extractData['comment'][j][0]['timeAgo'];
+              print(extractData['comment'][j][0]['_id']);
+              loadedComments.add(map);
+            }
             //
-             filedata=loadedComments;
+            filedata=loadedComments;
             //  print(loadedFlats.length.toString());
             //
             // // print(extractData);
@@ -172,7 +171,7 @@ class _CommentsState extends State<Comments> {
 
   @override
   Widget build(BuildContext context) {
-    final flatId = ModalRoute.of(context)!.settings.arguments as String;
+
     final currentuser = Provider.of<CurrentUserData>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
@@ -189,8 +188,7 @@ class _CommentsState extends State<Comments> {
           errorText: 'Plz Enter Your Comment',
           sendButtonMethod: () {
             final currentuser = Provider.of<CurrentUserData>(context, listen: false);
-            final flatId = ModalRoute.of(context)!.settings.arguments as String;
-
+            final flatId = ModalRoute.of(context)?.settings.arguments as String?;
             Future<void> addComment(String comment) async {
 
               final response = await http.post(
@@ -215,13 +213,14 @@ class _CommentsState extends State<Comments> {
             if (formKey.currentState!.validate()) {
               addComment(commentController.text);
               print(commentController.text);
+              var value = {
+                'name': currentuser.currentUserDate.fName  + currentuser.currentUserDate.lName,
+                'pic':
+                currentuser.currentUserDate.img,
+                'message': commentController.text,
+                'timeAgo' : '1 munite ago '
+              };
               setState(() {
-                var value = {
-                  'name': currentuser.currentUserDate.fName  + currentuser.currentUserDate.lName,
-                  'pic':
-                  currentuser.currentUserDate.img,
-                  'message': commentController.text
-                };
                 filedata.insert(0, value);
               });
               commentController.clear();
@@ -229,6 +228,7 @@ class _CommentsState extends State<Comments> {
             } else {
               print("Not validated");
             }
+           // Navigator.pop(context);
           },
           formKey: formKey,
           commentController: commentController,
@@ -238,6 +238,7 @@ class _CommentsState extends State<Comments> {
         ),
       ),
     );
+
   }
 
 
