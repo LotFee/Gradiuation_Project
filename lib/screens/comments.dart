@@ -24,7 +24,7 @@ class _CommentsState extends State<Comments> {
       'name': 'No Commented Yet',
       'pic': 'https://picsum.photos/300/30',
       'message': 'Add the first Comment',
-     // 'timeAgo' : ''
+       'timeAgo' : ''
     },
 
   ];
@@ -119,46 +119,7 @@ class _CommentsState extends State<Comments> {
         _isLoading=true;
       });
 
-      Future<void> getComments () async{
-        try {
-          final flatId = ModalRoute.of(context)?.settings.arguments as String?;
 
-
-          String url = "https://afternoon-ridge-73830.herokuapp.com/posts/getComments/$flatId";
-          final response =   await http.get(Uri.parse(url));
-          final extractData = jsonDecode(response.body);
-          if(response.statusCode==200)
-          {
-
-            print(extractData['comment']);
-            var i = extractData['comment'].length;
-            //  print(extractData['Dpost'][0][0]['ownerId']);
-            List loadedComments=[];
-            for(var j =0 ; j < i ; j++)
-            {
-              var map = {};
-
-              map['name'] = extractData['comment'][j][1];
-              map['pic']= extractData['comment'][j][2];
-              map['message']=extractData['comment'][j][0]['comment'];
-              map['id']=extractData['comment'][j][0]['_id'];
-              map['ownerId']=extractData['comment'][j][0]['ownerId'];
-              map['timeAgo']=extractData['comment'][j][0]['timeAgo'];
-              print(extractData['comment'][j][0]['_id']);
-              loadedComments.add(map);
-            }
-            //
-            filedata=loadedComments;
-            //  print(loadedFlats.length.toString());
-            //
-            // // print(extractData);
-          }
-
-        }catch(error){
-
-          throw(error.toString());
-        }
-      }
       getComments().then((_){setState(() {
         _isLoading=false;
       });});
@@ -178,68 +139,117 @@ class _CommentsState extends State<Comments> {
         title: Text("Comments"),
         backgroundColor: Color(0xff1f95a1),
       ),
-      body: Container(
-        child: CommentBox(
-          userImage: currentuser.currentUserDate.img
-          ,
-          child: _isLoading ? Center(child: CircularProgressIndicator(color:Color(0xff1f95a1) ,),) :  commentChild(filedata,currentuser.currentUserDate.id),
-          labelText: 'Write a comment...',
-          withBorder: false,
-          errorText: 'Plz Enter Your Comment',
-          sendButtonMethod: () {
-            final currentuser = Provider.of<CurrentUserData>(context, listen: false);
-            final flatId = ModalRoute.of(context)?.settings.arguments as String?;
-            Future<void> addComment(String comment) async {
+      body: RefreshIndicator(
+        backgroundColor:Color(0xff1f95a1) ,
+        color: Colors.white,
+        onRefresh: () async {
+          await Future.delayed(Duration(seconds: 2));
+          setState(() {
+            getComments();
+          });
 
-              final response = await http.post(
-                Uri.parse('https://afternoon-ridge-73830.herokuapp.com/posts/addComment/${flatId}/${currentuser.currentUserDate.id}'),
-                headers: <String, String>{
-                  'Content-Type': 'application/json; charset=UTF-8',
-                },
-                body: jsonEncode(<String, String>{
-                  'comment': comment,
-                }),
-              );
-              if(response.statusCode==200){
-                print('comment added');
+        },
+        child: Container(
+          child: CommentBox(
+            userImage: currentuser.currentUserDate.img
+            ,
+            child: _isLoading ? Center(child: CircularProgressIndicator(color:Color(0xff1f95a1) ,),) :  commentChild(filedata,currentuser.currentUserDate.id),
+            labelText: 'Write a comment...',
+            withBorder: false,
+            errorText: 'Plz Enter Your Comment',
+            sendButtonMethod: () {
+              final currentuser = Provider.of<CurrentUserData>(context, listen: false);
+              final flatId = ModalRoute.of(context)?.settings.arguments as String?;
+              Future<void> addComment(String comment) async {
+
+                final response = await http.post(
+                  Uri.parse('https://afternoon-ridge-73830.herokuapp.com/posts/addComment/${flatId}/${currentuser.currentUserDate.id}'),
+                  headers: <String, String>{
+                    'Content-Type': 'application/json; charset=UTF-8',
+                  },
+                  body: jsonEncode(<String, String>{
+                    'comment': comment,
+                  }),
+                );
+                if(response.statusCode==200){
+                  print('comment added');
+                }
+                else{
+                  throw Exception('Failed to add comment');
+                }
+
+
+
               }
-              else{
-                throw Exception('Failed to add comment');
+              if (formKey.currentState!.validate()) {
+                addComment(commentController.text);
+                print(commentController.text);
+                var value = {
+                  'name': currentuser.currentUserDate.fName  + currentuser.currentUserDate.lName,
+                  'pic':
+                  currentuser.currentUserDate.img,
+                  'message': commentController.text,
+                  'timeAgo' : '1 munite ago '
+                };
+                setState(() {
+                  filedata.insert(0, value);
+                });
+                commentController.clear();
+                FocusScope.of(context).unfocus();
+              } else {
+                print("Not validated");
               }
-
-
-
-            }
-            if (formKey.currentState!.validate()) {
-              addComment(commentController.text);
-              print(commentController.text);
-              var value = {
-                'name': currentuser.currentUserDate.fName  + currentuser.currentUserDate.lName,
-                'pic':
-                currentuser.currentUserDate.img,
-                'message': commentController.text,
-                'timeAgo' : '1 munite ago '
-              };
-              setState(() {
-                filedata.insert(0, value);
-              });
-              commentController.clear();
-              FocusScope.of(context).unfocus();
-            } else {
-              print("Not validated");
-            }
-           // Navigator.pop(context);
-          },
-          formKey: formKey,
-          commentController: commentController,
-          backgroundColor: Colors.black,
-          textColor: Colors.white,
-          sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
+             // Navigator.pop(context);
+            },
+            formKey: formKey,
+            commentController: commentController,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
+          ),
         ),
       ),
     );
 
   }
 
+  Future<void> getComments () async{
+    try {
+      final flatId = ModalRoute.of(context)?.settings.arguments as String?;
+      String url = "https://afternoon-ridge-73830.herokuapp.com/posts/getComments/$flatId";
+      final response =   await http.get(Uri.parse(url));
+      final extractData = jsonDecode(response.body);
+      print(response.statusCode);
+      if(response.statusCode==200)
+      {
 
+        print(extractData['comment']);
+        var i = extractData['comment'].length;
+        //  print(extractData['Dpost'][0][0]['ownerId']);
+        List loadedComments=[];
+        for(var j =0 ; j < i ; j++)
+        {
+          var map = {};
+
+          map['name'] = extractData['comment'][j][1];
+          map['pic']= extractData['comment'][j][2];
+          map['message']=extractData['comment'][j][0]['comment'];
+          map['id']=extractData['comment'][j][0]['_id'];
+          map['ownerId']=extractData['comment'][j][0]['ownerId'];
+          map['timeAgo']=extractData['comment'][j][0]['timeAgo'];
+          print(extractData['comment'][j][0]['_id']);
+          loadedComments.add(map);
+        }
+        //
+        filedata=loadedComments;
+        //  print(loadedFlats.length.toString());
+        //
+        // // print(extractData);
+      }
+
+    }catch(error){
+
+      throw(error.toString());
+    }
+  }
 }

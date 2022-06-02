@@ -91,7 +91,17 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-        body: _isLoading ? Center(child: CircularProgressIndicator(color:Color(0xff1f95a1) ,),) :  FlatsGrid(index: 0),
+        body: _isLoading ? Center(child: CircularProgressIndicator(color:Color(0xff1f95a1) ,),) :  RefreshIndicator(
+            backgroundColor:Color(0xff1f95a1) ,
+            color: Colors.white,
+            onRefresh: () async {
+              await Future.delayed(Duration(seconds: 2));
+              setState(() {
+                FlatsGrid(index: 0,);
+              });
+
+            },
+            child: FlatsGrid(index: 0)),
         drawer: myDrawer(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
