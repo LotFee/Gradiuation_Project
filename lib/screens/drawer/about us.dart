@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
+import 'package:sakkeny/screens/ourLocation.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/widget/drawer.dart';
 import 'package:sakkeny/homeScreens/Home.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutUs extends StatelessWidget {
   static const String routeName = 'about us';
 
   @override
   Widget build(BuildContext context) {
+    Future launcApp(int index)async {
+      if(index == 0)
+        {
+          var whatsappUrl =
+              "whatsapp://send?phone=+201007613790&text=مرحبا ...كيف حالك؟";
+          var url = Uri.parse(whatsappUrl);
+          await launchUrl(url);
+        }
+      if(index==1)
+        {
+          await launchUrl(Uri.parse("tel://+201007613790"));
+        }
+
+    }
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -41,9 +56,7 @@ class AboutUs extends StatelessWidget {
           )),
           actions: [
             GestureDetector(
-                onTap: () {
-
-                },
+                onTap: () {},
                 child: Icon(Icons.search, color: Color(0xff1f95a1), size: 35)),
           ],
         ),
@@ -55,26 +68,34 @@ class AboutUs extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20)),
                 child: Column(
                   children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.location_on_rounded,
-                        color: Color(0xff1f95a1),
-                      ),
-                      title: Text(
-                        'Location',
-                        style: TextStyle(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OurLocation()));
+                      },
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.location_on_rounded,
                           color: Color(0xff1f95a1),
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text(
-                          'ismailia,egypt',
+                        title: Text(
+                          'Location',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15.0,
+                            color: Color(0xff1f95a1),
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            'ismailia,egypt',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15.0,
+                            ),
                           ),
                         ),
                       ),
@@ -82,26 +103,100 @@ class AboutUs extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.phone,
-                        color: Color(0xff1f95a1),
-                      ),
-                      title: Text(
-                        'Phone Number',
-                        style: TextStyle(
+                    GestureDetector(
+                      onTap: () async {
+                        if (true) {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (context) => Container(
+                                    child: Dialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      elevation: 16,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Container(
+                                          width: 100,
+                                          height: 150,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      launcApp(0);
+                                                    },
+                                                    icon: Icon(Icons.whatsapp),
+                                                    iconSize: 50,
+                                                    color: Color(0xff1f95a1),
+                                                  ),
+                                                  Text(
+                                                    "Whatsapp",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20),
+                                                  )
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      launcApp(1);
+                                                    },
+                                                    icon: Icon(Icons.phone),
+                                                    iconSize: 50,
+                                                    color: Color(0xff1f95a1),
+                                                  ),
+                                                  Text(
+                                                    "Phone",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ));
+                        }
+
+
+                      },
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.phone,
                           color: Color(0xff1f95a1),
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text(
-                          '+20 1007613790',
+                        title: Text(
+                          'Phone Number',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15.0,
+                            color: Color(0xff1f95a1),
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            '+20 1007613790',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15.0,
+                            ),
                           ),
                         ),
                       ),
@@ -127,8 +222,8 @@ class AboutUs extends StatelessWidget {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed:(){
-
+                                onPressed: ()async {
+                                  await launchUrl(Uri.parse('fb://profile/100008429404155'));
                                 },
                                 icon: Icon(
                                   Icons.facebook,
@@ -136,8 +231,8 @@ class AboutUs extends StatelessWidget {
                                 ),
                               ),
                               IconButton(
-                                onPressed:(){
-
+                                onPressed: () async{
+                                  await launchUrl(Uri.parse('instagram://user?username=_l0tfee_'));
                                 },
                                 icon: FaIcon(
                                   FontAwesomeIcons.instagram,
@@ -145,17 +240,8 @@ class AboutUs extends StatelessWidget {
                                 ),
                               ),
                               IconButton(
-                                onPressed:(){
-
-                                },
-                                icon: FaIcon(
-                                  FontAwesomeIcons.whatsapp,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed:(){
-
+                                onPressed: ()async {
+                                  await launchUrl(Uri.parse('twitter://user?screen_name=m_lotfee'));
                                 },
                                 icon: FaIcon(
                                   FontAwesomeIcons.twitter,

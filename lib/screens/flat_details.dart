@@ -5,6 +5,7 @@ import 'package:sakkeny/providers/flat.dart';
 import 'package:sakkeny/providers/Flats.dart';
 import 'package:sakkeny/screens/data_about_student.dart';
 import 'package:sakkeny/screens/flatMap.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class FlatDetails extends StatefulWidget {
   const FlatDetails({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class FlatDetails extends StatefulWidget {
 
 class _FlatDetailsState extends State<FlatDetails> {
   int _currentIndex = 0;
+  double? _ratingValue;
   @override
   Widget build(BuildContext context) {
     final flatId = ModalRoute.of(context)!.settings.arguments as String;
@@ -170,14 +172,121 @@ class _FlatDetailsState extends State<FlatDetails> {
                               ],
                             ),
                           ),
-                          Row(
+                          GestureDetector(
+                            onTap: (){
+                              if (true) {
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) => Container(
+                                      child: Dialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(15)),
+                                        elevation: 16,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(5),
+                                          child: Container(
+                                            width: 100,
+                                            height: 150,
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text('Pleaze review this flat',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    RatingBar(
+                                                        initialRating: 0,
+                                                        direction: Axis.horizontal,
+                                                        allowHalfRating: true,
+                                                        itemCount: 5,
+                                                        ratingWidget: RatingWidget(
+                                                            full: const Icon(Icons.star, color: Color(0xff1f95a1)),
+                                                            half: const Icon(
+                                                              Icons.star_half,
+                                                              color: Color(0xff1f95a1),
+                                                            ),
+                                                            empty: const Icon(
+                                                              Icons.star_outline,
+                                                              color: Color(0xff1f95a1),
+                                                            )),
+                                                        onRatingUpdate: (value) {
+                                                          setState(() {
+                                                            _ratingValue = value;
+                                                          });
+                                                        }),
 
-                            children: [
-                            Icon(Icons.star,color: Colors.amber,),
-                            Text("6.5",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                            Text("(10)",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 15),),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(15),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                    children: [
+                                                      Material(
+                                                        borderRadius: BorderRadius.circular(10.0),
+                                                        color: Color(0xff1f95a1),
+                                                        child: MaterialButton(
+                                                          child: Text(
+                                                            'Submit',
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontWeight: FontWeight.bold,
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.of(context,rootNavigator: true).pop();
+                                                            print(_ratingValue);
+                                                          },
+                                                        ),
+                                                      ),
+                                                      Material(
+                                                        borderRadius: BorderRadius.circular(10.0),
+                                                        color: Color(0xff2f2e41),
+                                                        child: MaterialButton(
+                                                          child: Text(
+                                                            'Cancel',
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontWeight: FontWeight.bold,
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.of(context,rootNavigator: true).pop();
+                                                            print(_ratingValue);
 
-                          ],)
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ],),
+                                                ),
+
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ));
+                              }
+
+                            },
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(Icons.star,color: Color(0xff1f95a1),),
+                                    Text("6.5",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                    Text("(10)",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 15),),
+                                  ],
+                                ),
+                                Text('Tab to review',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),)
+                              ],
+                            ),
+                          )
                         ],
                       ),
                       SizedBox(height: 20,),

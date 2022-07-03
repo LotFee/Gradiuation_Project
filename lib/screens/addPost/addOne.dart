@@ -101,6 +101,7 @@ class _AddOneState extends State<AddOne> {
 
  String lon = '';
   String lat ='';
+  var addpost = false;
 
 
   @override
@@ -633,10 +634,17 @@ class _AddOneState extends State<AddOne> {
                       },
                       color: Color(0xff1f95a1),
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: ()async{
                           if(validate()){
                             String fullLocation = lat+" "+lon;
+                            setState(() {
+                              addpost = true;
+                            });
                             addPost(price: price.text, location: location.text, nobeds: noBed.text, nobedrooms: nonoBedroom.text, wifi: wifi, tv: tv, cond: cond, desc: description.text,phonenumber: phone.text, imagesList:imagesFile,fullLOcation: fullLocation );
+                            await Future.delayed(Duration(seconds: 10), () {});
+                            setState(() {
+                              addpost=false;
+                            });
                           }
                         },
                         child: ListTile(
@@ -644,7 +652,13 @@ class _AddOneState extends State<AddOne> {
                             Icons.skip_next,
                             color: Colors.white,
                           ),
-                          title: Text(
+                          title: addpost==true ? Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 5,
+                            ),
+                          ) :  Text(
                             "Next",
                             style: TextStyle(
                               color: Colors.white,

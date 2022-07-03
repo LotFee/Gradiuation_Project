@@ -30,6 +30,7 @@ class SignUp3 extends StatefulWidget {
 class _SignUp3State extends State<SignUp3> {
   bool notvisible = true;
   bool notvisible2 = true;
+  var register = false;
   String? pass1;
   String? pass2;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -400,15 +401,21 @@ class _SignUp3State extends State<SignUp3> {
                       child: Text("Back",style: TextStyle(color: Colors.white ,fontSize: 25),),
                       padding: EdgeInsets.only(top: 8,bottom: 8),
                     ),
+
                     RaisedButton(
 
                       color: Color(0xff1f95a1), // background
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)), // foreground
-                      onPressed: () {
+                      onPressed: () async{
 
-                        if(validate())
+                        if(true)
                         {
+                          setState(() {
+                            register =true;
+                            print("register is true");
+                          });
+
 
                           adduser.updateUser3(email.text, password.text);
                           setState(() {
@@ -422,13 +429,20 @@ class _SignUp3State extends State<SignUp3> {
                           final currentUserImagee = Provider.of<CurrentUserImage>(context,listen: false);
                           signup(fname: fname, lname: lname, email: email.text, gender: gender, age: age, password: password.text, cpassword: password.text, userImag: currentUserImagee.currentUserImage.image);
                         //  signup4(fname, lname, email.text, password.text, gender, age, password.text, currentUserImagee.currentUserImage.image! );
-
+                          await Future.delayed(Duration(seconds: 3), () {});
+                            setState(() {
+                              register= false;
+                              print("register is false ");
+                            });
 
                         }
 
                       },
-                      child: Text("Next",style: TextStyle(color: Colors.white ,fontSize: 25),),
-                      padding: EdgeInsets.only(top: 8,bottom: 8),
+                      child: register==true ? CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 5,
+                      )  : Text("Sign Up",style: TextStyle(color: Colors.white ,fontSize: 25),),
+                      padding: EdgeInsets.only(top: 8,bottom: 8,left: 8,right: 8),
                     ),
                   ],
                 ),

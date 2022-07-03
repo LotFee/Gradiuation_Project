@@ -43,6 +43,8 @@ dependencies:
   comment_box: ^0.0.17
   location: ^4.4.0
   google_maps_flutter: ^2.1.5
+  url_launcher: ^6.1.4
+  flutter_rating_bar: ^4.0.1
 
 
 

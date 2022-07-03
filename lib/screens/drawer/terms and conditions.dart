@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/widget/bottomBar.dart';
@@ -34,10 +33,10 @@ class Terms extends StatelessWidget {
           ),
           title: Center(
               child: Text(
-                "Terms and Conditions",
-                style: TextStyle(
-                    color: Color(0xff1f95a1), fontWeight: FontWeight.bold),
-              )),
+            "Terms and Conditions",
+            style: TextStyle(
+                color: Color(0xff1f95a1), fontWeight: FontWeight.bold),
+          )),
           actions: [
             GestureDetector(
                 onTap: () {},
@@ -46,11 +45,17 @@ class Terms extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8, top: 20),
             child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child:Text('sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss'),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  '1- You must respect the rules and conditions of the application.\n------------- \n2- You should respect other people\'s posts.\n------------- \n3- If we receive any reports against you, we will have to delete your account from us.\n------------- \n4- There must be credibility in dealing. \n------------- ',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
           ),
         ),
