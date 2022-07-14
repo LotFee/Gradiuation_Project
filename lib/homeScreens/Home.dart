@@ -9,7 +9,7 @@ import 'package:sakkeny/widget/bottomBar.dart';
 import 'package:sakkeny/widget/drawer.dart';
 import 'package:sakkeny/widget/flats_grid.dart';
 import 'package:provider/provider.dart';
-import 'package:sakkeny/providers/Flats.dart';
+import 'package:sakkeny/provider/Flats.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -99,7 +99,6 @@ class _HomeState extends State<Home> {
               setState(() {
                 FlatsGrid(index: 0,);
               });
-
             },
             child: FlatsGrid(index: 0)),
         drawer: myDrawer(),

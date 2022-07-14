@@ -122,18 +122,7 @@ class myDrawer extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
-                SizedBox(height: 10,),
-                ListTile(
-                  tileColor: Color(0xfff1f1f1),
-                  leading: Icon(Icons.language,color:Color(0xff1f95a1) ,),
-                  onTap: (){
 
-                  },
-                  title: Text(
-                    'Language',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
                 SizedBox(height: 10,),
                 ListTile(
                   tileColor: Color(0xfff1f1f1),

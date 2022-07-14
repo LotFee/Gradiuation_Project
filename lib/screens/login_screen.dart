@@ -13,17 +13,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sakkeny/screens/constant.dart';
-
-
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
-
-
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
   // bool checkBoxValue = false;
   var loginLoad= false;
@@ -40,15 +34,12 @@ class _LoginScreenState extends State<LoginScreen> {
       return false;
     }
   }
-
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: ()async => false,
       child: Scaffold(
-
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
@@ -358,7 +349,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
                           login(_emailController.text, _passwordController.text);
-                          await Future.delayed(Duration(seconds: 5), () {});
+                          await Future.delayed(Duration(seconds: 15), () {});
                           setState(() {
                             isLoading = false;
                           });
@@ -400,7 +391,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> login(email, password) async {
     final currentuser = Provider.of<CurrentUserData>(context, listen: false);
-
     Map data = {
       'Gmail': email,
       'password': password,
@@ -416,7 +406,6 @@ class _LoginScreenState extends State<LoginScreen> {
         body: jsonEncode(data),
       );
       var _data = jsonDecode(response.body);
-
       Map<String, dynamic> user = _data['user'];
       currentuser.currentuserdata(CurrentUser(
           fName: user['Fname'],
@@ -429,18 +418,12 @@ class _LoginScreenState extends State<LoginScreen> {
           id: user['_id']));
       print(user['gmail']);
       print(_data);
-
       if (response.statusCode == 200) {
         print('Sign in success');
-        // id
         var confirm = await SharedCache.instance.saveData(kUserID, user['_id']);
         print(confirm);
-        // ScaffoldMessenger.of(context)
-        //     .showSnackBar(SnackBar(content: Text("Sign in success")));
-        // saveLoginPref(token: _data['token'],email: user['email'],fullname: user['fullname']);
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Home()), (route) => false);
-        //  print(user['fullname']);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Wrong Email or Password"),

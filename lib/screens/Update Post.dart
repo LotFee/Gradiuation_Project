@@ -23,7 +23,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 
 import '../homeScreens/Home.dart';
-import '../providers/Flats.dart';
+import '../provider/Flats.dart';
 
 class UpdatePost extends StatefulWidget {
   const UpdatePost({Key? key}) : super(key: key);

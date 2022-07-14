@@ -3,7 +3,7 @@ import 'package:sakkeny/helper/shared_cache.dart';
 import 'package:sakkeny/provider/current_user.dart';
 import 'package:sakkeny/provider/user_image.dart';
 import 'package:sakkeny/provider/users.dart';
-import 'package:sakkeny/providers/Flats.dart';
+import 'package:sakkeny/provider/Flats.dart';
 import 'package:sakkeny/screens/Update%20Post.dart';
 import 'package:sakkeny/screens/addPost/addOne.dart';
 import 'package:sakkeny/screens/comments.dart';

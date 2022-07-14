@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:sakkeny/providers/Flats.dart';
+import 'package:sakkeny/provider/Flats.dart';
 import '../provider/current_user.dart';
 import 'flat_item.dart';
 

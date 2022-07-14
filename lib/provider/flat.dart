@@ -16,14 +16,17 @@ class Flat with ChangeNotifier{
   final int bed;
   final int bathroom;
   final String noComments;
+   int noLikes;
   final bool wifi;
   final bool tv;
   final bool cond;
   final String description;
   final String locationOnMap;
+  final String timeAgo;
 
   Flat(
       {
+        required this.timeAgo,
         required this.price,
        required this.id,
         required this.ownerId,
@@ -41,11 +44,19 @@ class Flat with ChangeNotifier{
         required this.userName,
         required this.userImage,
         required this.noComments,
-        required this.locationOnMap
+        required this.locationOnMap,
+        required this.noLikes
       });
 
   void toggleFavState(){
     isFav = !isFav;
+    notifyListeners();
+  }
+  void toggleNoLikes(){
+    if(isFav==true)
+      noLikes=noLikes+1;
+    else
+      noLikes=noLikes-1;
     notifyListeners();
   }
 }

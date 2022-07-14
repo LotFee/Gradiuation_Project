@@ -6,7 +6,7 @@ import 'package:http/http.dart'as http;
 import 'package:provider/provider.dart';
 
 import '../provider/current_user.dart';
-import '../providers/Flats.dart';
+import '../provider/Flats.dart';
 
 class Comments extends StatefulWidget {
   static const routeName = 'Comments';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sakkeny/screens/search/results.dart';
 
-import '../../providers/Flats.dart';
+import '../../provider/Flats.dart';
 
 class SearchFilter extends StatefulWidget {
   static const String routeName = 'search';

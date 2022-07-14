@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:sakkeny/providers/flat.dart';
+import 'package:sakkeny/provider/flat.dart';
 import 'package:http/http.dart' as http ;
 
 class Flats with ChangeNotifier{
@@ -34,7 +34,6 @@ class Flats with ChangeNotifier{
     notifyListeners();
   }
   Future<void> getPosts () async{
-
     try {
       const url = "https://afternoon-ridge-73830.herokuapp.com/posts";
     final response =   await http.get(Uri.parse(url));
@@ -44,12 +43,14 @@ class Flats with ChangeNotifier{
         final List<Flat> loadedFlats=[] ;
         //print(extractData['Dpost'][0][0]['url']);
         var i = extractData['Dpost'].length;
-         print(extractData['Dpost'][0][0]['ownerId']);
+        // print(extractData['Dpost'][0][0]['ownerId']);
         for(var j =0 ; j < i ; j++)
         {
-          print(extractData['Dpost'][j][0]['url']);
+        //  print(extractData['Dpost'][j][0]['url']);
           String userName = extractData['Dpost'][j][2];
+          print(extractData['Dpost'][j][0]['timeAgo']);
           loadedFlats.add(Flat(
+              timeAgo: extractData['Dpost'][j][0]['timeAgo'],
             id: extractData['Dpost'][j][0]['_id'],
             price: extractData['Dpost'][j][0]['price'].toDouble(),
             ownerId: extractData['Dpost'][j][0]['ownerId'],
@@ -67,18 +68,16 @@ class Flats with ChangeNotifier{
             images: extractData['Dpost'][j][0]['url'],
             time: DateTime.now(),
             noComments: extractData['Dpost'][j][1],
+              noLikes: extractData['Dpost'][j][0]['numberOfLikes'],
               locationOnMap: extractData['Dpost'][j][0]['locationMap']
           ));
         }
-
         _posts=loadedFlats;
         print(loadedFlats.length.toString());
         notifyListeners();
         print(extractData);
       }
-
     }catch(error){
-
       throw(error.toString());
     }
   }
@@ -91,12 +90,13 @@ class Flats with ChangeNotifier{
         final List<Flat> loadedFlats=[] ;
         //print(extractData['Dpost'][0][0]['url']);
         var i = extractData['Dpost'].length;
-        print(extractData['Dpost'][0][0]['ownerId']);
+      //  print(extractData['Dpost'][0][0]['ownerId']);
         for(var j =0 ; j < i ; j++)
         {
-          print(extractData['Dpost'][j][0]['url']);
+       //   print(extractData['Dpost'][j][0]['url']);
           String userName = extractData['Dpost'][j][2];
           loadedFlats.add(Flat(
+            timeAgo: extractData['Dpost'][j][0]['timeAgo'],
               id: extractData['Dpost'][j][0]['_id'],
               price: extractData['Dpost'][j][0]['price'].toDouble(),
               ownerId: extractData['Dpost'][j][0]['ownerId'],
@@ -114,7 +114,8 @@ class Flats with ChangeNotifier{
               images: extractData['Dpost'][j][0]['url'],
               time: DateTime.now(),
               noComments: extractData['Dpost'][j][1],
-            locationOnMap: extractData['Dpost'][j][0]['locationMap']
+            locationOnMap: extractData['Dpost'][j][0]['locationMap'],
+              noLikes: extractData['Dpost'][j][0]['numberOfLikes']
           ));
         }
 

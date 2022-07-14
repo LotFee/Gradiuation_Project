@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:math';
-
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key, required this.latitude, required this.longitude})
       : super(key: key);
@@ -13,7 +12,6 @@ class MapScreen extends StatefulWidget {
   @override
   _MapScreenState createState() => _MapScreenState();
 }
-
 class _MapScreenState extends State<MapScreen> {
   GoogleMapController? googlemap;
   var lat = 0.0;

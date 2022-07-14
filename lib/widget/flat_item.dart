@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sakkeny/provider/current_user.dart';
-import 'package:sakkeny/providers/Flats.dart';
-import 'package:sakkeny/providers/flat.dart';
+import 'package:sakkeny/provider/Flats.dart';
+import 'package:sakkeny/provider/flat.dart';
 import 'package:sakkeny/screens/comments.dart';
 import 'package:sakkeny/screens/flat_details.dart';
 import 'package:flutter/widgets.dart';
@@ -22,6 +24,7 @@ class FlatItem extends StatefulWidget {
 
 class _FlatItemState extends State<FlatItem> {
   var  _expanded=false;
+
   @override
   Widget build(BuildContext context) {
    final flat= Provider.of<Flat>(context,listen: false);
@@ -71,18 +74,26 @@ class _FlatItemState extends State<FlatItem> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
-                                Text(
-                                  "Owner",
-                                  style: TextStyle(color: Colors.grey),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Owner",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    SizedBox(width: 10,),
+                                    Text(
+                                      flat.timeAgo,
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+
+                                  ],
                                 ),
+
                               ],
                             ),
                           ],
                         ),
-                        Text(
-                          flat.time.hour.toString() + " Ago",
-                          style: TextStyle(color: Colors.grey),
-                        ),
+
                         currentUser.currentUserDate.id == flat.ownerId ? PopupMenuButton(
 
                           onSelected: ( v) async{
@@ -226,6 +237,22 @@ class _FlatItemState extends State<FlatItem> {
                                 builder: (context,flat,child)=>GestureDetector(
                                   onTap: (){
                                     flat.toggleFavState();
+                                    flat.toggleNoLikes();
+                                    Future<void> addLike () async{
+                                      try {
+                                        var url = "https://afternoon-ridge-73830.herokuapp.com/posts/addLike/${flat.id}/${currentUser.currentUserDate.id}";
+                                        final response =   await http.get(Uri.parse(url));
+                                        final extractData = jsonDecode(response.body);
+                                        if(response.statusCode==200)
+                                        {
+                                          print(extractData);
+                                        }
+                                      }catch(error){
+                                        throw(error.toString());
+                                      }
+                                    }
+                                    addLike();
+
                                   },
                                   child: Row(
                                     children: [
@@ -238,7 +265,7 @@ class _FlatItemState extends State<FlatItem> {
                                         width: 5,
                                       ),
                                       Text(
-                                        "Like",
+                                        "${flat.noLikes} Likes",
                                         style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                       )

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
-import 'package:sakkeny/providers/flat.dart';
-import 'package:sakkeny/providers/Flats.dart';
+import 'package:sakkeny/provider/flat.dart';
+import 'package:sakkeny/provider/Flats.dart';
 import 'package:sakkeny/screens/data_about_student.dart';
 import 'package:sakkeny/screens/flatMap.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

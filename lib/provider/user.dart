@@ -10,7 +10,6 @@ class User with ChangeNotifier{
   String password ;
 // final String id;
 
-
   User({
    // required this.id,
     required this.fName,
