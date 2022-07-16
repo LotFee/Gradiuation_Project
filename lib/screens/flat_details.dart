@@ -158,7 +158,7 @@ class _FlatDetailsState extends State<FlatDetails> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      flatItem.userName,
+                                      flatItem.userName.split(' ').first+' '+flatItem.userName.split(' ').last,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13),

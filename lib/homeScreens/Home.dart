@@ -33,10 +33,13 @@ class _HomeState extends State<Home> {
     if(_isInit){
       setState(() {
         _isLoading=true;
+
       });
 
-      Provider.of<Flats>(context).getPosts().then((_) {
+      Provider.of<Flats>(context).getPosts(context).then((_) {
+
         setState(() {
+
           _isLoading=false;
         });
 

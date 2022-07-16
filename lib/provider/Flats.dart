@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sakkeny/provider/flat.dart';
 import 'package:http/http.dart' as http ;
+import 'package:provider/provider.dart';
+
+import '../provider/current_user.dart';
 
 class Flats with ChangeNotifier{
 
@@ -33,11 +36,13 @@ class Flats with ChangeNotifier{
   void addPost(){
     notifyListeners();
   }
-  Future<void> getPosts () async{
+  Future<void> getPosts (BuildContext context) async{
     try {
       const url = "https://afternoon-ridge-73830.herokuapp.com/posts";
     final response =   await http.get(Uri.parse(url));
     final extractData = jsonDecode(response.body);
+      final currentUser = Provider.of<CurrentUserData>(context,listen: false);
+      print("the current user id is  "+ currentUser.currentUserDate.id);
     if(response.statusCode==200)
       {
         final List<Flat> loadedFlats=[] ;
@@ -46,9 +51,21 @@ class Flats with ChangeNotifier{
         // print(extractData['Dpost'][0][0]['ownerId']);
         for(var j =0 ; j < i ; j++)
         {
+          var noLikes = extractData['Dpost'][j][0]['numberOfLikes'];
+          bool fav = false;
+          for(var k = 0 ; k< noLikes ; k ++){
+            if(extractData['Dpost'][j][0]['ownersLike'][k]['ownerId'] == currentUser.currentUserDate.id){
+              print(extractData['Dpost'][j][0]['ownersLike'][k]['ownerId']);
+              print(currentUser.currentUserDate.id);
+              fav = true;
+             // return;
+
+            }
+
+          }
         //  print(extractData['Dpost'][j][0]['url']);
           String userName = extractData['Dpost'][j][2];
-          print(extractData['Dpost'][j][0]['timeAgo']);
+        //  print(extractData['Dpost'][j][0]['timeAgo']);
           loadedFlats.add(Flat(
               timeAgo: extractData['Dpost'][j][0]['timeAgo'],
             id: extractData['Dpost'][j][0]['_id'],
@@ -63,7 +80,7 @@ class Flats with ChangeNotifier{
             bedrooms: extractData['Dpost'][j][0]['numberofbedrooms'],
             bed: extractData['Dpost'][j][0]['numberofbeds'],
             bathroom: 1,
-            isFav: false,
+            isFav: fav,
             location: extractData['Dpost'][j][0]['location'],
             images: extractData['Dpost'][j][0]['url'],
             time: DateTime.now(),
