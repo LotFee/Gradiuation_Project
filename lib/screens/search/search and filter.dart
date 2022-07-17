@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:sakkeny/screens/search/results.dart';
 
+import '../../helper/location_helper.dart';
 import '../../provider/Flats.dart';
+import '../search_with_location.dart';
 
 class SearchFilter extends StatefulWidget {
   static const String routeName = 'search';
@@ -19,6 +24,21 @@ class _SearchFilterState extends State<SearchFilter> {
   TextEditingController location = TextEditingController();
   TextEditingController price=TextEditingController();
   TextEditingController nobed=TextEditingController();
+  String lon = "";
+  String lat = "";
+  String _previewImage = '';
+  Future<void> _getCurrentUserLocation() async {
+    final locationData = await Location().getLocation();
+    print(locationData.latitude);
+    print(locationData.longitude);
+    final staticMapImageUrl = LocationHelper.generateLocationImage(
+        latitude: locationData.latitude!, longitude: locationData.longitude!);
+    setState(() {
+      _previewImage = staticMapImageUrl;
+      lon = locationData.longitude!.toString();
+      lat = locationData.latitude!.toString();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +52,7 @@ class _SearchFilterState extends State<SearchFilter> {
             borderRadius: BorderRadius.circular(15.0),
             color: Color(0xff1f95a1),
             child: MaterialButton(
-              minWidth: 30,
+              minWidth: 20,
               child: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
@@ -58,6 +78,8 @@ class _SearchFilterState extends State<SearchFilter> {
               ),
               child:
               TextFormField(
+                readOnly: true,
+                textAlign: TextAlign.center,
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 decoration: InputDecoration(
@@ -114,6 +136,7 @@ class _SearchFilterState extends State<SearchFilter> {
                                                 ),
                                                 child:
                                                 TextFormField(
+
                                                   controller: location,
                                                   keyboardType: TextInputType.text,
                                                   textInputAction: TextInputAction.done,
@@ -435,9 +458,15 @@ class _SearchFilterState extends State<SearchFilter> {
                       color: Color(0xff1f95a1),
                     ),
                   ),
-                  prefixIcon: Icon(
-                    Icons.search,
+                  prefixIcon: IconButton(
+                    icon: Icon(Icons.location_on),
                     color: Color(0xff1f95a1),
+                    onPressed: (){
+                      _getCurrentUserLocation();
+                      Timer(Duration(seconds: 2), () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => SearchWithLocation(latitude: lat , longitude: lon,)));
+                      });
+                    },
                   ),
                   labelStyle: TextStyle(color: Color(0xff1f95a1)),
                   focusedBorder: OutlineInputBorder(
@@ -447,7 +476,9 @@ class _SearchFilterState extends State<SearchFilter> {
                     borderRadius: BorderRadius.circular(15),
                     borderSide: BorderSide(color: Color(0xffe7e7e7)),
                   ),
-                  hintText: "Search",
+
+                  hintText: "Location<-Search ->Filter",
+                  hintStyle: TextStyle(fontSize: 10,)
                 ),
               ),
             ),
