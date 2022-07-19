@@ -23,6 +23,7 @@ class Flat with ChangeNotifier{
   final String description;
   final String locationOnMap;
   final String timeAgo;
+  final int phoneNumber;
 
   Flat(
       {
@@ -45,7 +46,8 @@ class Flat with ChangeNotifier{
         required this.userImage,
         required this.noComments,
         required this.locationOnMap,
-        required this.noLikes
+        required this.noLikes,
+        required this.phoneNumber
       });
 
   void toggleFavState(){

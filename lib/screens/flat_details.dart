@@ -6,6 +6,7 @@ import 'package:sakkeny/provider/Flats.dart';
 import 'package:sakkeny/screens/data_about_student.dart';
 import 'package:sakkeny/screens/flatMap.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FlatDetails extends StatefulWidget {
   const FlatDetails({Key? key}) : super(key: key);
@@ -23,7 +24,20 @@ class _FlatDetailsState extends State<FlatDetails> {
     final flatId = ModalRoute.of(context)!.settings.arguments as String;
     final flatItem =
         Provider.of<Flats>(context, listen: false).findById(flatId);
+    Future launcApp(int index, String phone)async {
+      if(index == 0)
+      {
+        var whatsappUrl =
+            "whatsapp://send?phone=+20${phone}&text=مرحبا ...كيف حالك؟";
+        var url = Uri.parse(whatsappUrl);
+        await launchUrl(url);
+      }
+      if(index==1)
+      {
+        await launchUrl(Uri.parse("tel://+20${phone}"));
+      }
 
+    }
 
 
     return Scaffold(
@@ -290,30 +304,124 @@ class _FlatDetailsState extends State<FlatDetails> {
                         ],
                       ),
                       SizedBox(height: 20,),
-                      GestureDetector(
-                        onTap: (){
-                          print(flatItem.locationOnMap);
-                          String lat = flatItem.locationOnMap.split(" ").first;
-                          String lon = flatItem.locationOnMap.split(" ").last;
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>FlatMap(latitude: lat, longitude: lon)));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Color(0xff1f95a1),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              print(flatItem.locationOnMap);
+                              String lat = flatItem.locationOnMap.split(" ").first;
+                              String lon = flatItem.locationOnMap.split(" ").last;
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>FlatMap(latitude: lat, longitude: lon)));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: Color(0xff1f95a1),
+                                  ),
+                                  Text(
+                                    flatItem.location,
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              flatItem.location,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
+                          ),
 
-                          ],),
-                        ),
+
+                              GestureDetector(
+                                onTap: () async {
+                                  if (true) {
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (context) => Container(
+                                          child: Dialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(15)),
+                                            elevation: 16,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(5),
+                                              child: Container(
+                                                width: 100,
+                                                height: 150,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      children: [
+                                                        IconButton(
+                                                          onPressed: () {
+                                                            launcApp(0,flatItem.phoneNumber.toString());
+                                                          },
+                                                          icon: Icon(Icons.whatsapp),
+                                                          iconSize: 50,
+                                                          color: Color(0xff1f95a1),
+                                                        ),
+                                                        Text(
+                                                          "Whatsapp",
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 20),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      children: [
+                                                        IconButton(
+                                                          onPressed: () {
+                                                            launcApp(1,flatItem.phoneNumber.toString());
+                                                          },
+                                                          icon: Icon(Icons.phone),
+                                                          iconSize: 50,
+                                                          color: Color(0xff1f95a1),
+                                                        ),
+                                                        Text(
+                                                          "Phone",
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 20),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ));
+                                  }
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.phone,
+                                      color: Color(0xff1f95a1),
+                                    ),
+                                    Text(
+                                      "Phone",
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              )
+
+
+
+                        ],
                       ),
+
                     ],
                   ) ,
                 ),

@@ -84,6 +84,7 @@ class Flats with ChangeNotifier{
             bed: extractData['Dpost'][j][0]['numberofbeds'],
             bathroom: 1,
             isFav: fav,
+            phoneNumber: extractData['Dpost'][j][0]['phoneNumber'],
             location: extractData['Dpost'][j][0]['location'],
             images: extractData['Dpost'][j][0]['url'],
             time: DateTime.now(),
@@ -135,7 +136,8 @@ class Flats with ChangeNotifier{
               time: DateTime.now(),
               noComments: extractData['Dpost'][j][1],
             locationOnMap: extractData['Dpost'][j][0]['locationMap'],
-              noLikes: extractData['Dpost'][j][0]['numberOfLikes']
+              noLikes: extractData['Dpost'][j][0]['numberOfLikes'],
+              phoneNumber: extractData['Dpost'][j][0]['phoneNumber']
           ));
         }
 
