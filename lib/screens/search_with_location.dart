@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
+import 'package:sakkeny/screens/search/locationResult.dart';
 
 import '../helper/location_helper.dart';
 
@@ -146,7 +147,39 @@ class _SearchWithLocationState extends State<SearchWithLocation> {
                                                   ['locationMap']
                                               .toString()
                                               .split(" ")
-                                              .last))));
+                                              .last)),
+                                  onTap: (){
+                                        print('Marker tabed******************************************');
+                                        print('the marker flat id is -> '+extractData['Dpost'][j]['_id']);
+                                        Future<void> getPostResult ( ) async{
+                                          try {
+                                              url = "https://afternoon-ridge-73830.herokuapp.com/posts/${extractData['Dpost'][j]['_id']}";
+                                            final response =   await http.get(Uri.parse(url));
+                                            final flatDetails = jsonDecode(response.body);
+
+                                            if(response.statusCode==200)
+                                            {
+                                              print(flatDetails);
+
+                                            }
+                                          }catch(error){
+                                            throw(error.toString());
+                                          }
+                                        }
+                                      //  getPostResult();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) =>  LocationResult(id: extractData['Dpost'][j]['_id'],)),
+                                        );
+
+
+
+
+
+
+                                  }
+                                  )
+                                  );
                                   // print(extractData['Dpost'][j]
                                   // ['locationMap']
                                   //     .toString()

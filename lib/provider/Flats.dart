@@ -28,6 +28,9 @@ class Flats with ChangeNotifier{
   List<Flat>  userPosts(var id){
     return _posts.where((flatItem) => flatItem.ownerId==id).toList();
   }
+  List<Flat>  searchLocation(var id){
+    return _posts.where((flatItem) => flatItem.id==id).toList();
+  }
 
   Flat findById(String id){
     return _posts.firstWhere((element) => element.id==id);

@@ -8,14 +8,15 @@ import 'flat_item.dart';
 class FlatsGrid extends StatelessWidget {
 
  final  int index;
+ final String? idLocation ;
 
-  const FlatsGrid({Key? key, required this.index}) : super(key: key);
+  const FlatsGrid({Key? key, required this.index,this.idLocation}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final flatsData = Provider.of<Flats>(context);
     final currentUser = Provider.of<CurrentUserData>(context,listen: false);
 
-    final flats = index==0 ?  flatsData.posts : index==1?  flatsData.onlyFavPosts : index==2? flatsData.searchResult : flatsData.userPosts(currentUser.currentUserDate.id);
+    final flats = index==0 ?  flatsData.posts : index==1?  flatsData.onlyFavPosts : index==2? flatsData.searchResult : index==3? flatsData.userPosts(currentUser.currentUserDate.id) : flatsData.searchLocation(idLocation);
     return GridView.builder(
         padding: EdgeInsets.all(10),
         itemCount: flats.length,
