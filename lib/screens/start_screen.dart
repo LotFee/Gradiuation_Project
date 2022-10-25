@@ -15,7 +15,7 @@ class StartScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 50),
             child: Image.asset(
-              'images/startScreen.png',
+              'assets/startScreen.png',
               fit: BoxFit.cover,
             ),
           ),

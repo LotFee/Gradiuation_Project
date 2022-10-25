@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CircleAvatar(
-                  child: Image.asset('images/logo_login.png'),
+                  child: Image.asset('assets/logo_login.png'),
                   radius: 70.0,
                 ),
                 Center(
